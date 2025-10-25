@@ -1,8 +1,6 @@
-// app/components/Dashboards/StatsCards.tsx
-import { getProject } from "../../lib/data"; // Pindahkan fungsi getStats ke sini
+import { getProject } from "../../lib/data";
 import CardProject from "./CardProject";
 
-// Komponen ini mengambil datanya sendiri
 export async function CurrentProjectCard({ token }: { token: string }) {
   const projects = await getProject(token);
 
@@ -11,8 +9,14 @@ export async function CurrentProjectCard({ token }: { token: string }) {
   }
 
   return (
-    <div className="p-4 max-w-md">
-      <h2 className="text-xl font-semibold mb-3">Current Active Project</h2>
+    <div className="p-4 w-full">
+      <div className="flex items-center w-full gap-3 mb-3">
+        <h2 className="text-2xl font-semibold">Current UAT Projects</h2>
+        <div className="w-max h-max border-2 border-blue-500 rounded-3xl pl-3 pr-3 flex justify-center text-sm font-semibold">
+          1 Projects
+        </div>
+      </div>
+
       <CardProject
         id={projects.id}
         href={`/projects/${projects.id}`}
@@ -29,4 +33,3 @@ export async function CurrentProjectCard({ token }: { token: string }) {
   );
 }
 export default CurrentProjectCard;
-// (Lakukan hal yang sama untuk CurrentProjectCard.tsx)
