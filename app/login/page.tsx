@@ -3,8 +3,8 @@ import { redirect } from "next/navigation";
 import "./loginPage.css";
 
 const Login = async () => {
-  const cookieStore = cookies();
-  const token = (await cookieStore).get("token")?.value;
+  const cookieStore = await cookies();
+  const token = cookieStore.get("token")?.value;
 
   if (token) {
     redirect("/dashboards");

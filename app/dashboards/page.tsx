@@ -1,10 +1,20 @@
 import { Suspense } from "react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { CardSkeleton, StatsGridSkeleton } from "../components/Skeleton";
+import {
+  CardSkeleton,
+  StatsGridSkeleton,
+} from "../components/Dashboards/Skeleton";
 import { StatsCards } from "../components/Dashboards/StatsCard";
 import { CurrentProjectCard } from "../components/Dashboards/CurrentProjectCard";
 import Navbar from "../components/Dashboards/Navbar";
+import { verifyToken } from "../lib/auth";
+
+interface UserPayload {
+  userId: number | string;
+  email: string;
+  name?: string;
+}
 
 const Dashboards = async () => {
   const cookieStore = await cookies();
@@ -13,19 +23,25 @@ const Dashboards = async () => {
     redirect("/login");
   }
 
+  const payload = (await verifyToken(token)) as UserPayload | null;
+  if (!payload) {
+    redirect("/login");
+  }
+
+  const userName = payload.name || payload.email || "manager";
+
   return (
     <>
-      <Navbar />
+      <Navbar
+        title="UAT Dashboard"
+        description={`Welcome, ${userName}!`}
+        priority="N/A"
+      />
       <main className="pt-22">
-        {/* ^-- GANTI pt-24 DENGAN TINGGI NAVBAR ANDA */}
-
         <Suspense fallback={<StatsGridSkeleton />}>
           <StatsCards token={token} />
         </Suspense>
 
-        {/* Kita bungkus CardProject dengan div 
-          untuk memberinya padding dan judul
-        */}
         <Suspense fallback={<CardSkeleton />}>
           <CurrentProjectCard token={token} />
         </Suspense>

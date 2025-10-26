@@ -1,38 +1,10 @@
+import { getPriorityClass, getStatusClass } from "@/app/lib/style";
+import { IProject } from "@/app/lib/type";
 import Link from "next/link";
 
-interface CardProjectProps {
-  id: number;
+interface CardProjectProps extends IProject {
   href: string;
-  title: string;
-  description: string;
-  priority: string;
-  status: string;
-  featureCount: number;
-  testScenarioCount: number;
-  duration: string;
-  due_date: string;
 }
-
-const priorityColors = {
-  High: "bg-red-100 text-red-800 border-red-300",
-  Medium: "bg-yellow-100 text-yellow-800 border-yellow-300",
-  Low: "bg-green-100 text-green-800 border-green-300",
-  Default: "bg-gray-100 text-gray-800 border-gray-300",
-};
-
-const statusColors = {
-  Completed: "bg-blue-100 text-blue-800 border-blue-300",
-  "In Progress": "bg-purple-100 text-purple-800 border-purple-300",
-  Pending: "bg-gray-100 text-gray-800 border-gray-300",
-  Default: "bg-gray-100 text-gray-800 border-gray-300",
-};
-
-const getPriorityClass = (priority: string) =>
-  priorityColors[priority as keyof typeof priorityColors] ||
-  priorityColors.Default;
-
-const getStatusClass = (status: string) =>
-  statusColors[status as keyof typeof statusColors] || statusColors.Default;
 
 const CardProject = ({
   id,
@@ -46,35 +18,29 @@ const CardProject = ({
   duration,
   due_date,
 }: CardProjectProps) => {
-  const formattedDueDate = new Date(due_date).toLocaleDateString("id-ID", {
-    day: "2-digit",
-    month: "long",
-    year: "numeric",
-  });
-
   return (
     <Link
       href={href}
-      className="group block w-full bg-white pt-0 p-6 rounded-lg shadow-md border 
-                 border-gray-200 hover:shadow-lg hover:border-blue-500 
-                 transition-all duration-200 ease-in-out"
+      className="group block w-full rounded-lg text-card-foreground hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-0 shadow-lg bg-white animate-slide-up p-5" // Removed pt-0 as p-5 covers it
     >
-      {id}
       <div className="flex flex-col gap-3">
-        <div className="flex justify-between items-start">
-          <h1 className="text-xl font-bold text-gray-900 group-hover:text-blue-600">
+        <div className="flex flex-wrap justify-between items-start gap-2">
+          {" "}
+          <h1 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 shrink min-w-0 mr-2">
+            {" "}
             {title}
           </h1>
-          <div className="flex w-28 justify-between">
+          <div className="flex gap-2 shrink-0">
+            {" "}
             <span
-              className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${getPriorityClass(
+              className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border whitespace-nowrap ${getPriorityClass(
                 priority
               )}`}
             >
               {priority}
             </span>
             <span
-              className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border ${getStatusClass(
+              className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border whitespace-nowrap ${getStatusClass(
                 status
               )}`}
             >
@@ -100,12 +66,11 @@ const CardProject = ({
 
         <div className="flex flex-wrap justify-between items-center text-xs text-gray-500 mt-2 gap-2">
           <div className="flex items-center gap-2">
-            <span className="text-gray-500">Duration: {duration}</span>
+            <span className="text-gray-500">
+              Duration: {duration !== null ? duration : "-"}
+            </span>
           </div>
-
-          <div className="font-medium text-gray-700">
-            Due: {formattedDueDate}
-          </div>
+          <div className="font-medium text-gray-700">Due: {due_date}</div>
         </div>
       </div>
     </Link>

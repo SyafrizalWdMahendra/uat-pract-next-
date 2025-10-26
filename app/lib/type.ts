@@ -15,3 +15,37 @@ export interface IProject {
   duration: string;
   due_date: string;
 }
+
+export interface IProjectDetail {
+  id: number;
+  manager_id: number;
+  test_lead_id: number;
+  title: string;
+  description: string | null; // Deskripsi bisa null
+  priority: string;
+  status: string;
+  start_date: string; // String (sudah diformat backend)
+  due_date: string; // String (sudah diformat backend)
+  duration: number | null; // Number atau null
+  manager: IUserSummary;
+  testLead: IUserSummary;
+  features: IFeature[]; // Array dari fitur (yang berisi skenario)
+  featureCount: number;
+  testScenarioCount: number;
+}
+
+export interface IUserSummary {
+  name: string;
+  role: string;
+}
+
+export interface ITestScenario {
+  id: number;
+  title: string;
+}
+
+export interface IFeature {
+  id: number;
+  name: string;
+  testScenarios: ITestScenario[];
+}

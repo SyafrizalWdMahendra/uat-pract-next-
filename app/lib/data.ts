@@ -1,4 +1,4 @@
-import { IProject, IStats } from "./type";
+import type { IProject, IStats, IProjectDetail } from "./type";
 
 const API_BASE_URL = "http://localhost:4000/api";
 
@@ -42,6 +42,13 @@ export const getStats = (token: string): Promise<IStats | null> => {
   return fetchApi<IStats>("/dashboard/statistics", token);
 };
 
-export const getProject = (token: string): Promise<IProject | null> => {
-  return fetchApi<IProject>("/dashboard/currentProject", token);
+export const getProject = (token: string): Promise<IProject[] | null> => {
+  return fetchApi<IProject[]>("/dashboard/currentProject", token);
+};
+
+export const getProjectById = (
+  id: string | number,
+  token: string
+): Promise<IProjectDetail | null> => {
+  return fetchApi<IProjectDetail>(`/projectInformations/${id}`, token);
 };

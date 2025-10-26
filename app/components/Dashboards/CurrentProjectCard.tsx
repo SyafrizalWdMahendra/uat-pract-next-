@@ -9,26 +9,35 @@ export async function CurrentProjectCard({ token }: { token: string }) {
   }
 
   return (
-    <div className="p-4 w-full">
-      <div className="flex items-center w-full gap-3 mb-3">
+    <div className="sm:p-4 w-full md:p-4 md:mt-1 p-4 lg:p-4 lg:pt-0 xl:p-8">
+      <div className="flex items-center w-full gap-3 mb-3 lg:pt-0">
         <h2 className="text-2xl font-semibold">Current UAT Projects</h2>
         <div className="w-max h-max border-2 border-blue-500 rounded-3xl pl-3 pr-3 flex justify-center text-sm font-semibold">
           1 Projects
         </div>
       </div>
 
-      <CardProject
-        id={projects.id}
-        href={`/projects/${projects.id}`}
-        title={projects.title}
-        description={projects.description}
-        priority={projects.priority}
-        status={projects.status}
-        featureCount={projects.featureCount}
-        testScenarioCount={projects.testScenarioCount}
-        duration={projects.duration}
-        due_date={projects.due_date}
-      />
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+        {projects.map((project) => {
+          const linkHref = `/projects/${project.id}`;
+          console.log("Generated Link Href:", linkHref);
+          return (
+            <CardProject
+              key={project.id}
+              id={project.id}
+              href={`/projects/${project.id}`}
+              title={project.title}
+              description={project.description}
+              priority={project.priority}
+              status={project.status}
+              featureCount={project.featureCount}
+              testScenarioCount={project.testScenarioCount}
+              duration={project.duration}
+              due_date={project.due_date}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
