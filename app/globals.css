@@ -2,7 +2,7 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #1A2A4F;
+  --foreground: #1a2a4f;
 }
 
 @theme inline {
@@ -14,7 +14,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #1A2A4F;
+    --background: linear-gradient(to bottom right, #1a2a4f, #0d1528);
     --foreground: #ededed;
   }
 }

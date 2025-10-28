@@ -36,9 +36,9 @@ const CardProjectDetail = async ({
         description={`${project.description}`}
         priority={project.priority}
       />
-      <div className="bg-white p-6 rounded-lg border border-gray-200 mb-8">
+      <div className="bg-white p-6 rounded-lg border border-gray-200 mb-8 mt-3">
         <div className="flex items-center mb-6">
-          <Info className="w-5 h-6 text-blue-600 mr-2" />
+          <Info className="w-5 h-6 text-blue-900 mr-2" />
           <h1 className="text-xl font-semibold text-gray-800">
             Project Information
           </h1>

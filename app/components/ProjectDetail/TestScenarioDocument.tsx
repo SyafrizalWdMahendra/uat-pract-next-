@@ -9,7 +9,7 @@ const TestScenarioDocumentCard = () => {
         <div className="flex items-center mb-6">
           <div className="w-full">
             <div className="flex">
-              <File className="w-5 h-6 text-blue-600 mr-2" />
+              <File className="w-5 h-6 text-blue-900 mr-2" />
               <h1 className="text-xl font-semibold text-gray-800">
                 Test Scenarios Documentation
               </h1>
@@ -21,39 +21,40 @@ const TestScenarioDocumentCard = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-cols-3 gap-5">
-          <div className="bg-blue-100/50 border border-blue-200 p-4 rounded-lg md:flex items-center justify-between gap-5 h-max">
-            <div className="p-3 w-full md:w-auto">
+        <div className="flex flex-col md:flex-cols-3 gap-5 ">
+          <div className="bg-blue-900/20 border border-blue-900 p-4 rounded-lg md:flex items-center justify-between gap-5 h-max">
+            <div className="p-3 w-full md:w-auto text-gray-700">
               <div className="flex-col lg:w-full">
-                <p className="text-md font-medium text-blue-800">
+                <p className="text-md font-medium ">
                   Test Scenarios Spreadsheet
                 </p>
-                <p className="text-sm font-light text-blue-900 mt-1">
+                <p className="text-sm font-light mt-1 ">
                   Contains all 225 test scenarios with detailed steps, expected
                   results, and acceptance criteria.
                 </p>
               </div>
-              <div className="flex flex-wrap gap-3 mt-3">
+              <div className="flex flex-wrap gap-3 mt-3 ">
                 <div className="flex lg:w-max items-center">
-                  <Check className="w-7 h-6 text-blue-800 mr-2"></Check>
-                  <p className="text-sm text-blue-800">
-                    Step-by-step instructions
-                  </p>
+                  <Check className="w-7 h-6 mr-2"></Check>
+                  <p className="text-sm">Step-by-step instructions</p>
                 </div>
                 <div className="flex lg:w-max items-center">
-                  <Info className="w-5 h-6 text-blue-800 mr-2"></Info>
-                  <p className="text-sm text-blue-800">Expected Result</p>
+                  <Info className="w-5 h-6 mr-2"></Info>
+                  <p className="text-sm">Expected Result</p>
                 </div>
                 <div className="flex lg:w-max items-center">
-                  <Check className="w-7 h-6 text-blue-800 mr-2"></Check>
-                  <p className="text-sm text-blue-800">Acceptance Criteria</p>
+                  <Check className="w-7 h-6 mr-2"></Check>
+                  <p className="text-sm">Acceptance Criteria</p>
                 </div>
               </div>
             </div>
 
             <div className="flex h-max items-center w-full md:w-auto justify-center md:justify-start mt-4 md:mt-0">
-              <Link className="hover:bg-blue-50 w-full" href="/testDocument">
-                <div className="items-center flex-row justify-center bg-transparent border-blue-200 border flex rounded-sm pt-2 pl-4 pb-2 pr-4 gap-4">
+              <Link
+                className="hover:bg-blue-900/20 w-full hover:rounded-sm"
+                href="/testDocument"
+              >
+                <div className="items-center flex-row justify-center bg-transparent border-blue-900 border flex rounded-md pt-2 pl-4 pb-2 pr-4 gap-4">
                   <motion.div
                     className="box w-2.5 h-2.5 rounded-lg flex items-center"
                     animate={{ scale: 2 }}
@@ -61,9 +62,9 @@ const TestScenarioDocumentCard = () => {
                     layout
                     whileHover={{ scale: 2.5, transition: { duration: 0.3 } }}
                   >
-                    <ArrowRightCircle className="text-blue-800 w-6 h-6"></ArrowRightCircle>
+                    <ArrowRightCircle className="text-gray-700 w-6 h-6"></ArrowRightCircle>
                   </motion.div>
-                  <p className="text-blue-800 text-sm font-medium">Preview</p>
+                  <p className="text-gray-700 text-sm font-medium">Preview</p>
                 </div>
               </Link>
             </div>

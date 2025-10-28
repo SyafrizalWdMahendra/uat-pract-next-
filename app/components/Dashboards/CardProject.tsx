@@ -26,7 +26,7 @@ const CardProject = ({
       <div className="flex flex-col gap-3">
         <div className="flex flex-wrap justify-between items-start gap-2">
           {" "}
-          <h1 className="text-xl font-bold text-gray-900 group-hover:text-rose-400/80 shrink min-w-0 mr-2">
+          <h1 className="text-xl font-bold text-gray-900 shrink min-w-0 mr-2">
             {" "}
             {title}
           </h1>

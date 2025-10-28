@@ -22,7 +22,6 @@ async function fetchApi<T>(path: string, token: string): Promise<T | null> {
     }
 
     const rawData = await response.json();
-    console.log(`[fetchApi] Menerima JSON mentah untuk ${path}:`, rawData);
 
     if (rawData.payload && typeof rawData.payload.data !== "undefined") {
       return rawData.payload.data as T;

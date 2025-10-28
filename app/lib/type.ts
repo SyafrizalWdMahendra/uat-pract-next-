@@ -49,3 +49,25 @@ export interface IFeature {
   name: string;
   testScenarios: ITestScenario[];
 }
+
+export interface Feature {
+  id: number;
+  project_id: number;
+  title: string;
+}
+
+export interface Scenario {
+  id: number;
+  feature_id: number;
+  test_case: string;
+}
+
+export interface FeedbackPayload {
+  user_id: number;
+  project_id: number;
+  feature_id: number;
+  test_scenario_id: number | null;
+  description: string;
+  status: string;
+  priority: string;
+}

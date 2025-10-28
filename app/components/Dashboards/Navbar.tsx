@@ -18,7 +18,7 @@ const Navbar = ({ title, description, priority }: NavbarProps) => {
 
   return (
     <header
-      className="w-full bg-rose-400/80 fixed top-0 right-0 left-0 z-50
+      className="w-full bg-blue-900/10 fixed top-0 right-0 left-0 z-50
                  flex items-center justify-between 
                  px-4 sm:px-6 
                  h-20 
@@ -28,7 +28,7 @@ const Navbar = ({ title, description, priority }: NavbarProps) => {
       <div className="flex items-center gap-3 sm:gap-4 min-w-0">
         {isDashboard ? (
           <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shrink-0">
-            <Target className="w-6 h-6 text-blue-500/60" />
+            <Target className="w-6 h-6 text-blue-900" />
           </div>
         ) : (
           <Link
@@ -56,7 +56,7 @@ const Navbar = ({ title, description, priority }: NavbarProps) => {
           <LogoutButton />
         ) : priority ? (
           <span
-            className={`text-xs font-semibold px-3 py-1 rounded-full border whitespace-nowrap shadow-md shadow-rose-800 ${getPriorityClass(
+            className={`text-xs font-semibold px-3 py-1 rounded-full border whitespace-nowrap shadow-md shadow-blue-900 ${getPriorityClass(
               priority
             )}`}
           >
