@@ -1,14 +1,14 @@
 import { Suspense } from "react";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import {
-  CardSkeleton,
-  StatsGridSkeleton,
-} from "../components/Dashboards/Skeleton";
 import { StatsCards } from "../components/Dashboards/StatsCard";
 import { CurrentProjectCard } from "../components/Dashboards/CurrentProjectCard";
 import Navbar from "../components/Dashboards/Navbar";
 import { verifyToken } from "../lib/auth";
+import {
+  ProjectCardSkeleton,
+  StatsCardSkeleton,
+} from "../components/Dashboards/Skeleton";
 
 interface UserPayload {
   userId: number | string;
@@ -38,11 +38,11 @@ const Dashboards = async () => {
         priority="N/A"
       />
       <main className="pt-22">
-        <Suspense fallback={<StatsGridSkeleton />}>
+        <Suspense fallback={<StatsCardSkeleton />}>
           <StatsCards token={token} />
         </Suspense>
 
-        <Suspense fallback={<CardSkeleton />}>
+        <Suspense fallback={<ProjectCardSkeleton />}>
           <CurrentProjectCard token={token} />
         </Suspense>
       </main>
