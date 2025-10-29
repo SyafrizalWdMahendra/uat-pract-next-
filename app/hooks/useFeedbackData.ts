@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../utils/cons";
 import { FeedbackHistoryPayload } from "../lib/type";
 
-export const useFeedbackData = (token: string) => {
+export const useFeedbackData = (projectId: number, token: string) => {
   const [allFeedbacks, setAllFeedbacks] = useState<FeedbackHistoryPayload[]>(
     []
   );
@@ -15,7 +15,10 @@ export const useFeedbackData = (token: string) => {
       setError(null);
 
       try {
-        const response = await fetch(`${API_BASE_URL}/api/feedback-history`, {
+        const url = new URL(`${API_BASE_URL}/api/feedback-history`);
+        url.searchParams.append("projectId", String(projectId));
+
+        const response = await fetch(url.toString(), {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -47,7 +50,7 @@ export const useFeedbackData = (token: string) => {
     };
 
     fetchFeedbacks();
-  }, [token]);
+  }, [projectId, token]);
 
   return { allFeedbacks, isLoading, error };
 };

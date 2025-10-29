@@ -13,6 +13,7 @@ import FeedbackTableRow from "./FeedbackTableRow";
 import { EmptyState, ErrorState, LoadingState } from "./FeedHistoryState";
 
 const HistoryFeedbackCard = ({
+  projectId,
   token,
   initialFeatures = [],
 }: HistoryFeedbackProps) => {
@@ -22,7 +23,7 @@ const HistoryFeedbackCard = ({
   const [selectedFeature, setSelectedFeature] = useState("");
 
   const debouncedSearchTerm = useDebounce(searchTerm, DEBOUNCE_DELAY);
-  const { allFeedbacks, isLoading, error } = useFeedbackData(token);
+  const { allFeedbacks, isLoading, error } = useFeedbackData(projectId, token);
   const filterOptions = useFilterOptions(token, initialFeatures, allFeedbacks);
 
   const filteredFeedbacks = useClientSideFilter(
@@ -186,7 +187,7 @@ const HistoryFeedbackCard = ({
             <tbody>
               {filteredFeedbacks.map((feedback, index) => (
                 <FeedbackTableRow
-                  key={`feedback-${feedback.id}-${index}`}
+                  key={`feedback-${feedback.project_id}-${index}`}
                   feedback={feedback}
                   index={index}
                 />

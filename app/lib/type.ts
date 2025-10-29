@@ -73,7 +73,7 @@ export interface FeedbackPayload {
 }
 
 export interface FeedbackHistoryPayload {
-  id: number;
+  project_id: number;
   status: string;
   priority: string;
   description: string;
@@ -98,6 +98,7 @@ export interface FilterOptions {
 }
 
 export interface HistoryFeedbackProps {
+  projectId: number;
   token: string;
   initialFeatures?: Feature[];
   initialScenarios?: any[];

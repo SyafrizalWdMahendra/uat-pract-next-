@@ -10,7 +10,7 @@ const FeedbackTableRow = ({
   index: number;
 }) => (
   <tr
-    key={`feedback-${feedback.id}-${index}`}
+    key={`feedback-${feedback.project_id}-${index}`}
     className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
   >
     <td className="p-4">
@@ -35,18 +35,24 @@ const FeedbackTableRow = ({
     <td className="p-4">
       <div className="flex items-center justify-center gap-2">
         <button
-          className="p-2 text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+          className="p-2 text-blue-600 hover:bg-blue-50 hover:cursor-pointer rounded-md transition-colors"
           title="View Details"
           aria-label="View feedback details"
         >
-          <Eye className="w-4 h-4" />
+          <div className="flex items-center gap-1 ">
+            <Eye className="w-4 h-4" />
+            <p className="text-sm sm:hidden lg:block">Details</p>
+          </div>
         </button>
         <button
-          className="p-2 text-red-600 hover:bg-red-50 rounded-md transition-colors"
+          className="p-2 text-red-600 hover:bg-red-50 hover:cursor-pointer rounded-md transition-colors"
           title="Delete"
           aria-label="Delete feedback"
         >
-          <Trash2 className="w-4 h-4" />
+          <div className="flex items-center gap-1">
+            <Trash2 className="w-4 h-4" />
+            <p className="text-sm sm:hidden lg:block">Delete</p>
+          </div>
         </button>
       </div>
     </td>

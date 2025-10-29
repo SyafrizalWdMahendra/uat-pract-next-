@@ -101,6 +101,7 @@ const ProjectDetailPage = async ({
           initialScenarios={initialScenarios}
         />
         <HistoryFeedbackCard
+          projectId={projectId}
           token={token}
           initialFeatures={initialFeatures}
           initialScenarios={initialScenarios}
