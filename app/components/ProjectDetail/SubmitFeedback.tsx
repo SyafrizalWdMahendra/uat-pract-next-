@@ -3,6 +3,7 @@
 import { Feature, FeedbackPayload, Scenario } from "@/app/lib/type";
 import { Send } from "lucide-react";
 import { useState, ChangeEvent, FormEvent } from "react";
+import Form from "next/form";
 
 type SubmitStatus = "success" | "error" | null;
 
@@ -112,7 +113,7 @@ const SubmitFeedbackCard = ({
         </div>
 
         <div className="flex text-black flex-col gap-4">
-          <form onSubmit={handleSubmit}>
+          <Form action={`/projects/${projectId}`} onSubmit={handleSubmit}>
             <div className="text-sm font-medium">
               <h3>Select Feature</h3>
               <select
@@ -196,7 +197,7 @@ const SubmitFeedbackCard = ({
                 </p>
               )}
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </>
