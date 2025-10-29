@@ -21,15 +21,15 @@ export interface IProjectDetail {
   manager_id: number;
   test_lead_id: number;
   title: string;
-  description: string | null; // Deskripsi bisa null
+  description: string | null;
   priority: string;
   status: string;
-  start_date: string; // String (sudah diformat backend)
-  due_date: string; // String (sudah diformat backend)
-  duration: number | null; // Number atau null
+  start_date: string;
+  due_date: string;
+  duration: number | null;
   manager: IUserSummary;
   testLead: IUserSummary;
-  features: IFeature[]; // Array dari fitur (yang berisi skenario)
+  features: IFeature[];
   featureCount: number;
   testScenarioCount: number;
 }
@@ -70,4 +70,35 @@ export interface FeedbackPayload {
   description: string;
   status: string;
   priority: string;
+}
+
+export interface FeedbackHistoryPayload {
+  id: number;
+  status: string;
+  priority: string;
+  description: string;
+  created_at: Date | string;
+  user: {
+    name: string;
+  };
+  testScenario: {
+    code: string;
+  };
+  feature: {
+    project_id: any;
+    id: any;
+    title: string;
+  };
+}
+
+export interface FilterOptions {
+  features: Feature[];
+  priorities: string[];
+  statuses: string[];
+}
+
+export interface HistoryFeedbackProps {
+  token: string;
+  initialFeatures?: Feature[];
+  initialScenarios?: any[];
 }

@@ -8,32 +8,18 @@ import TestScenarioDocumentCard from "@/app/components/ProjectDetail/TestScenari
 import SubmitFeedbackCard from "@/app/components/ProjectDetail/SubmitFeedback";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-
-// --- Tipe data (bisa Anda letakkan di file terpisah) ---
-interface Feature {
-  id: number;
-  project_id: number;
-  title: string;
-}
-interface Scenario {
-  id: number;
-  feature_id: number;
-  test_case: string;
-}
+import HistoryFeedbackCard from "@/app/components/ProjectDetail/HistoryFeedback";
+import { Feature, Scenario } from "@/app/lib/type";
 
 /**
  * Helper function untuk mengekstrak data,
  * baik dari { data: [...] } atau [...]
  */
-// FUNGSI BARU (BENAR)
-// Salin dan tempel ini di page.tsx Anda
 function extractData(response: any): any[] {
-  // Cek jika struktur baru Anda ada
   if (response && response.payload && Array.isArray(response.payload.data)) {
     return response.payload.data;
   }
 
-  // Cek struktur lama (untuk jaga-jaga)
   if (Array.isArray(response)) {
     return response;
   }
@@ -44,7 +30,6 @@ function extractData(response: any): any[] {
   return [];
 }
 
-// --- Fungsi untuk fetch data ---
 async function getFeatures(
   projectId: number,
   token: string
@@ -54,7 +39,7 @@ async function getFeatures(
       `http://localhost:4000/api/features?projectId=${projectId}`,
       {
         headers: { Authorization: `Bearer ${token}` },
-        cache: "no-store", // Selalu ambil data terbaru
+        cache: "no-store",
       }
     );
     if (!res.ok) return [];
@@ -88,14 +73,12 @@ const ProjectDetailPage = async ({
 }) => {
   const projectId = Number((await params).id);
 
-  // 1. Ambil token (seperti kode Anda)
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
   if (!token) {
     redirect("/login");
   }
 
-  // 2. Fetch data di server SECARA BERSAMAAN
   const [initialFeatures, initialScenarios] = await Promise.all([
     getFeatures(projectId, token),
     getScenarios(token),
@@ -113,6 +96,11 @@ const ProjectDetailPage = async ({
         </Suspense>
         <SubmitFeedbackCard
           projectId={projectId}
+          token={token}
+          initialFeatures={initialFeatures}
+          initialScenarios={initialScenarios}
+        />
+        <HistoryFeedbackCard
           token={token}
           initialFeatures={initialFeatures}
           initialScenarios={initialScenarios}

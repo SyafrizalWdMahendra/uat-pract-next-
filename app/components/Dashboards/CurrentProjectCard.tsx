@@ -13,7 +13,7 @@ export async function CurrentProjectCard({ token }: { token: string }) {
       <div className="flex items-center w-full gap-3 mb-3 lg:pt-0">
         <h2 className="text-2xl font-semibold">Current UAT Projects</h2>
         <div className="w-max h-max border-2 border-white rounded-3xl pr-3 pl-3 p-1 flex justify-center text-sm font-semibold">
-          <p>1 Projects</p>
+          <p>{projects.length} Projects</p>
         </div>
       </div>
 
