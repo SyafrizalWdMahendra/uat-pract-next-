@@ -24,7 +24,11 @@ const HistoryFeedbackCard = ({
 
   const debouncedSearchTerm = useDebounce(searchTerm, DEBOUNCE_DELAY);
   const { allFeedbacks, isLoading, error } = useFeedbackData(projectId, token);
-  const filterOptions = useFilterOptions(token, initialFeatures, allFeedbacks);
+  const filterOptions = useFilterOptions(
+    token,
+    initialFeatures ?? [],
+    allFeedbacks || []
+  );
 
   const filteredFeedbacks = useClientSideFilter(
     allFeedbacks,

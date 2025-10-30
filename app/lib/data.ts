@@ -1,4 +1,11 @@
-import type { IProject, IStats, IProjectDetail } from "./type";
+import { Feature } from "next/dist/build/webpack/plugins/telemetry-plugin/telemetry-plugin";
+import type {
+  IProject,
+  IStats,
+  IProjectDetail,
+  Scenario,
+  ScenarioDocs,
+} from "./type";
 
 const API_BASE_URL = "http://localhost:4000/api";
 
@@ -50,4 +57,22 @@ export const getProjectById = (
   token: string
 ): Promise<IProjectDetail | null> => {
   return fetchApi<IProjectDetail>(`/projectInformations/${id}`, token);
+};
+
+export const getFeatures = (
+  projectId: number,
+  token: string
+): Promise<Feature[] | null> => {
+  return fetchApi<Feature[]>(`/features?projectId=${projectId}`, token);
+};
+
+export const getScenarios = (token: string): Promise<Scenario[] | null> => {
+  return fetchApi<Scenario[]>(`/scenarios`, token);
+};
+
+export const getScenarioDocs = (
+  projectId: number,
+  token: string
+): Promise<ScenarioDocs | null> => {
+  return fetchApi<ScenarioDocs>(`/scenarioDocs/${projectId}`, token);
 };

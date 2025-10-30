@@ -9,7 +9,8 @@ import SubmitFeedbackCard from "@/app/components/ProjectDetail/SubmitFeedback";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import HistoryFeedbackCard from "@/app/components/ProjectDetail/HistoryFeedback";
-import { Feature, Scenario } from "@/app/lib/type";
+import { Feature as CustomFeature } from "@/app/lib/type";
+import { getFeatures, getScenarios } from "@/app/lib/data";
 
 /**
  * Helper function untuk mengekstrak data,
@@ -30,42 +31,6 @@ function extractData(response: any): any[] {
   return [];
 }
 
-async function getFeatures(
-  projectId: number,
-  token: string
-): Promise<Feature[]> {
-  try {
-    const res = await fetch(
-      `http://localhost:4000/api/features?projectId=${projectId}`,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-        cache: "no-store",
-      }
-    );
-    if (!res.ok) return [];
-    const rawData = await res.json();
-    return extractData(rawData);
-  } catch (error) {
-    console.error("Gagal fetch features di server:", error);
-    return [];
-  }
-}
-
-async function getScenarios(token: string): Promise<Scenario[]> {
-  try {
-    const res = await fetch("http://localhost:4000/api/scenarios", {
-      headers: { Authorization: `Bearer ${token}` },
-      cache: "no-store",
-    });
-    if (!res.ok) return [];
-    const rawData = await res.json();
-    return extractData(rawData);
-  } catch (error) {
-    console.error("Gagal fetch scenarios di server:", error);
-    return [];
-  }
-}
-
 const ProjectDetailPage = async ({
   params,
 }: {
@@ -78,6 +43,10 @@ const ProjectDetailPage = async ({
   if (!token) {
     redirect("/login");
   }
+
+  const loggedInUserId = cookieStore.get("userId")
+    ? Number(cookieStore.get("userId")?.value)
+    : undefined;
 
   const [initialFeatures, initialScenarios] = await Promise.all([
     getFeatures(projectId, token),
@@ -92,18 +61,19 @@ const ProjectDetailPage = async ({
           <CardProjectDetail params={params} />
         </Suspense>
         <Suspense fallback={<TestScenariosSkeleton />}>
-          <TestScenarioDocumentCard />
+          <TestScenarioDocumentCard projectId={projectId} token={token} />
         </Suspense>
         <SubmitFeedbackCard
           projectId={projectId}
+          userId={loggedInUserId}
           token={token}
-          initialFeatures={initialFeatures}
+          initialFeatures={initialFeatures as CustomFeature[] | null}
           initialScenarios={initialScenarios}
         />
         <HistoryFeedbackCard
           projectId={projectId}
           token={token}
-          initialFeatures={initialFeatures}
+          initialFeatures={initialFeatures as CustomFeature[] | null}
           initialScenarios={initialScenarios}
         />
       </main>

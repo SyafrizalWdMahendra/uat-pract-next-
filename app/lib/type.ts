@@ -59,7 +59,14 @@ export interface Feature {
 export interface Scenario {
   id: number;
   feature_id: number;
+  code: string;
   test_case: string;
+}
+
+export interface ScenarioDocs {
+  id: number;
+  project_id: number;
+  code_url: string;
 }
 
 export interface FeedbackPayload {
@@ -100,6 +107,27 @@ export interface FilterOptions {
 export interface HistoryFeedbackProps {
   projectId: number;
   token: string;
-  initialFeatures?: Feature[];
-  initialScenarios?: any[];
+  initialFeatures?: Feature[] | null;
+  initialScenarios?: any[] | null;
+}
+
+export type SubmitStatus = "success" | "error" | null;
+
+export interface SubmitFeedbackCardProps {
+  projectId: number;
+  userId?: number;
+  token: string;
+  initialFeatures: Feature[] | null;
+  initialScenarios: Scenario[] | null;
+}
+
+export interface TestScenarioDocumentCardProps {
+  projectId: number;
+  token: string;
+}
+
+export interface ScenarioDocData {
+  id: number;
+  project_id: number;
+  doc_url: string;
 }

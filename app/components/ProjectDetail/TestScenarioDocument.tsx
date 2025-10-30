@@ -1,8 +1,70 @@
+"use client";
+
 import { Info, File, Check, ArrowRightCircle } from "lucide-react";
 import Link from "next/link";
 import * as motion from "motion/react-client";
+import { TestScenarioDocumentCardProps } from "@/app/lib/type";
+import { useScenarioDoc } from "@/app/hooks/useScenarioDocs";
 
-const TestScenarioDocumentCard = () => {
+const TestScenarioDocumentCard = ({
+  projectId,
+  token,
+}: TestScenarioDocumentCardProps) => {
+  const { docUrl, isLoading, error } = useScenarioDoc(projectId, token);
+
+  const renderLinkButton = () => {
+    if (isLoading) {
+      return (
+        <div className="items-center flex-row justify-center bg-gray-100 border-gray-400 border flex rounded-md pt-2 pl-4 pb-2 pr-4 gap-4">
+          <p className="text-gray-500 text-sm font-medium">Loading link...</p>
+        </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <div
+          className="items-center flex-row justify-center bg-red-50 border-red-400 border flex rounded-md pt-2 pl-4 pb-2 pr-4 gap-4"
+          title={error}
+        >
+          <p className="text-red-600 text-sm font-medium">Error loading link</p>
+        </div>
+      );
+    }
+
+    if (!docUrl) {
+      return (
+        <div className="items-center flex-row justify-center bg-gray-100 border-gray-400 border flex rounded-md pt-2 pl-4 pb-2 pr-4 gap-4">
+          <p className="text-gray-500 text-sm font-medium">
+            Document not available
+          </p>
+        </div>
+      );
+    }
+
+    return (
+      <Link
+        className="hover:bg-blue-900/20 w-full hover:rounded-sm"
+        href={docUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div className="items-center flex-row justify-center bg-transparent border-blue-900 border flex rounded-md pt-2 pl-4 pb-2 pr-4 gap-4">
+          <motion.div
+            className="box w-2.5 h-2.5 rounded-lg flex items-center"
+            animate={{ scale: 2 }}
+            whileInView={{ opacity: 1 }}
+            layout
+            whileHover={{ scale: 2.5, transition: { duration: 0.3 } }}
+          >
+            <ArrowRightCircle className="text-gray-700 w-6 h-6"></ArrowRightCircle>
+          </motion.div>
+          <p className="text-gray-700 text-sm font-medium">Preview</p>
+        </div>
+      </Link>
+    );
+  };
+
   return (
     <>
       <div className="bg-white p-6 rounded-lg mb-3">
@@ -50,23 +112,7 @@ const TestScenarioDocumentCard = () => {
             </div>
 
             <div className="flex h-max items-center w-full md:w-auto justify-center md:justify-start mt-4 md:mt-0">
-              <Link
-                className="hover:bg-blue-900/20 w-full hover:rounded-sm"
-                href="/testDocument"
-              >
-                <div className="items-center flex-row justify-center bg-transparent border-blue-900 border flex rounded-md pt-2 pl-4 pb-2 pr-4 gap-4">
-                  <motion.div
-                    className="box w-2.5 h-2.5 rounded-lg flex items-center"
-                    animate={{ scale: 2 }}
-                    whileInView={{ opacity: 1 }}
-                    layout
-                    whileHover={{ scale: 2.5, transition: { duration: 0.3 } }}
-                  >
-                    <ArrowRightCircle className="text-gray-700 w-6 h-6"></ArrowRightCircle>
-                  </motion.div>
-                  <p className="text-gray-700 text-sm font-medium">Preview</p>
-                </div>
-              </Link>
+              {renderLinkButton()}
             </div>
           </div>
         </div>
