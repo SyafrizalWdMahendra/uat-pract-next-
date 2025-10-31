@@ -1,56 +1,59 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react"; // Tambahkan useCallback
 import { API_BASE_URL } from "../utils/cons";
 import { FeedbackHistoryPayload } from "../lib/type";
 
 export const useFeedbackData = (projectId: number, token: string) => {
   const [allFeedbacks, setAllFeedbacks] = useState<FeedbackHistoryPayload[]>(
-    [],
+    []
   );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchFeedbacks = async () => {
-      setIsLoading(true);
-      setError(null);
+  // 1. Bungkus logic fetch dalam useCallback
+  const fetchFeedbacks = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
 
-      try {
-        const url = new URL(`${API_BASE_URL}/api/feedback-history`);
-        url.searchParams.append("projectId", String(projectId));
+    try {
+      const url = new URL(`${API_BASE_URL}/api/feedback-history`);
+      url.searchParams.append("projectId", String(projectId));
 
-        const response = await fetch(url.toString(), {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+      const response = await fetch(url.toString(), {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => ({}));
-          throw new Error(
-            errorData.message || `Failed to fetch feedback: ${response.status}`,
-          );
-        }
-
-        const data = await response.json();
-        const feedbackData = Array.isArray(data)
-          ? data
-          : data.payload?.data || data.data || data.feedbacks || [];
-
-        setAllFeedbacks(feedbackData);
-      } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : "Failed to fetch feedback";
-        console.error("Error fetching feedback:", err);
-        setError(errorMessage);
-      } finally {
-        setIsLoading(false);
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(
+          errorData.message || `Failed to fetch feedback: ${response.status}`
+        );
       }
-    };
 
+      const data = await response.json();
+      const feedbackData = Array.isArray(data)
+        ? data
+        : data.payload?.data || data.data || data.feedbacks || [];
+
+      setAllFeedbacks(feedbackData);
+    } catch (err) {
+      const errorMessage =
+        err instanceof Error ? err.message : "Failed to fetch feedback";
+      console.error("Error fetching feedback:", err);
+      setError(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [projectId, token]); // 2. Tambahkan dependensi
+
+  // 3. Panggil fetchFeedbacks saat komponen dimuat
+  useEffect(() => {
     fetchFeedbacks();
-  }, [projectId, token]);
+  }, [fetchFeedbacks]);
 
-  return { allFeedbacks, isLoading, error };
+  // 4. Kembalikan fungsi fetch (sebagai "refresh")
+  return { allFeedbacks, isLoading, error, refreshFeedbacks: fetchFeedbacks };
 };

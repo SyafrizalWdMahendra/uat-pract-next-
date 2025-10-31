@@ -3,43 +3,59 @@ import { FeedbackHistoryPayload } from "../lib/type";
 
 export const useClientSideFilter = (
   allFeedbacks: FeedbackHistoryPayload[],
-  searchTerm: string,
+  debouncedSearchTerm: string,
   selectedStatus: string,
   selectedPriority: string,
   selectedFeature: string,
+  showAllFeedback: boolean,
+  userId?: number
 ) => {
   return useMemo(() => {
-    let filtered = [...allFeedbacks];
+    if (!allFeedbacks) return [];
 
-    if (searchTerm) {
-      const searchLower = searchTerm.toLowerCase();
-      filtered = filtered.filter(
+    let filteredData = allFeedbacks;
+
+    if (debouncedSearchTerm) {
+      const searchLower = debouncedSearchTerm.toLowerCase();
+      filteredData = filteredData.filter(
         (feedback) =>
           feedback.description.toLowerCase().includes(searchLower) ||
           feedback.feature.title.toLowerCase().includes(searchLower) ||
           feedback.user.name.toLowerCase().includes(searchLower) ||
-          feedback.testScenario.code.toLowerCase().includes(searchLower),
+          feedback.testScenario.code.toLowerCase().includes(searchLower)
       );
     }
 
     if (selectedStatus) {
-      filtered = filtered.filter((f) => f.status === selectedStatus);
+      filteredData = filteredData.filter((f) => f.status === selectedStatus);
     }
 
     if (selectedPriority) {
-      filtered = filtered.filter((f) => f.priority === selectedPriority);
+      filteredData = filteredData.filter(
+        (f) => f.priority === selectedPriority
+      );
     }
 
     if (selectedFeature) {
-      filtered = filtered.filter((f) => f.feature.title === selectedFeature);
+      filteredData = filteredData.filter(
+        (f) => f.feature.title === selectedFeature
+      );
     }
 
-    return filtered;
+    if (!showAllFeedback && userId) {
+      filteredData = filteredData.filter(
+        (feedback) => feedback.user.id === userId
+      );
+    }
+
+    return filteredData;
   }, [
     allFeedbacks,
-    searchTerm,
+    debouncedSearchTerm,
     selectedStatus,
     selectedPriority,
     selectedFeature,
+    showAllFeedback,
+    userId,
   ]);
 };

@@ -1,40 +1,52 @@
 "use client";
 
-import { HistoryFeedbackProps } from "@/app/lib/type";
+import { FeedbackHistoryPayload, HistoryFeedbackProps } from "@/app/lib/type";
 import { MessageCircle } from "lucide-react";
 import { ChangeEvent } from "react";
 import { capitalizeFirst } from "@/app/utils/label";
 import { useFilterOptions } from "@/app/hooks/useFilterOption";
-import { useFeedbackData } from "@/app/hooks/useFeedbackData";
 import { useClientSideFilter } from "@/app/hooks/useClientSideFilter";
 import FeedbackTableRow from "./FeedbackTableRow";
 import { EmptyState, ErrorState, LoadingState } from "./FeedHistoryState";
 import { useFeedbackFilters } from "@/app/hooks/useResetFilter";
 
+// 1. Perbarui Props untuk menerima data
+interface UpdatedHistoryProps extends HistoryFeedbackProps {
+  feedbacks: FeedbackHistoryPayload[];
+  isLoading: boolean;
+  error: string | null;
+}
+
 const HistoryFeedbackCard = ({
+  userId,
   projectId,
   token,
   initialFeatures = [],
-}: HistoryFeedbackProps) => {
+  feedbacks,
+  isLoading,
+  error,
+}: UpdatedHistoryProps) => {
   const {
     searchTerm,
     setSearchTerm,
-    selectedStatus,
-    setSelectedStatus,
-    selectedPriority,
-    setSelectedPriority,
     selectedFeature,
     setSelectedFeature,
-    debouncedSearchTerm,
-    hasActiveFilters,
+    selectedPriority,
+    setSelectedPriority,
+    selectedStatus,
+    setSelectedStatus,
     handleResetFilters,
+    hasActiveFilters,
+    debouncedSearchTerm,
   } = useFeedbackFilters();
 
-  const { allFeedbacks, isLoading, error } = useFeedbackData(projectId, token);
+  // const { allFeedbacks, isLoading, error } = useFeedbackData(projectId, token);
+  const allFeedbacks = feedbacks;
+
   const filterOptions = useFilterOptions(
     token,
     initialFeatures ?? [],
-    allFeedbacks || [],
+    allFeedbacks || []
   );
 
   const filteredFeedbacks = useClientSideFilter(
@@ -43,6 +55,8 @@ const HistoryFeedbackCard = ({
     selectedStatus,
     selectedPriority,
     selectedFeature,
+    false,
+    userId
   );
 
   return (
@@ -52,7 +66,7 @@ const HistoryFeedbackCard = ({
           <div className="flex items-center gap-2">
             <MessageCircle className="w-5 h-5 text-blue-900" />
             <h1 className="text-xl font-semibold text-gray-800">
-              Feedback History
+              My Feedback History
             </h1>
           </div>
           <div className="bg-blue-100 text-blue-900 px-4 py-1 rounded-full text-sm font-semibold">
@@ -72,7 +86,7 @@ const HistoryFeedbackCard = ({
           id="searchFeedback"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search feedback by content, feature, or author..."
+          placeholder="Search my feedback..."
           aria-label="Search feedback"
         />
 
@@ -139,7 +153,7 @@ const HistoryFeedbackCard = ({
         {hasActiveFilters && (
           <button
             onClick={handleResetFilters}
-            className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors whitespace-nowrap"
+            className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors whitespace-nowGrap"
             aria-label="Reset all filters"
           >
             Reset

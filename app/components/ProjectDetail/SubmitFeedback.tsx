@@ -9,13 +9,20 @@ import {
 import { Send } from "lucide-react";
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { decodeJWT } from "@/app/lib/helper";
+import { API_BASE_URL } from "@/app/utils/cons";
+
+// 1. Perbarui props untuk menyertakan fungsi callback
+interface UpdatedSubmitProps extends SubmitFeedbackCardProps {
+  onFeedbackSubmitted: () => void;
+}
 
 const SubmitFeedbackCard = ({
   projectId,
   token,
   initialFeatures,
   initialScenarios,
-}: SubmitFeedbackCardProps) => {
+  onFeedbackSubmitted,
+}: UpdatedSubmitProps) => {
   const [featuresList, setFeaturesList] = useState<Feature[]>(
     initialFeatures || []
   );
@@ -71,19 +78,22 @@ const SubmitFeedbackCard = ({
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // 3. Ganti 'alert' dengan 'setErrorMessage'
     if (!selectedFeatureId) {
-      alert("Please select a feature first.");
+      setErrorMessage("Please select a feature first.");
+      setSubmitStatus("error");
       return;
     }
-
     if (!description.trim()) {
-      alert("Please provide a feedback description.");
+      setErrorMessage("Please provide a feedback description.");
+      setSubmitStatus("error");
       return;
     }
-
     if (!userId) {
-      alert("User ID not found. Please refresh the page and try again.");
-      console.error("userId is null - token might be invalid");
+      setErrorMessage(
+        "User ID not found. Please refresh the page and try again."
+      );
+      setSubmitStatus("error");
       return;
     }
 
@@ -112,7 +122,7 @@ const SubmitFeedbackCard = ({
       feature_id: featureIdNum,
       description: description.trim(),
       status: "open",
-      priority: "medium",
+      priority: "high",
     };
 
     if (scenarioIdNum !== undefined && !isNaN(scenarioIdNum)) {
@@ -136,7 +146,7 @@ const SubmitFeedbackCard = ({
       headers.append("Content-Type", "application/json");
       headers.append("Authorization", `Bearer ${token}`);
 
-      const response = await fetch("http://localhost:4000/api/feedbacks", {
+      const response = await fetch(`${API_BASE_URL}/api/feedbacks`, {
         method: "POST",
         headers: headers,
         body: JSON.stringify(feedbackData),
@@ -193,6 +203,7 @@ const SubmitFeedbackCard = ({
       setSelectedTestScenarioId("");
       setDescription("");
       setAvailableScenarios([]);
+      onFeedbackSubmitted();
     } catch (error) {
       console.error("Error submitting feedback:", error);
       setSubmitStatus("error");

@@ -3,8 +3,8 @@ import { notFound, redirect } from "next/navigation";
 import { FeedbackDetail } from "@/app/components/ProjectDetail/FeedbackDetail";
 import { Suspense } from "react";
 import { Loader2 } from "lucide-react";
-import { IProjectDetail } from "@/app/lib/type";
-import { getProjectById } from "@/app/lib/data";
+import { FeedbackHistoryPayload, IProjectDetail } from "@/app/lib/type";
+import { getFeedbackHistoryDetails, getProjectById } from "@/app/lib/data";
 import Navbar from "@/app/components/Dashboards/Navbar";
 import SlideUpWrapper from "@/app/components/Utility/SlideUpWrapper";
 import { BackButton } from "@/app/components/ProjectDetail/BackButton";
@@ -22,18 +22,19 @@ export default async function FeedbackDetailPage({
   if (!token) {
     redirect("/login");
   }
-  const project: IProjectDetail | null = await getProjectById(id, token);
+  const feedHistoryDetails: FeedbackHistoryPayload | null =
+    await getFeedbackHistoryDetails(id, token);
 
-  if (!project) {
+  if (!feedHistoryDetails) {
     notFound();
   }
 
   return (
     <>
       <Navbar
-        title={project.title}
-        description={`${project.description}`}
-        priority={project.priority}
+        title={feedHistoryDetails.feature.title}
+        description={`${feedHistoryDetails.description}`}
+        priority={feedHistoryDetails.priority}
       />
       <main className="p-4 lg:p-8  lg:mt-21.5 md:mt-25.5 sm:mt-25.5 mt-25.5 xl:25.5">
         <SlideUpWrapper>

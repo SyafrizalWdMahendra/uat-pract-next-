@@ -2,34 +2,7 @@
 import { useState, useEffect } from "react";
 import { Info, Calendar, User, AlertCircle, Loader2 } from "lucide-react";
 import FeedbackDetailBadge from "../Utility/FeedbackDetailBadge";
-
-interface FeedbackData {
-  id: number;
-  user_id: number;
-  test_scenario_id: number;
-  feature_id: number;
-  project_id: number;
-  description: string;
-  status: string;
-  priority: string;
-  created_at: string;
-  updated_at: string;
-  user: {
-    name: string;
-  };
-  testScenario: {
-    code: string;
-    test_case: string;
-  };
-  feature: {
-    title: string;
-  };
-}
-
-interface FeedbackDetailProps {
-  feedbackId: number | string;
-  token: string;
-}
+import { FeedbackData, FeedbackDetailProps } from "@/app/lib/type";
 
 export const FeedbackDetail = ({ feedbackId, token }: FeedbackDetailProps) => {
   const [feedback, setFeedback] = useState<FeedbackData | null>(null);
@@ -186,22 +159,3 @@ export const FeedbackDetail = ({ feedbackId, token }: FeedbackDetailProps) => {
     </div>
   );
 };
-
-// // --- Komponen Helper untuk Info Card ---
-// const InfoCard = ({
-//   icon,
-//   title,
-//   children,
-// }: {
-//   icon: React.ReactNode;
-//   title: string;
-//   children: React.ReactNode;
-// }) => (
-//   <div className="flex flex-col gap-1 p-4 bg-gray-50 rounded-lg">
-//     <div className="flex items-center gap-2 text-gray-700">
-//       {icon}
-//       <p className="font-semibold">{title}</p>
-//     </div>
-//     <div className="text-gray-900 ml-6">{children}</div>
-//   </div>
-// );

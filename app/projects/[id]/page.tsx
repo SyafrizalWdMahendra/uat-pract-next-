@@ -5,12 +5,30 @@ import {
 } from "@/app/components/Dashboards/Skeleton";
 import CardProjectDetail from "@/app/components/ProjectDetail/ProjectDetail";
 import TestScenarioDocumentCard from "@/app/components/ProjectDetail/TestScenarioDocument";
-import SubmitFeedbackCard from "@/app/components/ProjectDetail/SubmitFeedback";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import HistoryFeedbackCard from "@/app/components/ProjectDetail/HistoryFeedback";
-import { Feature as CustomFeature } from "@/app/lib/type";
 import { getFeatures, getScenarios } from "@/app/lib/data";
+// 1. Impor 'JwtPayload' HANYA dari 'app/lib/type'
+import { Feature as CustomFeature, Scenario } from "@/app/lib/type";
+// 2. Hapus 'JwtPayload' dari impor ini untuk menghindari konflik
+import { jwtDecode, JwtPayload } from "jwt-decode";
+import FeedbackSection from "@/app/components/ProjectDetail/FeedbackSection";
+
+export const dynamic = "force-dynamic";
+
+// 3. Tambahkan kembali fungsi 'extractData' yang hilang
+function extractData(response: any): any[] {
+  if (response && response.payload && Array.isArray(response.payload.data)) {
+    return response.payload.data;
+  }
+  if (Array.isArray(response)) {
+    return response;
+  }
+  if (response && Array.isArray(response.data)) {
+    return response.data;
+  }
+  return [];
+}
 
 const ProjectDetailPage = async ({
   params,
@@ -25,14 +43,26 @@ const ProjectDetailPage = async ({
     redirect("/login");
   }
 
-  const loggedInUserId = cookieStore.get("userId")
-    ? Number(cookieStore.get("userId")?.value)
-    : undefined;
+  let loggedInUserId: number | undefined = undefined;
 
-  const [initialFeatures, initialScenarios] = await Promise.all([
+  try {
+    // Tipe 'JwtPayload' sekarang akan menunjuk ke tipe kustom Anda
+    const decodedToken: JwtPayload = jwtDecode(token);
+    loggedInUserId = decodedToken.userId;
+  } catch (error) {
+    console.error("Server Page: Gagal decode token:", error);
+    redirect("/login");
+  }
+
+  // 4. Ambil respons mentah
+  const [featuresResponse, scenariosResponse] = await Promise.all([
     getFeatures(projectId, token),
     getScenarios(token),
   ]);
+
+  // 5. Ekstrak dan casting data
+  const initialFeatures = extractData(featuresResponse) as CustomFeature[];
+  const initialScenarios = extractData(scenariosResponse) as Scenario[];
 
   return (
     <>
@@ -44,18 +74,12 @@ const ProjectDetailPage = async ({
         <Suspense fallback={<TestScenariosSkeleton />}>
           <TestScenarioDocumentCard projectId={projectId} token={token} />
         </Suspense>
-        <SubmitFeedbackCard
+        <FeedbackSection
           projectId={projectId}
+          token={token}
           userId={loggedInUserId}
-          token={token}
-          initialFeatures={initialFeatures as CustomFeature[] | null}
-          initialScenarios={initialScenarios}
-        />
-        <HistoryFeedbackCard
-          projectId={projectId}
-          token={token}
-          initialFeatures={initialFeatures as CustomFeature[] | null}
-          initialScenarios={initialScenarios}
+          initialFeatures={initialFeatures || []}
+          initialScenarios={initialScenarios || []}
         />
       </main>
     </>

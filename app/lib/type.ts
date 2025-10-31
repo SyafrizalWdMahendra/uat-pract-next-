@@ -81,17 +81,18 @@ export interface FeedbackPayload {
 
 export interface FeedbackHistoryPayload {
   id: number;
-  user_id: number;
   project_id: number;
   status: string;
   priority: string;
   description: string;
   created_at: Date | string;
   user: {
+    id: number;
     name: string;
   };
   testScenario: {
     code: string;
+    test_case: string;
   };
   feature: {
     project_id: number;
@@ -112,6 +113,7 @@ export interface HistoryFeedbackProps {
   initialFeatures?: Feature[] | null;
   initialScenarios?: Scenario[] | null;
   userId?: number;
+  showAllFeedback?: boolean;
 }
 
 export type SubmitStatus = "success" | "error" | null;
@@ -157,4 +159,41 @@ export interface FeedbackHistoryId {
   feature: {
     title: string;
   };
+}
+
+export interface FeedbackSectionProps {
+  projectId: number;
+  token: string;
+  userId?: number;
+  initialFeatures: Feature[] | null;
+  initialScenarios: Scenario[] | null;
+}
+
+export interface FeedbackData {
+  id: number;
+  user_id: number;
+  test_scenario_id: number;
+  feature_id: number;
+  project_id: number;
+  description: string;
+  status: string;
+  priority: string;
+  created_at: string;
+  updated_at: string;
+  user: {
+    id: number;
+    name: string;
+  };
+  testScenario: {
+    code: string;
+    test_case: string;
+  };
+  feature: {
+    title: string;
+  };
+}
+
+export interface FeedbackDetailProps {
+  feedbackId: number | string;
+  token: string;
 }
