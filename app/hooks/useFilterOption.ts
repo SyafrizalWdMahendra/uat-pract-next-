@@ -5,10 +5,10 @@ import { Feature, FeedbackHistoryPayload, FilterOptions } from "../lib/type";
 export const useFilterOptions = (
   token: string,
   initialFeatures: Feature[],
-  allFeedbacks: FeedbackHistoryPayload[]
+  allFeedbacks: FeedbackHistoryPayload[],
 ) => {
   const [filterOptions, setFilterOptions] = useState<FilterOptions | null>(
-    null
+    null,
   );
 
   const extractFilterOptions = useCallback(
@@ -35,7 +35,7 @@ export const useFilterOptions = (
         statuses: uniqueStatuses,
       };
     },
-    []
+    [],
   );
 
   useEffect(() => {

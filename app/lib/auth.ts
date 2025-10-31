@@ -11,7 +11,7 @@ export async function verifyToken(token: string): Promise<JWTPayload | null> {
 
   if (!secret) {
     console.error(
-      "Kesalahan: JWT_SECRET tidak diatur di environment variables."
+      "Kesalahan: JWT_SECRET tidak diatur di environment variables.",
     );
     return null;
   }

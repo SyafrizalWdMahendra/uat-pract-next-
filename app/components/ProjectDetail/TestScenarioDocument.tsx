@@ -91,8 +91,9 @@ const TestScenarioDocumentCard = ({
                   Test Scenarios Spreadsheet
                 </p>
                 <p className="text-sm font-light mt-1 ">
-                  Contains all 225 test scenarios with detailed steps, expected
-                  results, and acceptance criteria.
+                  Contains all {projectId == 2 ? "525" : "225"} test scenarios
+                  with detailed steps, expected results, and acceptance
+                  criteria.
                 </p>
               </div>
               <div className="flex flex-wrap gap-3 mt-3 ">

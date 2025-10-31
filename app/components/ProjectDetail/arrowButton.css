@@ -1,6 +1,6 @@
 const box = {
-    width: 100,
-    height: 100,
-    backgroundColor: "#46CF76",
-    borderRadius: 5,
+  width: 100;
+  height: 100;
+  backgroundcolor: "#46CF76";
+  borderradius: 5;
 }

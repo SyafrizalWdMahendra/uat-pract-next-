@@ -4,7 +4,7 @@ import { FeedbackHistoryPayload } from "../lib/type";
 
 export const useFeedbackData = (projectId: number, token: string) => {
   const [allFeedbacks, setAllFeedbacks] = useState<FeedbackHistoryPayload[]>(
-    []
+    [],
   );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -29,7 +29,7 @@ export const useFeedbackData = (projectId: number, token: string) => {
         if (!response.ok) {
           const errorData = await response.json().catch(() => ({}));
           throw new Error(
-            errorData.message || `Failed to fetch feedback: ${response.status}`
+            errorData.message || `Failed to fetch feedback: ${response.status}`,
           );
         }
 

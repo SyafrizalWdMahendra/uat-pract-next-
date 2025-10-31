@@ -34,14 +34,14 @@ const CardProject = ({
             {" "}
             <span
               className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border whitespace-nowrap ${getPriorityClass(
-                priority
+                priority,
               )}`}
             >
               {priority}
             </span>
             <span
               className={`text-xs font-semibold px-2.5 py-0.5 rounded-full border whitespace-nowrap ${getStatusClass(
-                status
+                status,
               )}`}
             >
               {status}

@@ -6,7 +6,7 @@ export const useClientSideFilter = (
   searchTerm: string,
   selectedStatus: string,
   selectedPriority: string,
-  selectedFeature: string
+  selectedFeature: string,
 ) => {
   return useMemo(() => {
     let filtered = [...allFeedbacks];
@@ -18,7 +18,7 @@ export const useClientSideFilter = (
           feedback.description.toLowerCase().includes(searchLower) ||
           feedback.feature.title.toLowerCase().includes(searchLower) ||
           feedback.user.name.toLowerCase().includes(searchLower) ||
-          feedback.testScenario.code.toLowerCase().includes(searchLower)
+          feedback.testScenario.code.toLowerCase().includes(searchLower),
       );
     }
 

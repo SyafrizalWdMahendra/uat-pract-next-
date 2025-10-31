@@ -57,7 +57,7 @@ const Navbar = ({ title, description, priority }: NavbarProps) => {
         ) : priority ? (
           <span
             className={`text-xs font-semibold px-3 py-1 rounded-full border whitespace-nowrap shadow-md shadow-blue-900 ${getPriorityClass(
-              priority
+              priority,
             )}`}
           >
             {`${priority} priority`}

@@ -17,10 +17,10 @@ const SubmitFeedbackCard = ({
   initialScenarios,
 }: SubmitFeedbackCardProps) => {
   const [featuresList, setFeaturesList] = useState<Feature[]>(
-    initialFeatures || []
+    initialFeatures || [],
   );
   const [allScenarios, setAllScenarios] = useState<Scenario[]>(
-    initialScenarios || []
+    initialScenarios || [],
   );
   const [selectedFeatureId, setSelectedFeatureId] = useState<string>("");
   const [selectedTestScenarioId, setSelectedTestScenarioId] =
@@ -45,7 +45,7 @@ const SubmitFeedbackCard = ({
       } else {
         console.error(
           "Could not extract user_id from token. Available fields:",
-          Object.keys(decoded || {})
+          Object.keys(decoded || {}),
         );
       }
     }
@@ -56,7 +56,7 @@ const SubmitFeedbackCard = ({
     const newFeatureIdNum = Number(newFeatureId);
     setSelectedFeatureId(newFeatureId);
     const filteredScenarios = allScenarios.filter(
-      (s) => s.feature_id === newFeatureIdNum
+      (s) => s.feature_id === newFeatureIdNum,
     );
 
     setAvailableScenarios(filteredScenarios);

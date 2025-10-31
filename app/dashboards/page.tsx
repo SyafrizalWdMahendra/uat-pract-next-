@@ -6,7 +6,7 @@ import { CurrentProjectCard } from "../components/Dashboards/CurrentProjectCard"
 import Navbar from "../components/Dashboards/Navbar";
 import { verifyToken } from "../lib/auth";
 import {
-  ProjectCardSkeleton,
+  CurrentProjectSkeleton,
   StatsCardSkeleton,
 } from "../components/Dashboards/Skeleton";
 
@@ -42,7 +42,7 @@ const Dashboards = async () => {
           <StatsCards token={token} />
         </Suspense>
 
-        <Suspense fallback={<ProjectCardSkeleton />}>
+        <Suspense fallback={<CurrentProjectSkeleton />}>
           <CurrentProjectCard token={token} />
         </Suspense>
       </main>

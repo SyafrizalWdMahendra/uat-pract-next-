@@ -2,32 +2,39 @@
 
 import { HistoryFeedbackProps } from "@/app/lib/type";
 import { MessageCircle } from "lucide-react";
-import { ChangeEvent, useState, useCallback } from "react";
-import { useDebounce } from "@/app/hooks/useDebounce";
+import { ChangeEvent } from "react";
 import { capitalizeFirst } from "@/app/utils/label";
-import { DEBOUNCE_DELAY } from "@/app/utils/cons";
 import { useFilterOptions } from "@/app/hooks/useFilterOption";
 import { useFeedbackData } from "@/app/hooks/useFeedbackData";
 import { useClientSideFilter } from "@/app/hooks/useClientSideFilter";
 import FeedbackTableRow from "./FeedbackTableRow";
 import { EmptyState, ErrorState, LoadingState } from "./FeedHistoryState";
+import { useFeedbackFilters } from "@/app/hooks/useResetFilter";
 
 const HistoryFeedbackCard = ({
   projectId,
   token,
   initialFeatures = [],
 }: HistoryFeedbackProps) => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState("");
-  const [selectedPriority, setSelectedPriority] = useState("");
-  const [selectedFeature, setSelectedFeature] = useState("");
+  const {
+    searchTerm,
+    setSearchTerm,
+    selectedStatus,
+    setSelectedStatus,
+    selectedPriority,
+    setSelectedPriority,
+    selectedFeature,
+    setSelectedFeature,
+    debouncedSearchTerm,
+    hasActiveFilters,
+    handleResetFilters,
+  } = useFeedbackFilters();
 
-  const debouncedSearchTerm = useDebounce(searchTerm, DEBOUNCE_DELAY);
   const { allFeedbacks, isLoading, error } = useFeedbackData(projectId, token);
   const filterOptions = useFilterOptions(
     token,
     initialFeatures ?? [],
-    allFeedbacks || []
+    allFeedbacks || [],
   );
 
   const filteredFeedbacks = useClientSideFilter(
@@ -35,22 +42,8 @@ const HistoryFeedbackCard = ({
     debouncedSearchTerm,
     selectedStatus,
     selectedPriority,
-    selectedFeature
+    selectedFeature,
   );
-
-  const hasActiveFilters = !!(
-    debouncedSearchTerm ||
-    selectedStatus ||
-    selectedPriority ||
-    selectedFeature
-  );
-
-  const handleResetFilters = useCallback(() => {
-    setSearchTerm("");
-    setSelectedStatus("");
-    setSelectedPriority("");
-    setSelectedFeature("");
-  }, []);
 
   return (
     <div className="bg-white p-6 rounded-lg border border-gray-200 mt-8">

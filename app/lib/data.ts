@@ -23,7 +23,7 @@ async function fetchApi<T>(path: string, token: string): Promise<T | null> {
 
     if (!response.ok) {
       console.warn(
-        `[fetchApi] Gagal fetch ${path}: ${response.status} ${response.statusText}`
+        `[fetchApi] Gagal fetch ${path}: ${response.status} ${response.statusText}`,
       );
       return null;
     }
@@ -34,7 +34,7 @@ async function fetchApi<T>(path: string, token: string): Promise<T | null> {
       return rawData.payload.data as T;
     } else {
       console.warn(
-        `[fetchApi] Respons API untuk ${path} tidak memiliki 'payload.data'.`
+        `[fetchApi] Respons API untuk ${path} tidak memiliki 'payload.data'.`,
       );
       return null;
     }
@@ -54,14 +54,14 @@ export const getProject = (token: string): Promise<IProject[] | null> => {
 
 export const getProjectById = (
   id: string | number,
-  token: string
+  token: string,
 ): Promise<IProjectDetail | null> => {
   return fetchApi<IProjectDetail>(`/projectInformations/${id}`, token);
 };
 
 export const getFeatures = (
   projectId: number,
-  token: string
+  token: string,
 ): Promise<Feature[] | null> => {
   return fetchApi<Feature[]>(`/features?projectId=${projectId}`, token);
 };
@@ -72,7 +72,7 @@ export const getScenarios = (token: string): Promise<Scenario[] | null> => {
 
 export const getScenarioDocs = (
   projectId: number,
-  token: string
+  token: string,
 ): Promise<ScenarioDocs | null> => {
   return fetchApi<ScenarioDocs>(`/scenarioDocs/${projectId}`, token);
 };
