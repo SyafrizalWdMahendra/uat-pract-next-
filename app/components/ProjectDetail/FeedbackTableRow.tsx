@@ -1,24 +1,15 @@
 import { Eye, Trash2 } from "lucide-react";
-import { PriorityBadge, StatusBadge } from "./FeedHistoryBadge";
 import { FeedbackHistoryPayload } from "@/app/lib/type";
+import Link from "next/link";
+import FeedbackHistoryBadge from "../Utility/FeedbackHistoryBadge";
 
 const FeedbackTableRow = ({
   feedback,
-  index,
 }: {
   feedback: FeedbackHistoryPayload;
-  index: number;
 }) => (
-  <tr
-    key={`feedback-${feedback.project_id}-${index}`}
-    className="border-b border-gray-200 hover:bg-gray-50 transition-colors"
-  >
-    <td className="p-4">
-      <StatusBadge status={feedback.status} />
-    </td>
-    <td className="p-4">
-      <PriorityBadge priority={feedback.priority} />
-    </td>
+  <tr className="border-b border-gray-200 hover:bg-gray-50 transition-colors">
+    <FeedbackHistoryBadge feedback={feedback} />
     <td className="p-4">
       <span className="font-semibold text-blue-900">
         {feedback.feature.title}
@@ -34,25 +25,23 @@ const FeedbackTableRow = ({
     </td>
     <td className="p-4">
       <div className="flex items-center justify-center gap-2">
-        <button
-          className="p-2 text-blue-600 hover:bg-blue-50 hover:cursor-pointer rounded-md transition-colors"
+        <Link
+          href={`/feedbackDetail/${feedback.id}`}
+          className="flex items-center gap-1 p-2 text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
           title="View Details"
           aria-label="View feedback details"
         >
-          <div className="flex items-center gap-1 ">
-            <Eye className="w-4 h-4" />
-            <p className="text-sm sm:hidden lg:block">Details</p>
-          </div>
-        </button>
+          <Eye className="w-4 h-4" />
+          <p className="text-sm sm:hidden lg:block">Details</p>
+        </Link>
+
         <button
-          className="p-2 text-red-600 hover:bg-red-50 hover:cursor-pointer rounded-md transition-colors"
+          className="flex items-center gap-1 p-2 text-red-600 hover:bg-red-50 rounded-md transition-colors"
           title="Delete"
           aria-label="Delete feedback"
         >
-          <div className="flex items-center gap-1">
-            <Trash2 className="w-4 h-4" />
-            <p className="text-sm sm:hidden lg:block">Delete</p>
-          </div>
+          <Trash2 className="w-4 h-4" />
+          <p className="text-sm sm:hidden lg:block">Delete</p>
         </button>
       </div>
     </td>

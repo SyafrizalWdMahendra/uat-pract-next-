@@ -17,10 +17,10 @@ const SubmitFeedbackCard = ({
   initialScenarios,
 }: SubmitFeedbackCardProps) => {
   const [featuresList, setFeaturesList] = useState<Feature[]>(
-    initialFeatures || [],
+    initialFeatures || []
   );
   const [allScenarios, setAllScenarios] = useState<Scenario[]>(
-    initialScenarios || [],
+    initialScenarios || []
   );
   const [selectedFeatureId, setSelectedFeatureId] = useState<string>("");
   const [selectedTestScenarioId, setSelectedTestScenarioId] =
@@ -34,7 +34,12 @@ const SubmitFeedbackCard = ({
 
   useEffect(() => {
     if (token) {
-      const decoded = decodeJWT(token);
+      const decoded = decodeJWT(token) as {
+        userId?: number | string;
+        user_id?: number | string;
+        id?: number | string;
+        sub?: number | string;
+      };
       console.log("Decoded token:", decoded);
       const extractedUserId =
         decoded?.userId || decoded?.user_id || decoded?.id || decoded?.sub;
@@ -45,7 +50,7 @@ const SubmitFeedbackCard = ({
       } else {
         console.error(
           "Could not extract user_id from token. Available fields:",
-          Object.keys(decoded || {}),
+          Object.keys(decoded || {})
         );
       }
     }
@@ -56,7 +61,7 @@ const SubmitFeedbackCard = ({
     const newFeatureIdNum = Number(newFeatureId);
     setSelectedFeatureId(newFeatureId);
     const filteredScenarios = allScenarios.filter(
-      (s) => s.feature_id === newFeatureIdNum,
+      (s) => s.feature_id === newFeatureIdNum
     );
 
     setAvailableScenarios(filteredScenarios);
@@ -218,7 +223,7 @@ const SubmitFeedbackCard = ({
 
         <div className="flex text-black flex-col gap-4">
           <form onSubmit={handleSubmit}>
-            <div className="flex w-full gap-4 justify-between flex-col md:flex-row ">
+            <div className="flex w-full lg:gap-4 md:gap-4 justify-between flex-col md:flex-row">
               <div className="text-sm font-medium w-full">
                 <h3>Select Feature</h3>
                 <select

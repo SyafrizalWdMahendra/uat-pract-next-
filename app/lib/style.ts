@@ -11,6 +11,7 @@ const statusColors = {
   inactive: "bg-gray-100 text-gray-800 border-gray-300",
   completed: "bg-gray-100 text-blue-800 border-blue-300",
   Default: "bg-gray-100 text-gray-800 border-gray-300",
+  open: "bg-red-100 text-red-800 border-red-300",
 };
 
 /**

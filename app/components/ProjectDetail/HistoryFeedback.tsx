@@ -182,12 +182,8 @@ const HistoryFeedbackCard = ({
               </tr>
             </thead>
             <tbody>
-              {filteredFeedbacks.map((feedback, index) => (
-                <FeedbackTableRow
-                  key={`feedback-${feedback.project_id}-${index}`}
-                  feedback={feedback}
-                  index={index}
-                />
+              {filteredFeedbacks.map((feedback) => (
+                <FeedbackTableRow key={feedback.id} feedback={feedback} />
               ))}
             </tbody>
           </table>

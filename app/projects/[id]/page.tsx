@@ -12,25 +12,6 @@ import HistoryFeedbackCard from "@/app/components/ProjectDetail/HistoryFeedback"
 import { Feature as CustomFeature } from "@/app/lib/type";
 import { getFeatures, getScenarios } from "@/app/lib/data";
 
-/**
- * Helper function untuk mengekstrak data,
- * baik dari { data: [...] } atau [...]
- */
-function extractData(response: any): any[] {
-  if (response && response.payload && Array.isArray(response.payload.data)) {
-    return response.payload.data;
-  }
-
-  if (Array.isArray(response)) {
-    return response;
-  }
-  if (response && Array.isArray(response.data)) {
-    return response.data;
-  }
-
-  return [];
-}
-
 const ProjectDetailPage = async ({
   params,
 }: {

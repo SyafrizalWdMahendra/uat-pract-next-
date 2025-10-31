@@ -5,6 +5,7 @@ import type {
   IProjectDetail,
   Scenario,
   ScenarioDocs,
+  FeedbackHistoryId,
 } from "./type";
 
 const API_BASE_URL = "http://localhost:4000/api";
@@ -75,4 +76,14 @@ export const getScenarioDocs = (
   token: string,
 ): Promise<ScenarioDocs | null> => {
   return fetchApi<ScenarioDocs>(`/scenarioDocs/${projectId}`, token);
+};
+
+export const getFeedbackHistoryByProjectId = (
+  projectId: number,
+  token: string,
+): Promise<FeedbackHistoryId | null> => {
+  return fetchApi<FeedbackHistoryId>(
+    `/feedback-history/details/${projectId}`,
+    token,
+  );
 };

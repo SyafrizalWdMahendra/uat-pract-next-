@@ -80,6 +80,8 @@ export interface FeedbackPayload {
 }
 
 export interface FeedbackHistoryPayload {
+  id: number;
+  user_id: number;
   project_id: number;
   status: string;
   priority: string;
@@ -92,8 +94,8 @@ export interface FeedbackHistoryPayload {
     code: string;
   };
   feature: {
-    project_id: any;
-    id: any;
+    project_id: number;
+    id: number;
     title: string;
   };
 }
@@ -108,7 +110,8 @@ export interface HistoryFeedbackProps {
   projectId: number;
   token: string;
   initialFeatures?: Feature[] | null;
-  initialScenarios?: any[] | null;
+  initialScenarios?: Scenario[] | null;
+  userId?: number;
 }
 
 export type SubmitStatus = "success" | "error" | null;
@@ -130,4 +133,28 @@ export interface ScenarioDocData {
   id: number;
   project_id: number;
   doc_url: string;
+}
+
+export interface FeedbackHistoryId {
+  token: string;
+  id: number;
+  user_id: number;
+  test_scenario_id: number;
+  feature_id: number;
+  project_id: number;
+  description: string;
+  status: string;
+  priority: string;
+  created_at: string;
+  updated_at: string;
+  user: {
+    name: string;
+  };
+  testScenario: {
+    code: string;
+    test_case: string;
+  };
+  feature: {
+    title: string;
+  };
 }
