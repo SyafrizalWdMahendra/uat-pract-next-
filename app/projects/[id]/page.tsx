@@ -8,8 +8,8 @@ import TestScenarioDocumentCard from "@/app/components/ProjectDetail/TestScenari
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getFeatures, getScenarios } from "@/app/lib/data";
-import { Feature as CustomFeature, Scenario } from "@/app/lib/type";
-import { jwtDecode, JwtPayload } from "jwt-decode";
+import { Feature as CustomFeature, JwtPayload, Scenario } from "@/app/lib/type";
+import { jwtDecode } from "jwt-decode";
 import FeedbackSection from "@/app/components/ProjectDetail/FeedbackSection";
 
 export const dynamic = "force-dynamic";

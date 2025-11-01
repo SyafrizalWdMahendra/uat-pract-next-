@@ -197,3 +197,11 @@ export interface FeedbackDetailProps {
   feedbackId: number | string;
   token: string;
 }
+
+export interface JwtPayload {
+  userId: number;
+  email: string;
+  name: string;
+  iat: number;
+  exp: number;
+}
