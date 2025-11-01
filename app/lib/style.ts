@@ -14,12 +14,6 @@ const statusColors = {
   open: "bg-red-100 text-red-800 border-red-300",
 };
 
-/**
- * Gets the Tailwind CSS classes for a given project priority.
- * This is a simple synchronous function.
- * @param priority The priority string (e.g., "high", "medium", "low"). Case-insensitive.
- * @returns Tailwind class string.
- */
 export const getPriorityClass = (priority?: string): string => {
   if (!priority) {
     return priorityColors.Default;
@@ -31,12 +25,6 @@ export const getPriorityClass = (priority?: string): string => {
   );
 };
 
-/**
- * Gets the Tailwind CSS classes for a given project status.
- * This is a simple synchronous function.
- * @param status The status string (e.g., "active", "In Progress"). Case-sensitive for "In Progress".
- * @returns Tailwind class string.
- */
 export const getStatusClass = (status?: string): string => {
   if (!status) {
     return statusColors.Default;

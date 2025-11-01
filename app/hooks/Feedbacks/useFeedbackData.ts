@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react"; // Tambahkan useCallback
-import { API_BASE_URL } from "../utils/cons";
-import { FeedbackHistoryPayload } from "../lib/type";
+import { API_BASE_URL } from "../../utils/cons";
+import { FeedbackHistoryPayload } from "../../lib/type";
 
 export const useFeedbackData = (projectId: number, token: string) => {
   const [allFeedbacks, setAllFeedbacks] = useState<FeedbackHistoryPayload[]>(
@@ -9,7 +9,6 @@ export const useFeedbackData = (projectId: number, token: string) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // 1. Bungkus logic fetch dalam useCallback
   const fetchFeedbacks = useCallback(async () => {
     setIsLoading(true);
     setError(null);
@@ -47,13 +46,11 @@ export const useFeedbackData = (projectId: number, token: string) => {
     } finally {
       setIsLoading(false);
     }
-  }, [projectId, token]); // 2. Tambahkan dependensi
+  }, [projectId, token]);
 
-  // 3. Panggil fetchFeedbacks saat komponen dimuat
   useEffect(() => {
     fetchFeedbacks();
   }, [fetchFeedbacks]);
 
-  // 4. Kembalikan fungsi fetch (sebagai "refresh")
   return { allFeedbacks, isLoading, error, refreshFeedbacks: fetchFeedbacks };
 };

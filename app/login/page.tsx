@@ -1,17 +1,8 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import "./loginPage.css";
+import { GetAuthCookies } from "../lib/Auth/cookies";
 
 const Login = async () => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
-
-  if (token) {
-    redirect("/dashboards");
-  }
-
-  const googleLoginUrl = "http://localhost:4000/api/auth/google";
-
+  const cookie = GetAuthCookies();
   return (
     <>
       <div className="loginForm">
@@ -19,7 +10,7 @@ const Login = async () => {
         <p>
           Sign in with your Google account to access the UAT testing dashboard
         </p>
-        <a href={googleLoginUrl} className="google-login-button">
+        <a href={(await cookie).googleLoginUrl} className="google-login-button">
           <span>Sign in with Google</span>
         </a>
       </div>

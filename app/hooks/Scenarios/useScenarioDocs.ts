@@ -6,7 +6,7 @@ import { ScenarioDocData } from "@/app/lib/type";
 export const useScenarioDoc = (projectId: number, token: string) => {
   const [docUrl, setDocUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null); // Tambahkan state error
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!projectId || !token) {
@@ -28,7 +28,7 @@ export const useScenarioDoc = (projectId: number, token: string) => {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
-          },
+          }
         );
 
         if (!response.ok) {

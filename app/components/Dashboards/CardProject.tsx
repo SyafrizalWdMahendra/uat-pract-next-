@@ -1,10 +1,6 @@
 import { getPriorityClass, getStatusClass } from "@/app/lib/style";
-import { IProject } from "@/app/lib/type";
+import { CardProjectProps } from "@/app/lib/type";
 import Link from "next/link";
-
-interface CardProjectProps extends IProject {
-  href: string;
-}
 
 const CardProject = ({
   href,

@@ -1,7 +1,7 @@
 "use client";
 
 import { FeedbackSectionProps } from "@/app/lib/type";
-import { useFeedbackData } from "@/app/hooks/useFeedbackData";
+import { useFeedbackData } from "@/app/hooks/Feedbacks/useFeedbackData";
 import SubmitFeedbackCard from "./SubmitFeedback";
 import HistoryFeedbackCard from "./HistoryFeedback";
 

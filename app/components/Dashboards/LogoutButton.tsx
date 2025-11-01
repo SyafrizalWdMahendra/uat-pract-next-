@@ -1,7 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
-import { logout } from "@/app/auth/actions"; // <-- Sesuaikan path ke file actions.ts
+import { logout } from "@/app/auth/logout";
 
 export const LogoutButton = () => {
   const [isPending, startTransition] = useTransition();

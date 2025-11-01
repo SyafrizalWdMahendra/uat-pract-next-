@@ -1,53 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
 import { Info, Calendar, User, AlertCircle, Loader2 } from "lucide-react";
 import FeedbackDetailBadge from "../Utility/FeedbackDetailBadge";
-import { FeedbackData, FeedbackDetailProps } from "@/app/lib/type";
+import { FeedbackDetailProps } from "@/app/lib/type";
+import { useFeedbackDetail } from "@/app/hooks/Feedbacks/useFeedbackDetail";
 
-export const FeedbackDetail = ({ feedbackId, token }: FeedbackDetailProps) => {
-  const [feedback, setFeedback] = useState<FeedbackData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!feedbackId || !token) {
-      setError("Feedback ID atau Token tidak valid.");
-      setIsLoading(false);
-      return;
-    }
-
-    const fetchFeedbackDetail = async () => {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        const response = await fetch(
-          `http://localhost:4000/api/feedback-history/details/${feedbackId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
-        const result = await response.json();
-
-        if (!response.ok) {
-          throw new Error(result.message || `Error: ${response.status}`);
-        }
-
-        setFeedback(result.payload.data);
-      } catch (err: any) {
-        setError(err.message || "Terjadi kesalahan saat mengambil data.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchFeedbackDetail();
-  }, [feedbackId, token]);
-
+export const FeedbackDetail = (props: FeedbackDetailProps) => {
+  const { isLoading, feedback, error } = useFeedbackDetail(props);
   if (isLoading) {
     return (
       <div className="flex justify-center items-center p-10">
@@ -100,7 +58,7 @@ export const FeedbackDetail = ({ feedbackId, token }: FeedbackDetailProps) => {
               <Info className="h-5 w-5"></Info>
               <p>Status & Priority</p>
             </div>
-            <div className="flex justify-around w-full ">
+            <div className="flex justify-start gap-2 pl-2 w-full ">
               <FeedbackDetailBadge feedback={feedback} />
             </div>
           </div>

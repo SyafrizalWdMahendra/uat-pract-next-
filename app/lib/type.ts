@@ -205,3 +205,34 @@ export interface JwtPayload {
   iat: number;
   exp: number;
 }
+
+export interface UserPayload {
+  userId: number | string;
+  email: string;
+  name?: string;
+}
+
+export interface UpdatedSubmitProps extends SubmitFeedbackCardProps {
+  onFeedbackSubmitted: () => void;
+}
+
+export interface UpdatedHistoryProps extends HistoryFeedbackProps {
+  feedbacks: FeedbackHistoryPayload[];
+  isLoading: boolean;
+  error: string | null;
+}
+
+export interface NavbarProps {
+  title: string;
+  description?: string;
+  priority?: string;
+}
+
+export interface CardStatsProps {
+  title: string;
+  value: number | string;
+}
+
+export interface CardProjectProps extends IProject {
+  href: string;
+}

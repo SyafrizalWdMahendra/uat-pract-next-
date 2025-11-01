@@ -1,5 +1,3 @@
-import { getProjectById } from "@/app/lib/data";
-import { IProjectDetail } from "@/app/lib/type";
 import {
   CalendarDays,
   Clock,
@@ -9,32 +7,21 @@ import {
   MedalIcon,
   User,
 } from "lucide-react";
-import { cookies } from "next/headers";
-import { notFound, redirect } from "next/navigation";
 import Navbar from "../Dashboards/Navbar";
+import { GetProjectDetailCookies } from "@/app/lib/ProjectDetail/cookies";
 
 const CardProjectDetail = async ({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) => {
-  const projectId = (await params).id;
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
-  if (!token) {
-    redirect("/login");
-  }
-  const project: IProjectDetail | null = await getProjectById(projectId, token);
-
-  if (!project) {
-    notFound();
-  }
+  const cookie = GetProjectDetailCookies({ params });
   return (
     <>
       <Navbar
-        title={project.title}
-        description={`${project.description}`}
-        priority={project.priority}
+        title={(await cookie).project.title}
+        description={`${(await cookie).project.description}`}
+        priority={(await cookie).project.priority}
       />
       <div className="bg-white p-6 rounded-lg border border-gray-200 mb-8 md:mt-3 sm:mt-3 lg:mt-0 mt-3">
         <div className="flex items-center mb-6">
@@ -52,7 +39,7 @@ const CardProjectDetail = async ({
                 Project Manager
               </p>
               <p className="text-md font-semibold text-gray-900 mt-1">
-                {project.manager?.name || "-"}
+                {(await cookie).project.manager?.name || "-"}
               </p>
             </div>
           </div>
@@ -63,7 +50,7 @@ const CardProjectDetail = async ({
                 Test Lead
               </p>
               <p className="text-md font-semibold text-gray-900 mt-1">
-                {project.testLead?.name || "-"}
+                {(await cookie).project.testLead?.name || "-"}
               </p>
             </div>
           </div>
@@ -74,7 +61,7 @@ const CardProjectDetail = async ({
                 Start Date
               </p>
               <p className="text-md font-semibold text-gray-900 mt-1">
-                {project.start_date || "-"}{" "}
+                {(await cookie).project.start_date || "-"}{" "}
               </p>
             </div>
           </div>
@@ -85,7 +72,7 @@ const CardProjectDetail = async ({
                 Due Date
               </p>
               <p className="text-md font-semibold text-gray-900 mt-1">
-                {project.due_date || "-"}{" "}
+                {(await cookie).project.due_date || "-"}{" "}
               </p>
             </div>
           </div>
@@ -97,7 +84,7 @@ const CardProjectDetail = async ({
             <div>
               <p className="text-sm font-medium text-blue-800">Features</p>
               <p className="text-2xl font-bold text-blue-900 mt-1">
-                {project.featureCount}
+                {(await cookie).project.featureCount}
               </p>
             </div>
           </div>
@@ -108,7 +95,7 @@ const CardProjectDetail = async ({
                 Test Scenarios
               </p>
               <p className="text-2xl font-bold text-green-900 mt-1">
-                {project.testScenarioCount}
+                {(await cookie).project.testScenarioCount}
               </p>
             </div>
           </div>
@@ -117,7 +104,9 @@ const CardProjectDetail = async ({
             <div>
               <p className="text-sm font-medium text-purple-800">Duration</p>
               <p className="text-2xl font-bold text-purple-900 mt-1">
-                {project.duration !== null ? `${project.duration} days` : "-"}
+                {(await cookie).project.duration !== null
+                  ? `${(await cookie).project.duration} days`
+                  : "-"}
               </p>
             </div>
           </div>

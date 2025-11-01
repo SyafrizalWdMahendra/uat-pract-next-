@@ -1,33 +1,19 @@
-import { cookies } from "next/headers";
-import { notFound, redirect } from "next/navigation";
 import { FeedbackDetail } from "@/app/components/ProjectDetail/FeedbackDetail";
 import { Suspense } from "react";
-import { Loader2 } from "lucide-react";
-import { FeedbackHistoryPayload, IProjectDetail } from "@/app/lib/type";
-import { getFeedbackHistoryDetails, getProjectById } from "@/app/lib/data";
 import Navbar from "@/app/components/Dashboards/Navbar";
 import SlideUpWrapper from "@/app/components/Utility/SlideUpWrapper";
 import { BackButton } from "@/app/components/ProjectDetail/BackButton";
+import { GetFeedbackDetailCookie } from "@/app/lib/FeedbackDetail/cookies";
+import { Loading } from "@/app/components/Utility/Loading";
 
 export default async function FeedbackDetailPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const { id } = await params;
-
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
-
-  if (!token) {
-    redirect("/login");
-  }
-  const feedHistoryDetails: FeedbackHistoryPayload | null =
-    await getFeedbackHistoryDetails(id, token);
-
-  if (!feedHistoryDetails) {
-    notFound();
-  }
+  const { feedHistoryDetails, token } = await GetFeedbackDetailCookie({
+    params,
+  });
 
   return (
     <>
@@ -51,17 +37,11 @@ export default async function FeedbackDetailPage({
               </div>
             </div>
 
-            <Suspense
-              fallback={
-                <div className="flex justify-center items-center p-10">
-                  <Loader2 className="w-6 h-6 animate-spin text-blue-600" />
-                  <span className="ml-3 text-gray-700">
-                    Loading feedback details...
-                  </span>
-                </div>
-              }
-            >
-              <FeedbackDetail feedbackId={id} token={token} />
+            <Suspense fallback={<Loading />}>
+              <FeedbackDetail
+                feedbackId={feedHistoryDetails.id}
+                token={token}
+              />
             </Suspense>
           </div>
         </SlideUpWrapper>

@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { useDebounce } from "./useDebounce";
+import { useDebounce } from "../useDebounce";
 
 const DEBOUNCE_DELAY = 300;
 

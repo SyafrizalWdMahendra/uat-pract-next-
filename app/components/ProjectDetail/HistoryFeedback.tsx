@@ -1,31 +1,14 @@
 "use client";
 
-import { FeedbackHistoryPayload, HistoryFeedbackProps } from "@/app/lib/type";
+import { UpdatedHistoryProps } from "@/app/lib/type";
 import { MessageCircle } from "lucide-react";
 import { ChangeEvent } from "react";
 import { capitalizeFirst } from "@/app/utils/label";
-import { useFilterOptions } from "@/app/hooks/useFilterOption";
-import { useClientSideFilter } from "@/app/hooks/useClientSideFilter";
 import FeedbackTableRow from "./FeedbackTableRow";
 import { EmptyState, ErrorState, LoadingState } from "./FeedHistoryState";
-import { useFeedbackFilters } from "@/app/hooks/useResetFilter";
+import { useFeedbackHistory } from "@/app/hooks/Feedbacks/useFeedbackHistory";
 
-// 1. Perbarui Props untuk menerima data
-interface UpdatedHistoryProps extends HistoryFeedbackProps {
-  feedbacks: FeedbackHistoryPayload[];
-  isLoading: boolean;
-  error: string | null;
-}
-
-const HistoryFeedbackCard = ({
-  userId,
-  projectId,
-  token,
-  initialFeatures = [],
-  feedbacks,
-  isLoading,
-  error,
-}: UpdatedHistoryProps) => {
+const HistoryFeedbackCard = (props: UpdatedHistoryProps) => {
   const {
     searchTerm,
     setSearchTerm,
@@ -36,40 +19,22 @@ const HistoryFeedbackCard = ({
     selectedStatus,
     setSelectedStatus,
     handleResetFilters,
+    filterOptions,
+    filteredFeedbacks,
     hasActiveFilters,
-    debouncedSearchTerm,
-  } = useFeedbackFilters();
-
-  // const { allFeedbacks, isLoading, error } = useFeedbackData(projectId, token);
-  const allFeedbacks = feedbacks;
-
-  const filterOptions = useFilterOptions(
-    token,
-    initialFeatures ?? [],
-    allFeedbacks || []
-  );
-
-  const filteredFeedbacks = useClientSideFilter(
-    allFeedbacks,
-    debouncedSearchTerm,
-    selectedStatus,
-    selectedPriority,
-    selectedFeature,
-    false,
-    userId
-  );
+  } = useFeedbackHistory(props);
 
   return (
     <div className="bg-white p-6 rounded-lg border border-gray-200 mt-8">
       <header className="mb-6">
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between mb-2 gap-4">
           <div className="flex items-center gap-2">
             <MessageCircle className="w-5 h-5 text-blue-900" />
-            <h1 className="text-xl font-semibold text-gray-800">
+            <h1 className="text-xl font-semibold text-gray-800 ">
               My Feedback History
             </h1>
           </div>
-          <div className="bg-blue-100 text-blue-900 px-4 py-1 rounded-full text-sm font-semibold">
+          <div className="bg-blue-100 text-blue-900 px-4 py-1 rounded-full text-sm font-semibold text-center">
             {filteredFeedbacks.length} feedback items
           </div>
         </div>
@@ -162,10 +127,10 @@ const HistoryFeedbackCard = ({
       </div>
 
       <div className="overflow-x-auto">
-        {isLoading && <LoadingState />}
-        {error && <ErrorState message={error} />}
+        {props.isLoading && <LoadingState />}
+        {props.error && <ErrorState message={props.error} />}
 
-        {!isLoading && !error && filteredFeedbacks.length > 0 && (
+        {!props.isLoading && !props.error && filteredFeedbacks.length > 0 && (
           <table className="w-full border-collapse">
             <thead>
               <tr className="border-b border-gray-200 bg-gray-50">
@@ -203,7 +168,7 @@ const HistoryFeedbackCard = ({
           </table>
         )}
 
-        {!isLoading && !error && filteredFeedbacks.length === 0 && (
+        {!props.isLoading && !props.error && filteredFeedbacks.length === 0 && (
           <EmptyState />
         )}
       </div>

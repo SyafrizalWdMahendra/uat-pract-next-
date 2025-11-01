@@ -5,12 +5,7 @@ import Link from "next/link";
 import LogoutButton from "./LogoutButton";
 import { ArrowLeft, Target } from "lucide-react";
 import { getPriorityClass } from "@/app/lib/style";
-
-interface NavbarProps {
-  title: string;
-  description?: string;
-  priority?: string;
-}
+import { NavbarProps } from "@/app/lib/type";
 
 const Navbar = ({ title, description, priority }: NavbarProps) => {
   const pathname = usePathname();
@@ -57,7 +52,7 @@ const Navbar = ({ title, description, priority }: NavbarProps) => {
         ) : priority ? (
           <span
             className={`text-xs font-semibold px-3 py-1 rounded-full border whitespace-nowrap shadow-md shadow-blue-900 ${getPriorityClass(
-              priority,
+              priority
             )}`}
           >
             {`${priority} priority`}

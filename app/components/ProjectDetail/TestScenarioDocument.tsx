@@ -4,7 +4,7 @@ import { Info, File, Check, ArrowRightCircle } from "lucide-react";
 import Link from "next/link";
 import * as motion from "motion/react-client";
 import { TestScenarioDocumentCardProps } from "@/app/lib/type";
-import { useScenarioDoc } from "@/app/hooks/useScenarioDocs";
+import { useScenarioDoc } from "@/app/hooks/Scenarios/useScenarioDocs";
 
 const TestScenarioDocumentCard = ({
   projectId,

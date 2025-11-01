@@ -1,49 +1,30 @@
 import { Suspense } from "react";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import { StatsCards } from "../components/Dashboards/StatsCard";
 import { CurrentProjectCard } from "../components/Dashboards/CurrentProjectCard";
 import Navbar from "../components/Dashboards/Navbar";
-import { verifyToken } from "../lib/auth";
 import {
   CurrentProjectSkeleton,
   StatsCardSkeleton,
-} from "../components/Dashboards/Skeleton";
-
-interface UserPayload {
-  userId: number | string;
-  email: string;
-  name?: string;
-}
+} from "../components/Utility/Skeleton";
+import { GetDashboardCookies } from "../lib/Dashboards/cookies";
 
 const Dashboards = async () => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
-  if (!token) {
-    redirect("/login");
-  }
-
-  const payload = (await verifyToken(token)) as UserPayload | null;
-  if (!payload) {
-    redirect("/login");
-  }
-
-  const userName = payload.name || payload.email || "manager";
+  const cookie = await GetDashboardCookies();
 
   return (
     <>
       <Navbar
         title="UAT Dashboard"
-        description={`Welcome, ${userName}!`}
+        description={`Welcome, ${cookie.userName}!`}
         priority="N/A"
       />
       <main className="pt-22">
         <Suspense fallback={<StatsCardSkeleton />}>
-          <StatsCards token={token} />
+          <StatsCards token={cookie.token} />
         </Suspense>
 
         <Suspense fallback={<CurrentProjectSkeleton />}>
-          <CurrentProjectCard token={token} />
+          <CurrentProjectCard token={cookie.token} />
         </Suspense>
       </main>
     </>

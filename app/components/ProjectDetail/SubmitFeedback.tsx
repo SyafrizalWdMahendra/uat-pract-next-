@@ -1,218 +1,26 @@
 "use client";
 
-import {
-  Feature,
-  Scenario,
-  SubmitFeedbackCardProps,
-  SubmitStatus,
-} from "@/app/lib/type";
+import { ChangeEvent } from "react";
+import { UpdatedSubmitProps } from "@/app/lib/type";
 import { Send } from "lucide-react";
-import { useState, ChangeEvent, FormEvent, useEffect } from "react";
-import { decodeJWT } from "@/app/lib/helper";
-import { API_BASE_URL } from "@/app/utils/cons";
+import { useSubmitFeedback } from "@/app/hooks/Feedbacks/useSubmitFeedback";
 
-// 1. Perbarui props untuk menyertakan fungsi callback
-interface UpdatedSubmitProps extends SubmitFeedbackCardProps {
-  onFeedbackSubmitted: () => void;
-}
-
-const SubmitFeedbackCard = ({
-  projectId,
-  token,
-  initialFeatures,
-  initialScenarios,
-  onFeedbackSubmitted,
-}: UpdatedSubmitProps) => {
-  const [featuresList, setFeaturesList] = useState<Feature[]>(
-    initialFeatures || []
-  );
-  const [allScenarios, setAllScenarios] = useState<Scenario[]>(
-    initialScenarios || []
-  );
-  const [selectedFeatureId, setSelectedFeatureId] = useState<string>("");
-  const [selectedTestScenarioId, setSelectedTestScenarioId] =
-    useState<string>("");
-  const [availableScenarios, setAvailableScenarios] = useState<Scenario[]>([]);
-  const [description, setDescription] = useState<string>("");
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>(null);
-  const [errorMessage, setErrorMessage] = useState<string>("");
-  const [userId, setUserId] = useState<number | null>(null);
-
-  useEffect(() => {
-    if (token) {
-      const decoded = decodeJWT(token) as {
-        userId?: number | string;
-        user_id?: number | string;
-        id?: number | string;
-        sub?: number | string;
-      };
-      console.log("Decoded token:", decoded);
-      const extractedUserId =
-        decoded?.userId || decoded?.user_id || decoded?.id || decoded?.sub;
-
-      if (extractedUserId) {
-        setUserId(Number(extractedUserId));
-        console.log("User ID extracted from token:", extractedUserId);
-      } else {
-        console.error(
-          "Could not extract user_id from token. Available fields:",
-          Object.keys(decoded || {})
-        );
-      }
-    }
-  }, [token]);
-
-  const handleFeatureChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const newFeatureId = e.target.value;
-    const newFeatureIdNum = Number(newFeatureId);
-    setSelectedFeatureId(newFeatureId);
-    const filteredScenarios = allScenarios.filter(
-      (s) => s.feature_id === newFeatureIdNum
-    );
-
-    setAvailableScenarios(filteredScenarios);
-    setSelectedTestScenarioId("");
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    // 3. Ganti 'alert' dengan 'setErrorMessage'
-    if (!selectedFeatureId) {
-      setErrorMessage("Please select a feature first.");
-      setSubmitStatus("error");
-      return;
-    }
-    if (!description.trim()) {
-      setErrorMessage("Please provide a feedback description.");
-      setSubmitStatus("error");
-      return;
-    }
-    if (!userId) {
-      setErrorMessage(
-        "User ID not found. Please refresh the page and try again."
-      );
-      setSubmitStatus("error");
-      return;
-    }
-
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-    setErrorMessage("");
-
-    const featureIdNum = Number(selectedFeatureId);
-    const scenarioIdNum = selectedTestScenarioId
-      ? Number(selectedTestScenarioId)
-      : undefined;
-
-    if (!featureIdNum || isNaN(featureIdNum)) {
-      alert("Invalid feature ID");
-      return;
-    }
-
-    if (!projectId || isNaN(projectId)) {
-      alert("Invalid project ID");
-      return;
-    }
-
-    const feedbackData: any = {
-      user_id: userId,
-      project_id: Number(projectId),
-      feature_id: featureIdNum,
-      description: description.trim(),
-      status: "open",
-      priority: "high",
-    };
-
-    if (scenarioIdNum !== undefined && !isNaN(scenarioIdNum)) {
-      feedbackData.test_scenario_id = scenarioIdNum;
-    }
-
-    console.log("=== SENDING FEEDBACK ===");
-    console.log("Raw values:", {
-      selectedFeatureId,
-      selectedTestScenarioId,
-      projectId,
-      descriptionLength: description.length,
-    });
-    console.log("Payload to send:");
-    console.log(JSON.stringify(feedbackData, null, 2));
-    console.log("Token exists:", !!token);
-    console.log("========================");
-
-    try {
-      const headers = new Headers();
-      headers.append("Content-Type", "application/json");
-      headers.append("Authorization", `Bearer ${token}`);
-
-      const response = await fetch(`${API_BASE_URL}/api/feedbacks`, {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify(feedbackData),
-      });
-
-      console.log("Response status:", response.status);
-      console.log("Response statusText:", response.statusText);
-
-      if (!response.ok && response.status !== 201) {
-        let errorData;
-        let errorMessage = "";
-        const contentType = response.headers.get("content-type");
-
-        try {
-          if (contentType && contentType.includes("application/json")) {
-            errorData = await response.json();
-            if (errorData.payload && errorData.payload.message) {
-              errorMessage = errorData.payload.message;
-            } else if (errorData.message) {
-              errorMessage = errorData.message;
-            } else if (errorData.error) {
-              errorMessage = errorData.error;
-            } else {
-              errorMessage = JSON.stringify(errorData);
-            }
-          } else {
-            const textError = await response.text();
-            errorData = { message: textError };
-            errorMessage = textError || "Unknown error";
-          }
-        } catch (parseError) {
-          console.error("Error parsing response:", parseError);
-          errorMessage = "Failed to parse error response";
-        }
-
-        console.error("Server error response:", errorData);
-        console.error("Status code:", response.status);
-
-        setErrorMessage(`Error ${response.status}: ${errorMessage}`);
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const responseData = await response.json();
-      console.log("Full response:", responseData);
-
-      if (responseData.payload) {
-        console.log("Feedback submitted successfully:", responseData.payload);
-      } else {
-        console.log("Feedback submitted successfully:", responseData);
-      }
-
-      setSubmitStatus("success");
-      setSelectedFeatureId("");
-      setSelectedTestScenarioId("");
-      setDescription("");
-      setAvailableScenarios([]);
-      onFeedbackSubmitted();
-    } catch (error) {
-      console.error("Error submitting feedback:", error);
-      setSubmitStatus("error");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const isButtonDisabled = isSubmitting || selectedFeatureId === "";
+const SubmitFeedbackCard = (props: UpdatedSubmitProps) => {
+  const {
+    featuresList,
+    availableScenarios,
+    selectedFeatureId,
+    selectedTestScenarioId,
+    description,
+    isSubmitting,
+    submitStatus,
+    errorMessage,
+    isButtonDisabled,
+    handleFeatureChange,
+    handleSubmit,
+    setDescription,
+    setSelectedTestScenarioId,
+  } = useSubmitFeedback(props);
 
   return (
     <>
@@ -282,8 +90,6 @@ const SubmitFeedbackCard = ({
 
             <div className="text-sm font-medium">
               <h3>Feedback Description</h3>
-              <input type="hidden" name="status" value="open" />
-              <input type="hidden" name="priority" value="medium" />
               <textarea
                 name="description"
                 id="description"
@@ -321,9 +127,9 @@ const SubmitFeedbackCard = ({
               )}
               {submitStatus === "error" && (
                 <div className="text-sm text-red-600 mt-2">
-                  <p className="font-semibold">Error submitting feedback</p>
-                  {errorMessage && <p className="mt-1">{errorMessage}</p>}
-                  <p className="mt-1">Please check console for more details.</p>
+                  <p className="font-semibold">
+                    Error submitting feedback: {errorMessage}
+                  </p>
                 </div>
               )}
             </div>

@@ -1,7 +1,4 @@
-interface CardStatsProps {
-  title: string;
-  value: number | string;
-}
+import { CardStatsProps } from "@/app/lib/type";
 
 const StatIcons = ({ title }: { title: string }) => {
   if (title === "Active Projects") {

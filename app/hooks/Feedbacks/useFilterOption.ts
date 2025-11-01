@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { DEFAULT_FILTER_OPTIONS } from "../utils/cons";
-import { Feature, FeedbackHistoryPayload, FilterOptions } from "../lib/type";
+import { DEFAULT_FILTER_OPTIONS } from "../../utils/cons";
+import { Feature, FeedbackHistoryPayload, FilterOptions } from "../../lib/type";
 
 export const useFilterOptions = (
   token: string,

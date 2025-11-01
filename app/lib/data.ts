@@ -5,7 +5,6 @@ import type {
   IProjectDetail,
   Scenario,
   ScenarioDocs,
-  FeedbackHistoryId,
   FeedbackHistoryPayload,
 } from "./type";
 

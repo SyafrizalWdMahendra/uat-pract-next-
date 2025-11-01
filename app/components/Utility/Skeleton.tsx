@@ -23,6 +23,9 @@ const StatGridSkeleton = () => {
   );
 };
 
+/**
+ * Sekelton wrapper untuk statistic card.
+ */
 export const StatsCardSkeleton = () => {
   return (
     <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 sm:pt-8 md:p-4 sm:p-4 md:mt-3.5">
@@ -33,6 +36,7 @@ export const StatsCardSkeleton = () => {
     </div>
   );
 };
+
 /**
  * Skeleton untuk current project card.
  */
@@ -70,6 +74,9 @@ const ProjectCardSkeleton = () => {
   );
 };
 
+/**
+ * Skeleton wrapper untuk current project card
+ */
 export const CurrentProjectSkeleton = () => {
   return (
     <div className="flex w-full pl-8 pr-8 justify-start sm:flex-col md:flex-col lg:flex-row">

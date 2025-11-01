@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { FeedbackHistoryPayload } from "../lib/type";
+import { FeedbackHistoryPayload } from "../../lib/type";
 
 export const useClientSideFilter = (
   allFeedbacks: FeedbackHistoryPayload[],
