@@ -13,7 +13,7 @@ export default function CallbackClient() {
     if (token) {
       localStorage.setItem("token", token);
 
-      router.push("/dashboard");
+      router.push("/dashboards");
     } else {
       console.error("Auth callback error: No token found.");
       router.push("/login?error=auth_failed");
