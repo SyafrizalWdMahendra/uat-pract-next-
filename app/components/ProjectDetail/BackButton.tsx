@@ -10,7 +10,7 @@ export const BackButton = () => {
     <button
       type="button"
       onClick={() => router.back()}
-      className="flex items-center hover:bg-blue-100 hover:text-blue-900 text-gray-700 gap-1 p-2 rounded-md bg-transparent transition-colors hover:cursor-pointer"
+      className="flex items-center hover:bg-gray-700 hover:text-white text-gray-700 gap-1 p-2 rounded-md bg-transparent transition-colors hover:cursor-pointer"
       aria-label="Go back to previous page"
     >
       <ArrowLeft className="size-5" />

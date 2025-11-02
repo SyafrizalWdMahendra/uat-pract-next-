@@ -82,6 +82,8 @@ export interface FeedbackPayload {
 export interface FeedbackHistoryPayload {
   id: number;
   project_id: number;
+  feature_id: number;
+  test_scenario_id: number;
   status: string;
   priority: string;
   description: string;
@@ -91,12 +93,13 @@ export interface FeedbackHistoryPayload {
     name: string;
   };
   testScenario: {
+    id: number;
     code: string;
     test_case: string;
   };
   feature: {
-    project_id: number;
     id: number;
+    project_id: number;
     title: string;
   };
 }
@@ -196,6 +199,18 @@ export interface FeedbackData {
 export interface FeedbackDetailProps {
   feedbackId: number | string;
   token: string;
+  onEditClick: () => void;
+}
+
+export interface EditFeedbackDetailProps {
+  feedback: FeedbackHistoryPayload;
+  token: string;
+  onCancel: () => void;
+  allFeatures: Feature[];
+  allScenarios: Scenario[];
+  allStatuses: string[];
+  allPriorities: string[];
+  // onUpdateSuccess: (updatedFeedback: FeedbackHistoryPayload) => void;
 }
 
 export interface JwtPayload {

@@ -3,9 +3,14 @@ import { Info, Calendar, User, AlertCircle, Loader2 } from "lucide-react";
 import FeedbackDetailBadge from "../Utility/FeedbackDetailBadge";
 import { FeedbackDetailProps } from "@/app/lib/type";
 import { useFeedbackDetail } from "@/app/hooks/Feedbacks/useFeedbackDetail";
+import { EditFeedbackDetailButton } from "./EditFeedbackDetailButton";
+import { useState } from "react";
 
 export const FeedbackDetail = (props: FeedbackDetailProps) => {
   const { isLoading, feedback, error } = useFeedbackDetail(props);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleEditClick = () => setIsEditing(true);
   if (isLoading) {
     return (
       <div className="flex justify-center items-center p-10">
@@ -114,6 +119,11 @@ export const FeedbackDetail = (props: FeedbackDetailProps) => {
           {feedback.description}
         </div>
       </div>
+      {!isEditing && (
+        <div className="w-full md:hidden mt-6">
+          <EditFeedbackDetailButton onClick={handleEditClick} />
+        </div>
+      )}
     </div>
   );
 };

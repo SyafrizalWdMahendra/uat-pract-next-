@@ -1,4 +1,3 @@
-import { Feature } from "next/dist/build/webpack/plugins/telemetry-plugin/telemetry-plugin";
 import type {
   IProject,
   IStats,
@@ -6,6 +5,7 @@ import type {
   Scenario,
   ScenarioDocs,
   FeedbackHistoryPayload,
+  Feature,
 } from "./type";
 
 const API_BASE_URL = "http://localhost:4000/api";
