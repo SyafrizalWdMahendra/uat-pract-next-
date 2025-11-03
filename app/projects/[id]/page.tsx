@@ -5,7 +5,7 @@ import {
 } from "@/app/components/Utility/Skeleton";
 import CardProjectDetail from "@/app/components/ProjectDetail/ProjectDetail";
 import TestScenarioDocumentCard from "@/app/components/ProjectDetail/TestScenarioDocument";
-import FeedbackSection from "@/app/components/ProjectDetail/FeedbackSection";
+import FeedbackSection from "@/app/components/Feedbacks/FeedbackSection";
 import { GetProjectCookies } from "@/app/lib/Projects/cookies";
 
 const ProjectDetailPage = async ({

@@ -4,9 +4,10 @@ import { useState } from "react";
 import { Feature, FeedbackHistoryPayload, Scenario } from "@/app/lib/type";
 import SlideUpWrapper from "@/app/components/Utility/SlideUpWrapper";
 import { BackButton } from "@/app/components/ProjectDetail/BackButton";
-import { EditFeedbackDetailButton } from "@/app/components/ProjectDetail/EditFeedbackDetailButton";
-import { FeedbackDetail } from "@/app/components/ProjectDetail/FeedbackDetail";
-import { EditFeedbackDetail } from "@/app/components/ProjectDetail/EditFeedbackDetail";
+import { EditFeedbackDetailButton } from "@/app/components/FeedbackDetails/EditFeedbackDetailButton";
+import { FeedbackDetail } from "@/app/components/FeedbackDetails/FeedbackDetail";
+import { EditFeedbackDetail } from "@/app/components/FeedbackDetails/EditFeedbackDetail";
+import { useRouter } from "next/navigation";
 
 interface ClientPageProps {
   initialFeedback: FeedbackHistoryPayload;
@@ -26,24 +27,28 @@ export default function FeedbackPageClient({
   allPriorities,
 }: ClientPageProps) {
   const [isEditing, setIsEditing] = useState(false);
+  const [feedback, setFeedback] = useState(initialFeedback);
+  const Router = useRouter();
 
   const handleEditClick = () => setIsEditing(true);
   const handleCancelEdit = () => setIsEditing(false);
+  const handleUpdateSuccess = (updatedFeedback: FeedbackHistoryPayload) => {
+    setFeedback(updatedFeedback);
+    setIsEditing(false);
+  };
+  const backButtonAction = isEditing ? handleCancelEdit : () => Router.back();
 
   return (
     <SlideUpWrapper>
       <div className="bg-white p-6 rounded-lg border border-gray-200">
-        {/* 3. Header sekarang ada di Client Component */}
         <div className="flex gap-4 items-center mb-6 border-b pb-2">
-          <BackButton />
+          <BackButton onClick={backButtonAction} />
           <div className="flex-col justify-center">
             <h1 className="text-xl font-semibold text-gray-800">
               Feedback Details
             </h1>
             <p className="text-gray-500">View and edit feedback information</p>
           </div>
-          {/* 4. Tombol UpdateButton sekarang memiliki 'onClick' yang valid
-               dan disembunyikan secara responsif jika sedang mengedit */}
           {!isEditing && (
             <div className="hidden md:block ml-auto">
               <EditFeedbackDetailButton onClick={handleEditClick} />
@@ -53,18 +58,19 @@ export default function FeedbackPageClient({
 
         {isEditing ? (
           <EditFeedbackDetail
-            feedback={initialFeedback}
+            key={feedback.id}
+            feedback={feedback}
             token={token}
             onCancel={handleCancelEdit}
             allFeatures={allFeatures}
             allScenarios={allTestScenario}
             allStatuses={allStatuses}
             allPriorities={allPriorities}
-            // onUpdateSuccess={handleUpdateSuccess}
+            onUpdateSuccess={handleUpdateSuccess}
           />
         ) : (
           <FeedbackDetail
-            feedbackId={initialFeedback.id}
+            feedback={feedback}
             token={token}
             onEditClick={handleEditClick}
           />

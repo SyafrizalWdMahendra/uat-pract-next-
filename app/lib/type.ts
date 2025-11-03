@@ -81,6 +81,7 @@ export interface FeedbackPayload {
 
 export interface FeedbackHistoryPayload {
   id: number;
+  user_id: number;
   project_id: number;
   feature_id: number;
   test_scenario_id: number;
@@ -88,6 +89,7 @@ export interface FeedbackHistoryPayload {
   priority: string;
   description: string;
   created_at: Date | string;
+  updated_at: Date | string;
   user: {
     id: number;
     name: string;
@@ -197,7 +199,7 @@ export interface FeedbackData {
 }
 
 export interface FeedbackDetailProps {
-  feedbackId: number | string;
+  feedback: FeedbackHistoryPayload;
   token: string;
   onEditClick: () => void;
 }
@@ -210,7 +212,7 @@ export interface EditFeedbackDetailProps {
   allScenarios: Scenario[];
   allStatuses: string[];
   allPriorities: string[];
-  // onUpdateSuccess: (updatedFeedback: FeedbackHistoryPayload) => void;
+  onUpdateSuccess: (updatedFeedback: FeedbackHistoryPayload) => void;
 }
 
 export interface JwtPayload {
@@ -250,4 +252,8 @@ export interface CardStatsProps {
 
 export interface CardProjectProps extends IProject {
   href: string;
+}
+
+export interface BackButtonProps {
+  onClick?: () => void;
 }

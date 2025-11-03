@@ -5,7 +5,7 @@ const getStatusColor = (status: string): string => {
   const colors: Record<string, string> = {
     open: "text-red-700 bg-red-100",
     closed: "text-green-700 bg-green-100",
-    "in-progress": "text-blue-700 bg-blue-100",
+    in_progress: "text-blue-700 bg-blue-100",
   };
   return colors[status.toLowerCase()] || "text-gray-700 bg-gray-100";
 };

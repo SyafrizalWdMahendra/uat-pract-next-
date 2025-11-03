@@ -105,7 +105,7 @@ const SubmitFeedbackCard = (props: UpdatedSubmitProps) => {
                 type="submit"
                 disabled={isButtonDisabled}
                 className={`
-                      flex w-full rounded-sm pt-2 pl-4 pb-2 pr-4 gap-3 justify-center items-center 
+                      flex w-full rounded-md pt-2 pl-4 pb-2 pr-4 gap-3 justify-center items-center 
                       font-medium text-white transition-colors
                       ${
                         isButtonDisabled

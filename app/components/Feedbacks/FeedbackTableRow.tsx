@@ -21,7 +21,7 @@ const FeedbackTableRow = ({
     </td>
     <td className="p-4 text-gray-600">{feedback.user.name}</td>
     <td className="p-4 text-gray-600 whitespace-nowrap">
-      {new Date(feedback.created_at).toLocaleDateString()}
+      {new Date(feedback.updated_at).toLocaleDateString()}
     </td>
     <td className="p-4">
       <div className="flex items-center justify-center gap-2">
