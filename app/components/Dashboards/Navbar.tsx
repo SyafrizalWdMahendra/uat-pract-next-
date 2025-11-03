@@ -28,10 +28,10 @@ const Navbar = ({ title, description, priority }: NavbarProps) => {
         ) : (
           <Link
             href="/dashboards"
-            className="flex items-center gap-1 p-2 rounded-md hover:bg-white/20 transition-colors shrink-0"
+            className="flex items-center gap-2 p-2 rounded-md hover:bg-white/20 transition-colors shrink-0"
             aria-label="Back to Dashboard"
           >
-            <ArrowLeft className="size-5" />
+            <ArrowLeft className="w-4 h-4" />
             <span className="hidden sm:inline text-sm">Dashboard</span>
           </Link>
         )}

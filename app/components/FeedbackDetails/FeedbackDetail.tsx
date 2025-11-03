@@ -15,7 +15,7 @@ export const FeedbackDetail = ({
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           {/* Info Pengguna */}
-          <div className="bg-blue-100/50 border border-blue-200 p-4 rounded-md flex items-start">
+          <div className="flex bg-blue-100/50 border border-blue-200 px-3 py-3 rounded-md items-center h-max">
             <div className="flex flex-col items-start">
               <div className="flex text-blue-400 items-center p-2 gap-2 font-medium text-md">
                 <User className="h-5 w-5"></User>
@@ -28,7 +28,7 @@ export const FeedbackDetail = ({
           </div>
 
           {/* Status & Prioritas */}
-          <div className="bg-orange-100/50 border border-orange-200 p-4 rounded-md flex items-start">
+          <div className="bg-orange-100/50 border border-orange-200 flex px-3 py-3 rounded-md items-center h-max">
             <div className="flex flex-col items-center gap-2">
               <div className="flex text-orange-400 items-center p-2 gap-2 font-medium text-md">
                 <Info className="h-5 w-5"></Info>
@@ -41,7 +41,7 @@ export const FeedbackDetail = ({
           </div>
 
           {/* Info Tanggal */}
-          <div className="bg-green-100/50 border border-green-200 p-4 rounded-md flex items-start">
+          <div className="bg-green-100/50 border border-green-200 flex px-3 py-3 rounded-md items-center h-max">
             <div className="flex flex-col items-start">
               <div className="flex text-green-400 items-center p-2 gap-2 font-medium text-md">
                 <Calendar className="h-5 w-5"></Calendar>
@@ -52,7 +52,7 @@ export const FeedbackDetail = ({
               </span>
             </div>
           </div>
-          <div className="bg-purple-100/50 border border-purple-200 p-4 rounded-md flex items-start">
+          <div className="bg-purple-100/50 border border-purple-200 flex px-3 py-3 rounded-md items-center h-max">
             <div className="flex flex-col items-start">
               <div className="flex text-purple-400 items-center p-2 gap-2 font-medium text-md">
                 <Calendar className="h-5 w-5"></Calendar>

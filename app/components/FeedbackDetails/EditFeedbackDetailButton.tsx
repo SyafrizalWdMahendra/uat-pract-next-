@@ -10,7 +10,7 @@ export const EditFeedbackDetailButton = ({
     <button
       type="button"
       onClick={onClick}
-      className="flex text-black gap-2 text-sm items-center p-2 hover:bg-gray-700 rounded-md hover:cursor-pointer bg-blue-900/20 justify-center hover:text-white transition-colors w-full"
+      className="flex text-black hover:text-white items-center p-2 hover:bg-gray-800 border border-gray-800 rounded-md hover:cursor-pointer justify-center transition-colors w-full center text-sm gap-2 px-4"
     >
       <Pencil className="w-4 h-4" />
       <p>Edit</p>
