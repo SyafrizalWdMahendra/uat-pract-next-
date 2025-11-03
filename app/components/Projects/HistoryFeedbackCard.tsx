@@ -4,8 +4,12 @@ import { UpdatedHistoryProps } from "@/app/lib/type";
 import { MessageCircle } from "lucide-react";
 import { ChangeEvent } from "react";
 import { capitalizeFirst } from "@/app/utils/label";
-import FeedbackTableRow from "./FeedbackTableRow";
-import { EmptyState, ErrorState, LoadingState } from "./FeedHistoryState";
+import FeedbackTableRow from "../Feedbacks/FeedbackTableRow";
+import {
+  EmptyState,
+  ErrorState,
+  LoadingState,
+} from "../Feedbacks/FeedHistoryState";
 import { useFeedbackHistory } from "@/app/hooks/Feedbacks/useFeedbackHistory";
 
 const HistoryFeedbackCard = (props: UpdatedHistoryProps) => {

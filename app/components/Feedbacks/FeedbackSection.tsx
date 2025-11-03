@@ -2,8 +2,8 @@
 
 import { FeedbackSectionProps } from "@/app/lib/type";
 import { useFeedbackData } from "@/app/hooks/Feedbacks/useFeedbackData";
-import SubmitFeedbackCard from "./SubmitFeedback";
-import HistoryFeedbackCard from "./HistoryFeedback";
+import SubmitFeedbackCard from "./SubmitFeedbackCard";
+import HistoryFeedbackCard from "../Projects/HistoryFeedbackCard";
 
 const FeedbackSection = ({
   projectId,

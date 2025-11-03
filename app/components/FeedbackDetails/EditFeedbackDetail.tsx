@@ -18,9 +18,7 @@ export const EditFeedbackDetail = (props: EditFeedbackDetailProps) => {
     handleFeatureChange,
     handleSubmit,
     setDescription,
-    setSelectedFeatureId,
     setSelectedPriority,
-    setErrorMessage,
     setSelectedScenarioId,
     setSelectedStatus,
   } = useEditFeedbackDetail(props);

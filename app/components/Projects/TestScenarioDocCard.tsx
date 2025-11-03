@@ -6,7 +6,7 @@ import * as motion from "motion/react-client";
 import { TestScenarioDocumentCardProps } from "@/app/lib/type";
 import { useScenarioDoc } from "@/app/hooks/Scenarios/useScenarioDocs";
 
-const TestScenarioDocumentCard = ({
+const TestScenarioDocCard = ({
   projectId,
   token,
 }: TestScenarioDocumentCardProps) => {
@@ -122,4 +122,4 @@ const TestScenarioDocumentCard = ({
   );
 };
 
-export default TestScenarioDocumentCard;
+export default TestScenarioDocCard;

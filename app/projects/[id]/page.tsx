@@ -3,10 +3,10 @@ import {
   ProjectInfoSkeleton,
   TestScenariosSkeleton,
 } from "@/app/components/Utility/Skeleton";
-import CardProjectDetail from "@/app/components/ProjectDetail/ProjectDetail";
-import TestScenarioDocumentCard from "@/app/components/ProjectDetail/TestScenarioDocument";
+import ProjectInformationCard from "@/app/components/Projects/ProjectInformationCard";
 import FeedbackSection from "@/app/components/Feedbacks/FeedbackSection";
 import { GetProjectCookies } from "@/app/lib/Projects/cookies";
+import TestScenarioDocCard from "@/app/components/Projects/TestScenarioDocCard";
 
 const ProjectDetailPage = async ({
   params,
@@ -19,10 +19,10 @@ const ProjectDetailPage = async ({
       <main className="mt-21.5 p-4 lg:p-8">
         {" "}
         <Suspense fallback={<ProjectInfoSkeleton />}>
-          <CardProjectDetail params={params} />
+          <ProjectInformationCard params={params} />
         </Suspense>
         <Suspense fallback={<TestScenariosSkeleton />}>
-          <TestScenarioDocumentCard
+          <TestScenarioDocCard
             projectId={(await cookie).projectId}
             token={(await cookie).token}
           />

@@ -257,3 +257,12 @@ export interface CardProjectProps extends IProject {
 export interface BackButtonProps {
   onClick?: () => void;
 }
+
+export interface ClientPageProps {
+  initialFeedback: FeedbackHistoryPayload;
+  token: string;
+  allFeatures: Feature[];
+  allTestScenario: Scenario[];
+  allStatuses: string[];
+  allPriorities: string[];
+}

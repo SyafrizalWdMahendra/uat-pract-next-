@@ -1,22 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { Feature, FeedbackHistoryPayload, Scenario } from "@/app/lib/type";
+import { ClientPageProps, FeedbackHistoryPayload } from "@/app/lib/type";
 import SlideUpWrapper from "@/app/components/Utility/SlideUpWrapper";
-import { BackButton } from "@/app/components/ProjectDetail/BackButton";
+import { BackButton } from "@/app/components/FeedbackDetails/BackButton";
 import { EditFeedbackDetailButton } from "@/app/components/FeedbackDetails/EditFeedbackDetailButton";
 import { FeedbackDetail } from "@/app/components/FeedbackDetails/FeedbackDetail";
 import { EditFeedbackDetail } from "@/app/components/FeedbackDetails/EditFeedbackDetail";
 import { useRouter } from "next/navigation";
-
-interface ClientPageProps {
-  initialFeedback: FeedbackHistoryPayload;
-  token: string;
-  allFeatures: Feature[];
-  allTestScenario: Scenario[];
-  allStatuses: string[];
-  allPriorities: string[];
-}
 
 export default function FeedbackPageClient({
   initialFeedback,

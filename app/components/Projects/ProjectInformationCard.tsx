@@ -10,7 +10,7 @@ import {
 import Navbar from "../Dashboards/Navbar";
 import { GetProjectDetailCookies } from "@/app/lib/ProjectDetail/cookies";
 
-const CardProjectDetail = async ({
+const ProjectInformationCard = async ({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -116,4 +116,4 @@ const CardProjectDetail = async ({
   );
 };
 
-export default CardProjectDetail;
+export default ProjectInformationCard;

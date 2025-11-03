@@ -1,6 +1,6 @@
 "use client";
 
-import { Info, Calendar, User, FileText } from "lucide-react";
+import { Info, Calendar, User } from "lucide-react";
 import FeedbackDetailBadge from "../Utility/FeedbackDetailBadge";
 import { FeedbackDetailProps } from "@/app/lib/type";
 import { EditFeedbackDetailButton } from "./EditFeedbackDetailButton";
