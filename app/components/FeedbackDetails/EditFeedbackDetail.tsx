@@ -5,76 +5,27 @@ import { EditFeedbackDetailProps } from "@/app/lib/type";
 import { FormEvent, useState, useMemo, ChangeEvent } from "react";
 import SlideUpWrapper from "../Utility/SlideUpWrapper";
 import { Save, X } from "lucide-react";
+import { useEditFeedbackDetail } from "@/app/hooks/FeedbackDetails/useEditFeedbakDetail";
 
-export const EditFeedbackDetail = ({
-  token,
-  onCancel,
-  feedback,
-  allFeatures,
-  allScenarios,
-  allStatuses,
-  allPriorities,
-  onUpdateSuccess,
-}: EditFeedbackDetailProps) => {
-  const [description, setDescription] = useState(feedback.description || "");
-  const [selectedFeatureId, setSelectedFeatureId] = useState(
-    feedback.feature_id.toString()
-  );
-  const [selectedScenarioId, setSelectedScenarioId] = useState(
-    feedback.test_scenario_id?.toString() || ""
-  );
-  const [selectedStatus, setSelectedStatus] = useState(feedback.status);
-  const [selectedPriority, setSelectedPriority] = useState(feedback.priority);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-  const availableScenarios = useMemo(() => {
-    if (!selectedFeatureId) return [];
-    return allScenarios.filter(
-      (s) => s.feature_id.toString() === selectedFeatureId
-    );
-  }, [allScenarios, selectedFeatureId]);
-
-  const handleFeatureChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedFeatureId(e.target.value);
-    setSelectedScenarioId("");
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setErrorMessage(null);
-
-    const selectedFeature = allFeatures.find(
-      (f) => f.id.toString() === selectedFeatureId
-    );
-    const selectedScenario = availableScenarios.find(
-      (s) => s.id.toString() === selectedScenarioId
-    );
-
-    const payload = {
-      feature_title: selectedFeature?.title || "",
-      test_scenario_code: selectedScenario?.code || null,
-      feedback_status: selectedStatus,
-      feedback_priority: selectedPriority,
-      feedback_description: description,
-    };
-
-    try {
-      const updatedFeedback = await onSubmitUpdate({
-        feedbackId: feedback.id,
-        payload: payload,
-        token: token,
-      });
-
-      onUpdateSuccess(updatedFeedback);
-    } catch (err: any) {
-      setErrorMessage(err.message);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
+export const EditFeedbackDetail = (props: EditFeedbackDetailProps) => {
+  const {
+    description,
+    selectedFeatureId,
+    selectedPriority,
+    selectedScenarioId,
+    selectedStatus,
+    isSubmitting,
+    errorMessage,
+    availableScenarios,
+    handleFeatureChange,
+    handleSubmit,
+    setDescription,
+    setSelectedFeatureId,
+    setSelectedPriority,
+    setErrorMessage,
+    setSelectedScenarioId,
+    setSelectedStatus,
+  } = useEditFeedbackDetail(props);
   return (
     <SlideUpWrapper>
       <form className="text-black space-y-4" onSubmit={handleSubmit}>
@@ -86,8 +37,8 @@ export const EditFeedbackDetail = ({
             onChange={handleFeatureChange}
             className="border w-full p-2 rounded-md bg-white"
           >
-            {allFeatures && allFeatures.length > 0 ? (
-              allFeatures.map((feature) => (
+            {props.allFeatures && props.allFeatures.length > 0 ? (
+              props.allFeatures.map((feature) => (
                 <option key={feature.id} value={feature.id}>
                   {feature.title}
                 </option>
@@ -126,7 +77,7 @@ export const EditFeedbackDetail = ({
             onChange={(e) => setSelectedStatus(e.target.value)}
             className="border w-full p-2 rounded-md bg-white capitalize"
           >
-            {allStatuses.map((status) => (
+            {props.allStatuses.map((status) => (
               <option key={status} value={status} className="capitalize">
                 {status.replace("-", " ")}
               </option>
@@ -142,7 +93,7 @@ export const EditFeedbackDetail = ({
             onChange={(e) => setSelectedPriority(e.target.value)}
             className="border w-full p-2 rounded-md bg-white capitalize"
           >
-            {allPriorities.map((priority) => (
+            {props.allPriorities.map((priority) => (
               <option key={priority} value={priority} className="capitalize">
                 {priority}
               </option>
@@ -165,7 +116,7 @@ export const EditFeedbackDetail = ({
         <div className="flex gap-4 lg:justify-start sm:w-full">
           <button
             type="button"
-            onClick={onCancel}
+            onClick={props.onCancel}
             disabled={isSubmitting}
             className="flex gap-2 justify-center items-center p-2 bg-gray-200 text-sm rounded-md lg:w-max md:w-max disabled:opacity-50 hover:cursor-pointer w-full"
           >
