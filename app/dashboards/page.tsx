@@ -12,7 +12,7 @@ const Dashboards = async () => {
   const cookie = await GetDashboardCookies();
 
   return (
-    <>
+    <div className="min-h-dvh">
       <Navbar
         title="UAT Dashboard"
         description={`Welcome, ${cookie.userName}!`}
@@ -27,7 +27,7 @@ const Dashboards = async () => {
           <CurrentProjectCard token={cookie.token} />
         </Suspense>
       </main>
-    </>
+    </div>
   );
 };
 

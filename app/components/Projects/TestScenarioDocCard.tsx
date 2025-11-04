@@ -15,7 +15,7 @@ const TestScenarioDocCard = ({
   const renderLinkButton = () => {
     if (isLoading) {
       return (
-        <div className="items-center flex-row justify-center bg-gray-100 border-gray-400 border flex rounded-md pt-2 pl-4 pb-2 pr-4 gap-4">
+        <div className="text-center flex-row bg-gray-100 border-gray-400 border flex rounded-md py-2 px-4">
           <p className="text-gray-500 text-sm font-medium">Loading link...</p>
         </div>
       );
@@ -24,7 +24,7 @@ const TestScenarioDocCard = ({
     if (error) {
       return (
         <div
-          className="items-center flex-row justify-center bg-red-50 border-red-400 border flex rounded-md pt-2 pl-4 pb-2 pr-4 gap-4"
+          className="text-center flex-row bg-red-50 border-red-400 border flex rounded-md py-2 px-4"
           title={error}
         >
           <p className="text-red-600 text-sm font-medium">Error loading link</p>

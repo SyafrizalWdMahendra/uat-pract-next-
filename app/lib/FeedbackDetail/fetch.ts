@@ -1,29 +1,20 @@
 import { API_BASE_URL } from "@/app/utils/cons";
 import { FeedbackHistoryPayload } from "@/app/lib/type";
 
-/**
- * 1. PERBARUI 'UpdatePayload' agar cocok dengan Zod Schema
- */
 interface UpdatePayload {
   feedback_description: string;
   feedback_status: string;
   feedback_priority: string;
-  feature_title: string; // Kirim 'title' (string)
-  test_scenario_code: string | null; // Kirim 'code' (string) atau null
+  feature_title: string;
+  test_scenario_code: string | null;
 }
 
-/**
- * Argumen yang dibutuhkan oleh fungsi submit.
- */
 interface SubmitArgs {
   feedbackId: number | string;
-  payload: UpdatePayload; // 'payload' sekarang menggunakan tipe baru
+  payload: UpdatePayload;
   token: string;
 }
 
-/**
- * Fungsi ini menangani submit 'PATCH' untuk memperbarui feedback.
- */
 export const onSubmitUpdate = async ({
   feedbackId,
   payload,

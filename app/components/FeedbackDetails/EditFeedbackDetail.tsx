@@ -152,7 +152,6 @@ export const EditFeedbackDetail = (props: EditFeedbackDetailProps) => {
             <span>Cancel</span>
           </button>
           <button
-            type="submit"
             disabled={isSubmitting}
             className="flex justify-center items-center text-sm gap-2 px-4 py-2 bg-gray-800 hover:bg-black text-white font-medium rounded-md disabled:bg-gray-300 hover:cursor-pointer w-full sm:w-auto"
           >

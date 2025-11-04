@@ -12,14 +12,14 @@ const SubmitFeedbackCard = (props: UpdatedSubmitProps) => {
     selectedFeatureId,
     selectedTestScenarioId,
     description,
-    isSubmitting,
     submitStatus,
     errorMessage,
+    isSubmitting,
     isButtonDisabled,
     handleFeatureChange,
-    handleSubmit,
     setDescription,
     setSelectedTestScenarioId,
+    formAction,
   } = useSubmitFeedback(props);
 
   return (
@@ -41,7 +41,7 @@ const SubmitFeedbackCard = (props: UpdatedSubmitProps) => {
         </div>
 
         <div className="flex text-black flex-col gap-4">
-          <form onSubmit={handleSubmit}>
+          <form action={formAction}>
             <div className="flex w-full lg:gap-4 md:gap-4 justify-between flex-col md:flex-row">
               <div className="text-sm font-medium w-full">
                 <h3>Select Feature</h3>
@@ -102,7 +102,6 @@ const SubmitFeedbackCard = (props: UpdatedSubmitProps) => {
                 }
               ></textarea>
               <button
-                type="submit"
                 disabled={isButtonDisabled}
                 className={`
                       flex w-full rounded-md pt-2 pl-4 pb-2 pr-4 gap-3 justify-center items-center 

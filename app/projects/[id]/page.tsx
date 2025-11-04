@@ -7,6 +7,7 @@ import ProjectInformationCard from "@/app/components/Projects/ProjectInformation
 import FeedbackSection from "@/app/components/Feedbacks/FeedbackSection";
 import { GetProjectCookies } from "@/app/lib/Projects/cookies";
 import TestScenarioDocCard from "@/app/components/Projects/TestScenarioDocCard";
+import { notFound } from "next/navigation";
 
 const ProjectDetailPage = async ({
   params,
@@ -14,9 +15,12 @@ const ProjectDetailPage = async ({
   params: Promise<{ id: string }>;
 }) => {
   const cookie = GetProjectCookies({ params });
+  if (!cookie) {
+    notFound();
+  }
   return (
     <>
-      <main className="mt-21.5 p-4 lg:p-8">
+      <main className="mt-21.5 p-4 lg:p-8 min-h-dvh">
         {" "}
         <Suspense fallback={<ProjectInfoSkeleton />}>
           <ProjectInformationCard params={params} />
