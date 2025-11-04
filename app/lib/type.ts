@@ -104,6 +104,7 @@ export interface FeedbackHistoryPayload {
     project_id: number;
     title: string;
   };
+  token: string;
 }
 
 export interface FilterOptions {
@@ -265,4 +266,20 @@ export interface ClientPageProps {
   allTestScenario: Scenario[];
   allStatuses: string[];
   allPriorities: string[];
+}
+
+export interface DeleteFeedbackModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  isDeleting: boolean;
+}
+
+export interface CustomModalProps extends DeleteFeedbackModalProps {
+  errorMessage?: string | null;
+}
+
+export interface FormState {
+  success: boolean;
+  message: string;
 }

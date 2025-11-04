@@ -34,10 +34,8 @@ export const useFeedbackFilters = () => {
     setSelectedPriority,
     selectedFeature,
     setSelectedFeature,
-
     debouncedSearchTerm,
     hasActiveFilters,
-
     handleResetFilters,
   };
 };
