@@ -1,5 +1,10 @@
 import { onSubmitUpdate } from "@/app/lib/FeedbackDetail/fetch";
+import { mapZodErrors } from "@/app/lib/helper/mapZodErrors";
 import { EditFeedbackDetailProps } from "@/app/lib/type";
+import {
+  updateDetailsSchema,
+  UpdateDetailsSchema,
+} from "@/app/validation/feedbackDetailDto";
 import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 
 export const useEditFeedbackDetail = ({
@@ -20,6 +25,9 @@ export const useEditFeedbackDetail = ({
   const [selectedPriority, setSelectedPriority] = useState(feedback.priority);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<
+    Partial<Record<keyof UpdateDetailsSchema, string>>
+  >({});
 
   const availableScenarios = useMemo(() => {
     if (!selectedFeatureId) return [];
@@ -37,6 +45,7 @@ export const useEditFeedbackDetail = ({
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMessage(null);
+    setFieldErrors({});
 
     const selectedFeature = allFeatures.find(
       (f) => f.id.toString() === selectedFeatureId
@@ -45,24 +54,33 @@ export const useEditFeedbackDetail = ({
       (s) => s.id.toString() === selectedScenarioId
     );
 
-    const payload = {
+    const payload: UpdateDetailsSchema = {
       feature_title: selectedFeature?.title || "",
-      test_scenario_code: selectedScenario?.code || null,
+      test_scenario_code: selectedScenario?.code ?? null,
       feedback_status: selectedStatus,
       feedback_priority: selectedPriority,
       feedback_description: description,
     };
 
+    const result = updateDetailsSchema.safeParse(payload);
+    console.log(result);
+
+    if (!result.success) {
+      const fieldErrors = mapZodErrors(result.error);
+      setFieldErrors(fieldErrors ?? {});
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const updatedFeedback = await onSubmitUpdate({
         feedbackId: feedback.id,
-        payload: payload,
-        token: token,
+        payload,
+        token,
       });
-
       onUpdateSuccess(updatedFeedback);
     } catch (err: any) {
-      setErrorMessage(err.message);
+      setErrorMessage(err.message || "Failed to update feedback");
     } finally {
       setIsSubmitting(false);
     }
@@ -77,6 +95,7 @@ export const useEditFeedbackDetail = ({
     isSubmitting,
     errorMessage,
     availableScenarios,
+    fieldErrors,
     handleFeatureChange,
     handleSubmit,
     setDescription,

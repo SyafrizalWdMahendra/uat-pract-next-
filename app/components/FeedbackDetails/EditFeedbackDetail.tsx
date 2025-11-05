@@ -15,8 +15,7 @@ export const EditFeedbackDetail = (props: EditFeedbackDetailProps) => {
     isSubmitting,
     errorMessage,
     availableScenarios,
-    // successMessage,
-    // setSuccessMessage,
+    fieldErrors,
     handleFeatureChange,
     handleSubmit,
     setDescription,
@@ -28,7 +27,6 @@ export const EditFeedbackDetail = (props: EditFeedbackDetailProps) => {
   return (
     <SlideUpWrapper>
       <form className="text-black space-y-6" onSubmit={handleSubmit}>
-        {/* Feature Select */}
         <div>
           <label
             htmlFor="feature-select"
@@ -52,9 +50,11 @@ export const EditFeedbackDetail = (props: EditFeedbackDetailProps) => {
               <option value="">No features available</option>
             )}
           </select>
+          {fieldErrors.feature_title && (
+            <p className="text-sm text-red-600">{fieldErrors.feature_title}</p>
+          )}
         </div>
 
-        {/* Scenario Select */}
         <div>
           <label
             htmlFor="scenario-select"
@@ -69,18 +69,20 @@ export const EditFeedbackDetail = (props: EditFeedbackDetailProps) => {
             disabled={availableScenarios.length === 0}
             className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 disabled:bg-gray-100 disabled:cursor-not-allowed"
           >
-            <option value="">-- Select Scenario (Optional) --</option>
             {availableScenarios.map((scenario) => (
               <option key={scenario.id} value={scenario.id}>
                 {`${scenario.code} - ${scenario.test_case}`}
               </option>
             ))}
           </select>
+          {fieldErrors.test_scenario_code && (
+            <p className="text-sm text-red-600">
+              {fieldErrors.test_scenario_code}
+            </p>
+          )}
         </div>
 
-        {/* 3. Gunakan Grid untuk Status & Priority di desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Status Select */}
           <div>
             <label
               htmlFor="status-select"
@@ -100,9 +102,13 @@ export const EditFeedbackDetail = (props: EditFeedbackDetailProps) => {
                 </option>
               ))}
             </select>
+            {fieldErrors.feedback_status && (
+              <p className="text-sm text-red-600">
+                {fieldErrors.feedback_status}
+              </p>
+            )}
           </div>
 
-          {/* Priority Select */}
           <div>
             <label
               htmlFor="priority-select"
@@ -122,10 +128,14 @@ export const EditFeedbackDetail = (props: EditFeedbackDetailProps) => {
                 </option>
               ))}
             </select>
+            {fieldErrors.feedback_priority && (
+              <p className="text-sm text-red-600">
+                {fieldErrors.feedback_priority}
+              </p>
+            )}
           </div>
         </div>
 
-        {/* Description */}
         <div>
           <label
             htmlFor="description-textarea"
@@ -140,9 +150,13 @@ export const EditFeedbackDetail = (props: EditFeedbackDetailProps) => {
             className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             rows={5}
           />
+          {fieldErrors.feedback_description && (
+            <p className="text-sm text-red-600">
+              {fieldErrors.feedback_description}
+            </p>
+          )}
         </div>
 
-        {/* 4. Perbarui styling tombol dan layout (mobile-first) */}
         <div className="flex flex-col-reverse sm:flex-row sm:justify-start gap-3 pt-2">
           <button
             type="button"
@@ -162,7 +176,6 @@ export const EditFeedbackDetail = (props: EditFeedbackDetailProps) => {
           </button>
         </div>
 
-        {/* Tampilkan error jika ada */}
         {errorMessage && (
           <div className="text-red-600 text-sm mt-2">
             <p>Error: {errorMessage}</p>
