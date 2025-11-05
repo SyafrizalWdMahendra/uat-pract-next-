@@ -15,6 +15,8 @@ export const EditFeedbackDetail = (props: EditFeedbackDetailProps) => {
     isSubmitting,
     errorMessage,
     availableScenarios,
+    // successMessage,
+    // setSuccessMessage,
     handleFeatureChange,
     handleSubmit,
     setDescription,

@@ -9,6 +9,7 @@ import {
 } from "../../lib/type";
 import { decodeJWT } from "../../lib/helper";
 import { API_BASE_URL } from "../../utils/cons";
+import toast from "react-hot-toast";
 
 export const useSubmitFeedback = ({
   projectId,
@@ -49,12 +50,12 @@ export const useSubmitFeedback = ({
     setSelectedTestScenarioId("");
   };
 
-  async function submitFeedbackAction(
-    prevState: any,
+  const submitFeedbackAction = async (
+    _: any,
     formData: FormData
-  ): Promise<any> {
-    const featureId = formData.get("featureId") as string;
-    const scenarioId = formData.get("scenarioId") as string;
+  ): Promise<any> => {
+    const featureId = formData.get("feature") as string;
+    const scenarioId = formData.get("testScenario") as string;
     const description = formData.get("description") as string;
 
     if (!featureId)
@@ -95,23 +96,43 @@ export const useSubmitFeedback = ({
         throw new Error(text);
       }
 
-      onFeedbackSubmitted();
-      return { status: "success", message: "Feedback submitted successfully." };
+      onFeedbackSubmitted?.();
+
+      return {
+        status: "success",
+        message: "Feedback submitted successfully 🎉",
+      };
     } catch (err: any) {
       console.error("Error submitting feedback:", err);
       return { status: "error", message: err.message || "Unexpected error" };
     }
-  }
+  };
+
+  const initialMessage = { status: "", message: "" };
 
   const [actionState, formAction, isPending] = useActionState(
     submitFeedbackAction,
-    {
-      status: null,
-      message: "",
-    }
+    initialMessage
   );
 
-  const isButtonDisabled = isPending || selectedFeatureId === "";
+  const isButtonDisabled =
+    isPending ||
+    !selectedFeatureId ||
+    !selectedTestScenarioId ||
+    !description.trim();
+
+  useEffect(() => {
+    if (actionState.status === "success") {
+      toast.success(actionState.message);
+      setSelectedFeatureId("");
+      setSelectedTestScenarioId("");
+      setDescription("");
+    } else if (actionState.status === "error") {
+      toast.error(
+        actionState.message || "Failed to add feedback. Please try again 😢"
+      );
+    }
+  }, [actionState.status, actionState.message]);
 
   return {
     featuresList,

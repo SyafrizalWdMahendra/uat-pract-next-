@@ -8,6 +8,7 @@ import { EditFeedbackDetailButton } from "@/app/components/FeedbackDetails/EditF
 import { FeedbackDetail } from "@/app/components/FeedbackDetails/FeedbackDetail";
 import { EditFeedbackDetail } from "@/app/components/FeedbackDetails/EditFeedbackDetail";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function FeedbackPageClient({
   initialFeedback,
@@ -26,6 +27,7 @@ export default function FeedbackPageClient({
   const handleUpdateSuccess = (updatedFeedback: FeedbackHistoryPayload) => {
     setFeedback(updatedFeedback);
     setIsEditing(false);
+    toast.success("Feedback berhasil diperbarui 🎉");
   };
   const backButtonAction = isEditing ? handleCancelEdit : () => Router.back();
 

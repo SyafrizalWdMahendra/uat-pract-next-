@@ -1,9 +1,10 @@
 "use client";
 
-import { ChangeEvent } from "react";
+import { ChangeEvent, useEffect } from "react";
 import { UpdatedSubmitProps } from "@/app/lib/type";
 import { Send } from "lucide-react";
 import { useSubmitFeedback } from "@/app/hooks/Feedbacks/useSubmitFeedback";
+import toast from "react-hot-toast";
 
 const SubmitFeedbackCard = (props: UpdatedSubmitProps) => {
   const {
@@ -104,12 +105,12 @@ const SubmitFeedbackCard = (props: UpdatedSubmitProps) => {
               <button
                 disabled={isButtonDisabled}
                 className={`
-                      flex w-full rounded-md pt-2 pl-4 pb-2 pr-4 gap-3 justify-center items-center 
+                      flex rounded-md pt-2 pl-4 pb-2 pr-4 gap-3 justify-center items-center 
                       font-medium text-white transition-colors
                       ${
                         isButtonDisabled
                           ? "bg-blue-900/20 cursor-not-allowed"
-                          : "bg-gray-700 hover:text-white cursor-pointer"
+                          : "bg-gray-800 hover:bg-black hover:text-white cursor-pointer"
                       }
                     `}
               >
@@ -118,19 +119,6 @@ const SubmitFeedbackCard = (props: UpdatedSubmitProps) => {
                   {isSubmitting ? "Submitting..." : "Submit Feedback"}
                 </span>
               </button>
-
-              {submitStatus === "success" && (
-                <p className="text-sm text-green-600 mt-2">
-                  Feedback submitted successfully!
-                </p>
-              )}
-              {submitStatus === "error" && (
-                <div className="text-sm text-red-600 mt-2">
-                  <p className="font-semibold">
-                    Error submitting feedback: {errorMessage}
-                  </p>
-                </div>
-              )}
             </div>
           </form>
         </div>

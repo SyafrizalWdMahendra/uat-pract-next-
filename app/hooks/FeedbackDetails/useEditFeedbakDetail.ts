@@ -4,12 +4,9 @@ import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 
 export const useEditFeedbackDetail = ({
   token,
-  onCancel,
   feedback,
   allFeatures,
   allScenarios,
-  allStatuses,
-  allPriorities,
   onUpdateSuccess,
 }: EditFeedbackDetailProps) => {
   const [description, setDescription] = useState(feedback.description || "");
