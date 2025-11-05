@@ -7,9 +7,9 @@ import {
   SubmitStatus,
   UpdatedSubmitProps,
 } from "../../lib/type";
-import { decodeJWT } from "../../lib/helper";
 import { API_BASE_URL } from "../../utils/cons";
 import toast from "react-hot-toast";
+import { decodeJWT } from "@/app/lib/helper/decodeJwt";
 
 export const useSubmitFeedback = ({
   projectId,

@@ -31,7 +31,9 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts",
     ".next\\dev/types/**/*.ts",
-    ".next\\dev/types/**/*.ts"
-, "app/lib/ProjectDetail"  ],
+    ".next\\dev/types/**/*.ts",
+    "app/lib/ProjectDetail",
+    // "tailwind.config.ts"
+  ],
   "exclude": ["node_modules"]
 }

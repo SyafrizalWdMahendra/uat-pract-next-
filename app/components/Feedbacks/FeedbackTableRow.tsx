@@ -6,6 +6,8 @@ import FeedbackHistoryBadge from "../Utility/FeedbackHistoryBadge";
 import Link from "next/link";
 import DeleteFeedbackModal from "./DeleteFeedbackModal";
 import { useFeedbackRow } from "@/app/hooks/Feedbacks/useFeedbackRow";
+import { Suspense } from "react";
+import { ProjectInfoSkeleton } from "../Utility/Skeleton";
 
 const FeedbackTableRow = ({
   feedback,

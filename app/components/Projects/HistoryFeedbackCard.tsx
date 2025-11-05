@@ -2,7 +2,7 @@
 
 import { UpdatedHistoryProps } from "@/app/lib/type";
 import { MessageCircle } from "lucide-react";
-import { ChangeEvent } from "react";
+import { ChangeEvent, Suspense } from "react";
 import { capitalizeFirst } from "@/app/utils/label";
 import FeedbackTableRow from "../Feedbacks/FeedbackTableRow";
 import {
@@ -11,6 +11,7 @@ import {
   LoadingState,
 } from "../Feedbacks/FeedHistoryState";
 import { useFeedbackHistory } from "@/app/hooks/Feedbacks/useFeedbackHistory";
+import { ProjectInfoSkeleton } from "../Utility/Skeleton";
 
 const HistoryFeedbackCard = (props: UpdatedHistoryProps) => {
   const {

@@ -8,6 +8,7 @@ import FeedbackSection from "@/app/components/Feedbacks/FeedbackSection";
 import { GetProjectCookies } from "@/app/lib/Projects/cookies";
 import TestScenarioDocCard from "@/app/components/Projects/TestScenarioDocCard";
 import { notFound } from "next/navigation";
+import Navbar from "@/app/components/Dashboards/Navbar";
 
 const ProjectDetailPage = async ({
   params,
@@ -22,9 +23,7 @@ const ProjectDetailPage = async ({
     <>
       <main className="mt-21.5 p-4 lg:p-8 min-h-dvh">
         {" "}
-        <Suspense fallback={<ProjectInfoSkeleton />}>
-          <ProjectInformationCard params={params} />
-        </Suspense>
+        <ProjectInformationCard params={params} />
         <Suspense fallback={<TestScenariosSkeleton />}>
           <TestScenarioDocCard
             projectId={(await cookie).projectId}

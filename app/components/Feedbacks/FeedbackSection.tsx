@@ -2,8 +2,10 @@
 
 import { FeedbackSectionProps } from "@/app/lib/type";
 import { useFeedbackData } from "@/app/hooks/Feedbacks/useFeedbackData";
-import SubmitFeedbackCard from "./SubmitFeedbackCard";
+import SubmitFeedbackCard from "../Projects/SubmitFeedbackCard";
 import HistoryFeedbackCard from "../Projects/HistoryFeedbackCard";
+import { Suspense } from "react";
+import { FeedbackFormSkeleton } from "../Utility/Skeleton";
 
 const FeedbackSection = ({
   projectId,
@@ -19,13 +21,15 @@ const FeedbackSection = ({
 
   return (
     <>
-      <SubmitFeedbackCard
-        projectId={projectId}
-        token={token}
-        initialFeatures={initialFeatures || []}
-        initialScenarios={initialScenarios || []}
-        onFeedbackSubmitted={refreshFeedbacks}
-      />
+      <Suspense fallback={<FeedbackFormSkeleton></FeedbackFormSkeleton>}>
+        <SubmitFeedbackCard
+          projectId={projectId}
+          token={token}
+          initialFeatures={initialFeatures || []}
+          initialScenarios={initialScenarios || []}
+          onFeedbackSubmitted={refreshFeedbacks}
+        />
+      </Suspense>
 
       <HistoryFeedbackCard
         projectId={projectId}

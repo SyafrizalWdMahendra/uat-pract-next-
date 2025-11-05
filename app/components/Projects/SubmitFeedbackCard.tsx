@@ -106,7 +106,7 @@ const SubmitFeedbackCard = (props: UpdatedSubmitProps) => {
                 disabled={isButtonDisabled}
                 className={`
                       flex rounded-md pt-2 pl-4 pb-2 pr-4 gap-3 justify-center items-center 
-                      font-medium text-white transition-colors
+                      font-medium text-white transition-colors w-full xs:w-max md:w-max
                       ${
                         isButtonDisabled
                           ? "bg-blue-900/20 cursor-not-allowed"
