@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { ScenarioDocData } from "@/app/lib/type";
+import { API_BASE_URL } from "@/app/utils/cons";
 
 export const useScenarioDoc = (projectId: number, token: string) => {
   const [docUrl, setDocUrl] = useState<string | null>(null);
@@ -21,7 +22,7 @@ export const useScenarioDoc = (projectId: number, token: string) => {
 
       try {
         const response = await fetch(
-          `http://localhost:4000/api/scenarioDocs/${projectId}`,
+          `${API_BASE_URL}/api/scenarioDocs/${projectId}`,
           {
             method: "GET",
             headers: {

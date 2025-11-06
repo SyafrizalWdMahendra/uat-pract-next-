@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react"; // Tambahkan useCallback
+import { useEffect, useState, useCallback } from "react";
 import { API_BASE_URL } from "../../utils/cons";
 import { FeedbackHistoryPayload } from "../../lib/type";
 
