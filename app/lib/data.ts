@@ -19,7 +19,6 @@ async function fetchApi<T>(path: string, token: string): Promise<T | null> {
     const response = await fetch(`${API_BASE_URL}${path}`, {
       method: "GET",
       headers: headers,
-      cache: "no-store",
     });
 
     if (!response.ok) {
