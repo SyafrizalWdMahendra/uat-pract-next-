@@ -2,6 +2,7 @@ import { UpdatedHistoryProps } from "@/app/lib/type";
 import { useFilterOptions } from "@/app/hooks/Feedbacks/useFilterOption";
 import { useClientSideFilter } from "@/app/hooks/Feedbacks/useClientSideFilter";
 import { useFeedbackFilters } from "./useFeedbackFilter";
+import { useState, useMemo } from "react";
 
 export const useFeedbackHistory = ({
   token,
@@ -23,16 +24,22 @@ export const useFeedbackHistory = ({
     debouncedSearchTerm,
   } = useFeedbackFilters();
 
-  const allFeedbacks = feedbacks;
+  const [deletedFeedbackIds, setDeletedFeedbackIds] = useState<Set<number>>(
+    new Set()
+  );
+
+  const localFeedbacks = useMemo(() => {
+    return (feedbacks || []).filter((f) => !deletedFeedbackIds.has(f.id));
+  }, [feedbacks, deletedFeedbackIds]);
 
   const filterOptions = useFilterOptions(
     token,
     initialFeatures ?? [],
-    allFeedbacks || []
+    localFeedbacks
   );
 
   const filteredFeedbacks = useClientSideFilter(
-    allFeedbacks || [],
+    localFeedbacks,
     debouncedSearchTerm,
     selectedStatus,
     selectedPriority,
@@ -40,6 +47,10 @@ export const useFeedbackHistory = ({
     false,
     userId
   );
+
+  const handleDeleteFeedback = (feedbackId: number) => {
+    setDeletedFeedbackIds((prev) => new Set(prev).add(feedbackId));
+  };
 
   return {
     searchTerm,
@@ -54,5 +65,6 @@ export const useFeedbackHistory = ({
     setSelectedStatus,
     setSelectedFeature,
     setSearchTerm,
+    handleDeleteFeedback,
   };
 };

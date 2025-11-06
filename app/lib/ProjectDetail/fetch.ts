@@ -1,6 +1,5 @@
-import { API_BASE_URL, DEFAULT_FILTER_OPTIONS } from "@/app/utils/cons";
+import { API_BASE_URL } from "@/app/utils/cons";
 import { Feature, Scenario } from "../type";
-
 
 const fetchFeatures = async (
   projectId: number,

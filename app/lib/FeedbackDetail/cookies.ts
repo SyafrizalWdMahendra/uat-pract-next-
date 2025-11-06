@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { FeedbackHistoryPayload } from "../type";
 import { getFeedbackHistoryDetails } from "../data";
 

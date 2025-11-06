@@ -1,12 +1,19 @@
 import { deleteFeedbackAction } from "@/app/lib/FeedbackHistory/cookies";
 import { FeedbackHistoryPayload } from "@/app/lib/type";
 import { useState, useTransition } from "react";
+import { useParams } from "next/navigation";
+import toast from "react-hot-toast";
 
 export const useFeedbackRow = ({
   feedback,
+  onDeleteSuccess,
 }: {
   feedback: FeedbackHistoryPayload;
+  onDeleteSuccess?: (feedbackId: number) => void;
 }) => {
+  const params = useParams();
+  const projectId = params.id ? Number(params.id) : 0;
+
   const [isPending, startTransition] = useTransition();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,13 +33,20 @@ export const useFeedbackRow = ({
     setErrorMessage(null);
 
     startTransition(async () => {
-      const result = await deleteFeedbackAction(feedback.id);
+      const result = await deleteFeedbackAction(feedback.id, projectId);
 
       if (result.success) {
         setIsModalOpen(false);
-        window.location.reload();
+        toast.success(result.message || "Feedback deleted successfully! ✅");
+
+        if (onDeleteSuccess) {
+          onDeleteSuccess(feedback.id);
+        }
       } else {
         setErrorMessage(result.message);
+        toast.error(
+          result.message || "Failed to delete feedback. Please try again 😢"
+        );
       }
     });
   };

@@ -1,6 +1,5 @@
 import { getPriorityClass, getStatusClass } from "@/app/lib/style";
 import { CardProjectProps } from "@/app/lib/type";
-import { Users2 } from "lucide-react";
 import Link from "next/link";
 
 const CardProject = ({

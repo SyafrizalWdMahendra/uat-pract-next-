@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const NotFoundPage = () => {
   return (
     <div className="flex flex-col items-center justify-center h-dvh bg-gray-50 text-center px-6">
@@ -11,12 +13,12 @@ export const NotFoundPage = () => {
         Maaf, halaman yang kamu cari mungkin telah dipindahkan, dihapus, atau
         tidak pernah ada.
       </p>
-      <a
+      <Link
         href="/"
         className="px-6 py-3 rounded-lg bg-gray-800 text-white font-medium hover:bg-black transition-all shadow-md hover:shadow-lg"
       >
         Kembali ke Beranda
-      </a>
+      </Link>
     </div>
   );
 };

@@ -1,20 +1,20 @@
 "use client";
 
 import { Eye, Trash2 } from "lucide-react";
-import { FeedbackHistoryPayload } from "@/app/lib/type";
+import { FeedbackTableRowProps } from "@/app/lib/type";
 import FeedbackHistoryBadge from "../Utility/FeedbackHistoryBadge";
 import Link from "next/link";
 import DeleteFeedbackModal from "./DeleteFeedbackModal";
 import { useFeedbackRow } from "@/app/hooks/Feedbacks/useFeedbackRow";
-import { Suspense } from "react";
-import { ProjectInfoSkeleton } from "../Utility/Skeleton";
 
 const FeedbackTableRow = ({
   feedback,
-}: {
-  feedback: FeedbackHistoryPayload;
-}) => {
-  const rowState = useFeedbackRow({ feedback });
+  onDeleteSuccess,
+}: FeedbackTableRowProps) => {
+  const rowState = useFeedbackRow({
+    feedback,
+    onDeleteSuccess,
+  });
 
   if (!rowState) {
     return null;

@@ -3,9 +3,11 @@
 import { cookies } from "next/headers";
 import { API_BASE_URL } from "@/app/utils/cons";
 import { FormState } from "../type";
+import { revalidatePath } from "next/cache";
 
 export async function deleteFeedbackAction(
-  feedbackId: number
+  feedbackId: number,
+  projectId: number 
 ): Promise<FormState> {
   if (!API_BASE_URL) {
     console.error("API_BASE_URL is not set");
@@ -33,7 +35,9 @@ export async function deleteFeedbackAction(
     );
 
     if (response.ok) {
-      return { success: true, message: "Feedback berhasil dihapus." };
+      revalidatePath(`/projects/${projectId}`, "layout");
+
+      return { success: true, message: "Feedback deleted successfully! ✅" };
     } else {
       console.error(
         "Server Action: Failed to delete feedback:",
@@ -41,14 +45,14 @@ export async function deleteFeedbackAction(
       );
       return {
         success: false,
-        message: `Gagal menghapus: ${response.statusText}`,
+        message: `Failed to delete feedback 😢: ${response.statusText}`,
       };
     }
   } catch (error) {
     console.error("Server Action: An error occurred:", error);
     return {
       success: false,
-      message: "Terjadi kesalahan pada server.",
+      message: "Internal server error.",
     };
   }
 }

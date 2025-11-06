@@ -2,7 +2,10 @@
 
 import { useEffect, useState, useActionState } from "react";
 import {
+  ActionState,
   Feature,
+  FeedbackData,
+  JwtPayload,
   Scenario,
   SubmitStatus,
   UpdatedSubmitProps,
@@ -18,12 +21,8 @@ export const useSubmitFeedback = ({
   initialScenarios,
   onFeedbackSubmitted,
 }: UpdatedSubmitProps) => {
-  const [featuresList, setFeaturesList] = useState<Feature[]>(
-    initialFeatures || []
-  );
-  const [allScenarios, setAllScenarios] = useState<Scenario[]>(
-    initialScenarios || []
-  );
+  const [featuresList] = useState<Feature[]>(initialFeatures || []);
+  const [allScenarios] = useState<Scenario[]>(initialScenarios || []);
   const [availableScenarios, setAvailableScenarios] = useState<Scenario[]>([]);
   const [selectedFeatureId, setSelectedFeatureId] = useState<string>("");
   const [selectedTestScenarioId, setSelectedTestScenarioId] =
@@ -33,11 +32,18 @@ export const useSubmitFeedback = ({
 
   useEffect(() => {
     if (token) {
-      const decoded = decodeJWT(token) as Record<string, any>;
+      const decoded = decodeJWT(token) as JwtPayload;
       const extractedUserId =
-        decoded?.userId || decoded?.user_id || decoded?.id || decoded?.sub;
-      if (extractedUserId) setUserId(Number(extractedUserId));
-      else console.error("User ID not found in token payload:", decoded);
+        decoded?.userId ||
+        decoded?.user_id ||
+        decoded?.id ||
+        (typeof decoded?.sub === "number" ? decoded.sub : Number(decoded?.sub));
+
+      if (extractedUserId) {
+        setUserId(Number(extractedUserId));
+      } else {
+        console.error("User ID not found in token payload:", decoded);
+      }
     }
   }, [token]);
 
@@ -51,9 +57,9 @@ export const useSubmitFeedback = ({
   };
 
   const submitFeedbackAction = async (
-    _: any,
+    _prevState: ActionState,
     formData: FormData
-  ): Promise<any> => {
+  ): Promise<ActionState> => {
     const featureId = formData.get("feature") as string;
     const scenarioId = formData.get("testScenario") as string;
     const description = formData.get("description") as string;
@@ -71,7 +77,7 @@ export const useSubmitFeedback = ({
         message: "User ID not found. Please refresh and try again.",
       };
 
-    const feedbackData: any = {
+    const feedbackData: FeedbackData = {
       user_id: userId,
       project_id: Number(projectId),
       feature_id: Number(featureId),
@@ -102,13 +108,15 @@ export const useSubmitFeedback = ({
         status: "success",
         message: "Feedback submitted successfully 🎉",
       };
-    } catch (err: any) {
-      console.error("Error submitting feedback:", err);
-      return { status: "error", message: err.message || "Unexpected error" };
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Unexpected error";
+      return { status: "error", message: errorMessage };
     }
   };
 
-  const initialMessage = { status: "", message: "" };
+  const initialMessage: ActionState = { status: null, message: "" };
 
   const [actionState, formAction, isPending] = useActionState(
     submitFeedbackAction,

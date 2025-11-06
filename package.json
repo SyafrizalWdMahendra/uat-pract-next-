@@ -10,6 +10,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^16.0.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "jose": "^6.1.0",

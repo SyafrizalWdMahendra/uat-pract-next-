@@ -1,14 +1,10 @@
 import { Suspense } from "react";
-import {
-  ProjectInfoSkeleton,
-  TestScenariosSkeleton,
-} from "@/app/components/Utility/Skeleton";
+import { TestScenariosSkeleton } from "@/app/components/Utility/Skeleton";
 import ProjectInformationCard from "@/app/components/Projects/ProjectInformationCard";
 import FeedbackSection from "@/app/components/Feedbacks/FeedbackSection";
 import { GetProjectCookies } from "@/app/lib/Projects/cookies";
 import TestScenarioDocCard from "@/app/components/Projects/TestScenarioDocCard";
 import { notFound } from "next/navigation";
-import Navbar from "@/app/components/Dashboards/Navbar";
 
 const ProjectDetailPage = async ({
   params,

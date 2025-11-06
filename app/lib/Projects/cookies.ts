@@ -1,21 +1,42 @@
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { JwtPayload, Scenario, Feature as CustomFeature } from "../type";
+import {
+  JwtPayload,
+  Scenario,
+  Feature as CustomFeature,
+  ResponseType,
+} from "../type";
 import { getFeatures, getScenarios } from "../data";
 
 export const dynamic = "force-dynamic";
 
-function extractData(response: any): any[] {
-  if (response && response.payload && Array.isArray(response.payload.data)) {
+function extractData<T>(response: ResponseType<T>): T[] {
+  if (
+    response &&
+    typeof response === "object" &&
+    "payload" in response &&
+    response.payload &&
+    typeof response.payload === "object" &&
+    "data" in response.payload &&
+    Array.isArray(response.payload.data)
+  ) {
     return response.payload.data;
   }
+
   if (Array.isArray(response)) {
     return response;
   }
-  if (response && Array.isArray(response.data)) {
+
+  if (
+    response &&
+    typeof response === "object" &&
+    "data" in response &&
+    Array.isArray(response.data)
+  ) {
     return response.data;
   }
+
   return [];
 }
 
@@ -47,8 +68,8 @@ export const GetProjectCookies = async ({
     getScenarios(token),
   ]);
 
-  const initialFeatures = extractData(featuresResponse) as CustomFeature[];
-  const initialScenarios = extractData(scenariosResponse) as Scenario[];
+  const initialFeatures = extractData<CustomFeature>(featuresResponse);
+  const initialScenarios = extractData<Scenario>(scenariosResponse);
 
   return {
     initialFeatures,

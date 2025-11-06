@@ -176,25 +176,25 @@ export interface FeedbackSectionProps {
 }
 
 export interface FeedbackData {
-  id: number;
-  user_id: number;
-  test_scenario_id: number;
-  feature_id: number;
+  id?: number;
+  user_id?: number;
+  test_scenario_id?: number;
+  feature_id?: number;
   project_id: number;
   description: string;
   status: string;
   priority: string;
-  created_at: string;
-  updated_at: string;
-  user: {
+  created_at?: string;
+  updated_at?: string;
+  user?: {
     id: number;
     name: string;
   };
-  testScenario: {
+  testScenario?: {
     code: string;
     test_case: string;
   };
-  feature: {
+  feature?: {
     title: string;
   };
 }
@@ -217,7 +217,10 @@ export interface EditFeedbackDetailProps {
 }
 
 export interface JwtPayload {
+  id?: number;
   userId: number;
+  user_id?: number;
+  sub?: number | string;
   email: string;
   name: string;
   iat: number;
@@ -281,5 +284,23 @@ export interface CustomModalProps extends DeleteFeedbackModalProps {
 
 export interface FormState {
   success: boolean;
+  message: string;
+}
+
+export interface FeedbackTableRowProps {
+  feedback: FeedbackHistoryPayload;
+  onDeleteSuccess?: (feedbackId: number) => void;
+}
+
+interface ApiResponse<T> {
+  payload?: {
+    data: T[];
+  };
+  data?: T[];
+}
+
+export type ResponseType<T> = ApiResponse<T> | T[] | unknown;
+export interface ActionState {
+  status: SubmitStatus;
   message: string;
 }

@@ -1,10 +1,9 @@
 "use client";
 
-import { ChangeEvent, useEffect } from "react";
+import { ChangeEvent } from "react";
 import { UpdatedSubmitProps } from "@/app/lib/type";
 import { Send } from "lucide-react";
 import { useSubmitFeedback } from "@/app/hooks/Feedbacks/useSubmitFeedback";
-import toast from "react-hot-toast";
 
 const SubmitFeedbackCard = (props: UpdatedSubmitProps) => {
   const {
@@ -13,8 +12,6 @@ const SubmitFeedbackCard = (props: UpdatedSubmitProps) => {
     selectedFeatureId,
     selectedTestScenarioId,
     description,
-    submitStatus,
-    errorMessage,
     isSubmitting,
     isButtonDisabled,
     handleFeatureChange,

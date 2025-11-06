@@ -2,7 +2,7 @@
 
 import { UpdatedHistoryProps } from "@/app/lib/type";
 import { MessageCircle } from "lucide-react";
-import { ChangeEvent, Suspense } from "react";
+import { ChangeEvent } from "react";
 import { capitalizeFirst } from "@/app/utils/label";
 import FeedbackTableRow from "../Feedbacks/FeedbackTableRow";
 import {
@@ -11,7 +11,6 @@ import {
   LoadingState,
 } from "../Feedbacks/FeedHistoryState";
 import { useFeedbackHistory } from "@/app/hooks/Feedbacks/useFeedbackHistory";
-import { ProjectInfoSkeleton } from "../Utility/Skeleton";
 
 const HistoryFeedbackCard = (props: UpdatedHistoryProps) => {
   const {
@@ -27,6 +26,7 @@ const HistoryFeedbackCard = (props: UpdatedHistoryProps) => {
     filterOptions,
     filteredFeedbacks,
     hasActiveFilters,
+    handleDeleteFeedback,
   } = useFeedbackHistory(props);
 
   return (
@@ -167,7 +167,11 @@ const HistoryFeedbackCard = (props: UpdatedHistoryProps) => {
             </thead>
             <tbody>
               {filteredFeedbacks.map((feedback) => (
-                <FeedbackTableRow key={feedback.id} feedback={feedback} />
+                <FeedbackTableRow
+                  key={feedback.id}
+                  feedback={feedback}
+                  onDeleteSuccess={handleDeleteFeedback}
+                />
               ))}
             </tbody>
           </table>

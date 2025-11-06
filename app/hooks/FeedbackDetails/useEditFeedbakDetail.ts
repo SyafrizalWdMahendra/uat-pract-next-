@@ -79,8 +79,10 @@ export const useEditFeedbackDetail = ({
         token,
       });
       onUpdateSuccess(updatedFeedback);
-    } catch (err: any) {
-      setErrorMessage(err.message || "Failed to update feedback");
+    } catch (error) {
+      setErrorMessage(
+        error instanceof Error ? error.message : "Failed to update feedback"
+      );
     } finally {
       setIsSubmitting(false);
     }

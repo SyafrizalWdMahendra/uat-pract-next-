@@ -11,23 +11,37 @@ export const useDeleteFeedback = ({
   onConfirm: () => void;
   isDeleting: boolean;
 }) => {
-  const [mounted, setMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false);
-  }, []);
+    let visibilityTimer: number;
+    let mountTimer: NodeJS.Timeout;
 
-  useEffect(() => {
-    if (isOpen && mounted) {
-      requestAnimationFrame(() => setIsVisible(true));
+    if (isOpen) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIsMounted(true);
+
+      visibilityTimer = requestAnimationFrame(() => {
+        setIsVisible(true);
+      });
     } else {
       setIsVisible(false);
+
+      mountTimer = setTimeout(() => {
+        setIsMounted(false);
+      }, 300);
     }
-  }, [isOpen, mounted]);
 
-  if (!mounted || !isOpen) return null;
+    return () => {
+      cancelAnimationFrame(visibilityTimer);
+      clearTimeout(mountTimer);
+    };
+  }, [isOpen]);
 
-  return { mounted, isVisible, onClose, onConfirm, isDeleting };
+  if (!isMounted) {
+    return null;
+  }
+
+  return { isVisible, onClose, onConfirm, isDeleting };
 };

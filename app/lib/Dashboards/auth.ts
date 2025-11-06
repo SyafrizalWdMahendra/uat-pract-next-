@@ -1,11 +1,5 @@
 import { jwtVerify, type JWTPayload } from "jose";
 
-/**
- * Memverifikasi token JWT menggunakan secret key dari environment variables.
- *
- * @param token Token JWT dalam format string.
- * @returns {Promise<JWTPayload | null>} Payload token jika valid, atau null jika tidak valid/error.
- */
 export async function verifyToken(token: string): Promise<JWTPayload | null> {
   const secret = process.env.JWT_SECRET;
 
@@ -23,8 +17,12 @@ export async function verifyToken(token: string): Promise<JWTPayload | null> {
 
     console.log("Token berhasil diverifikasi, payload:", payload);
     return payload;
-  } catch (error: any) {
-    console.error("Verifikasi token gagal:", error.message || error);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Verifikasi token gagal:", error.message);
+    } else {
+      console.error("Verifikasi token gagal:", String(error));
+    }
     return null;
   }
 }

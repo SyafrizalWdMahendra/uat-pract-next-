@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useMemo } from "react";
 import { DEFAULT_FILTER_OPTIONS } from "../../utils/cons";
 import { Feature, FeedbackHistoryPayload, FilterOptions } from "../../lib/type";
 
@@ -7,19 +7,36 @@ export const useFilterOptions = (
   initialFeatures: Feature[],
   allFeedbacks: FeedbackHistoryPayload[]
 ) => {
-  const [filterOptions, setFilterOptions] = useState<FilterOptions | null>(
-    null
-  );
+  const filterOptions = useMemo<FilterOptions>(() => {
+    if (initialFeatures.length > 0) {
+      const uniqueStatuses = [...new Set(allFeedbacks.map((f) => f.status))];
+      const uniquePriorities = [
+        ...new Set(allFeedbacks.map((f) => f.priority)),
+      ];
 
-  const extractFilterOptions = useCallback(
-    (data: FeedbackHistoryPayload[]): FilterOptions => {
-      const uniqueStatuses = [...new Set(data.map((f) => f.status))];
-      const uniquePriorities = [...new Set(data.map((f) => f.priority))];
+      return {
+        features: initialFeatures,
+        priorities:
+          uniquePriorities.length > 0
+            ? uniquePriorities
+            : DEFAULT_FILTER_OPTIONS.priorities,
+        statuses:
+          uniqueStatuses.length > 0
+            ? uniqueStatuses
+            : DEFAULT_FILTER_OPTIONS.statuses,
+      };
+    }
+
+    if (allFeedbacks.length > 0) {
+      const uniqueStatuses = [...new Set(allFeedbacks.map((f) => f.status))];
+      const uniquePriorities = [
+        ...new Set(allFeedbacks.map((f) => f.priority)),
+      ];
 
       const featuresMap = new Map<number, Feature>();
-      data.forEach((feedback) => {
+      allFeedbacks.forEach((feedback) => {
         const feat = feedback.feature as Feature;
-        if (!featuresMap.has(feat.id)) {
+        if (feat && !featuresMap.has(feat.id)) {
           featuresMap.set(feat.id, {
             id: feat.id,
             title: feat.title,
@@ -34,25 +51,10 @@ export const useFilterOptions = (
         priorities: uniquePriorities,
         statuses: uniqueStatuses,
       };
-    },
-    []
-  );
-
-  useEffect(() => {
-    if (initialFeatures.length > 0) {
-      setFilterOptions({
-        ...DEFAULT_FILTER_OPTIONS,
-        features: initialFeatures,
-      });
-      return;
     }
 
-    if (allFeedbacks.length > 0) {
-      setFilterOptions(extractFilterOptions(allFeedbacks));
-    } else {
-      setFilterOptions(DEFAULT_FILTER_OPTIONS);
-    }
-  }, [initialFeatures, allFeedbacks, extractFilterOptions]);
+    return DEFAULT_FILTER_OPTIONS;
+  }, [initialFeatures, allFeedbacks]);
 
   return filterOptions;
 };
