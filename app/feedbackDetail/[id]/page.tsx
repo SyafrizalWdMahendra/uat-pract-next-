@@ -12,7 +12,6 @@ export default async function FeedbackDetailPage({
 }: {
   params: { id: string };
 }) {
-  // try {
   const { feedHistoryDetails, token } = await getFeedbackData(params);
   if (!feedHistoryDetails) {
     console.warn("Feedback data not found, redirecting to 404...");
