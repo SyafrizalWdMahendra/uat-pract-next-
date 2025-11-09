@@ -11,6 +11,8 @@ import Navbar from "../Dashboards/Navbar";
 import { GetProjectDetailCookies } from "@/app/lib/ProjectDetail/cookies";
 import { Suspense } from "react";
 import { ProjectInfoSkeleton } from "../Utility/Skeleton";
+import { HeadTitleCard } from "../Utility/HeadTitleCard";
+import { BodyCards } from "./BodyCards";
 
 const ProjectInformationCard = async ({
   params,
@@ -27,58 +29,10 @@ const ProjectInformationCard = async ({
       />
       <Suspense fallback={<ProjectInfoSkeleton />}>
         <div className="bg-white p-6 rounded-lg border border-gray-200 mb-8 md:mt-3 sm:mt-3 lg:mt-0 mt-3">
-          <div className="flex items-center mb-6">
-            <Info className="w-5 h-6 text-blue-900 mr-2" />
-            <h1 className="text-xl font-semibold text-gray-800">
-              Project Information
-            </h1>
-          </div>
+          <HeadTitleCard title={"project-information"}></HeadTitleCard>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-            <div className="flex items-start">
-              <User className="w-5 h-5 text-gray-400 mr-3 mt-1 shrink-0" />
-              <div>
-                <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Project Manager
-                </p>
-                <p className="text-md font-semibold text-gray-900 mt-1">
-                  {(await cookie).project.manager?.name || "-"}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start">
-              <MedalIcon className="w-5 h-5 text-gray-400 mr-3 mt-1 shrink-0" />
-              <div>
-                <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Test Lead
-                </p>
-                <p className="text-md font-semibold text-gray-900 mt-1">
-                  {(await cookie).project.testLead?.name || "-"}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start">
-              <CalendarDays className="w-5 h-5 text-gray-400 mr-3 mt-1 shrink-0" />
-              <div>
-                <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Start Date
-                </p>
-                <p className="text-md font-semibold text-gray-900 mt-1">
-                  {(await cookie).project.start_date || "-"}{" "}
-                </p>
-              </div>
-            </div>
-            <div className="flex items-start">
-              <Clock className="w-5 h-5 text-gray-400 mr-3 mt-1 shrink-0" />
-              <div>
-                <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Due Date
-                </p>
-                <p className="text-md font-semibold text-gray-900 mt-1">
-                  {(await cookie).project.due_date || "-"}{" "}
-                </p>
-              </div>
-            </div>
+            <BodyCards params={params} />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

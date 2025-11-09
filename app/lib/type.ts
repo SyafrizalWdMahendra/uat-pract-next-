@@ -1,3 +1,5 @@
+import { LucideIcon } from "lucide-react";
+
 export interface IStats {
   activeProjects: number;
   totalFeatures: number;
@@ -300,7 +302,20 @@ interface ApiResponse<T> {
 }
 
 export type ResponseType<T> = ApiResponse<T> | T[] | unknown;
+
 export interface ActionState {
   status: SubmitStatus;
   message: string;
 }
+
+export type TitleConfig = {
+  icon: LucideIcon;
+  title: string;
+  description?: string;
+  counter?: number | string;
+  showCounter?: boolean;
+};
+
+export type HeadTitleCardProps = {
+  title: "submit-feedback" | "project-information" | "test-docs";
+};

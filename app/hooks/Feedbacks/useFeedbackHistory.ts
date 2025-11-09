@@ -48,10 +48,6 @@ export const useFeedbackHistory = ({
     userId
   );
 
-  const handleDeleteFeedback = (feedbackId: number) => {
-    setDeletedFeedbackIds((prev) => new Set(prev).add(feedbackId));
-  };
-
   return {
     searchTerm,
     selectedFeature,
@@ -65,6 +61,6 @@ export const useFeedbackHistory = ({
     setSelectedStatus,
     setSelectedFeature,
     setSearchTerm,
-    handleDeleteFeedback,
+    setDeletedFeedbackIds,
   };
 };

@@ -5,6 +5,7 @@ import Link from "next/link";
 import * as motion from "motion/react-client";
 import { TestScenarioDocumentCardProps } from "@/app/lib/type";
 import { useScenarioDoc } from "@/app/hooks/Scenarios/useScenarioDocs";
+import { HeadTitleCard } from "../Utility/HeadTitleCard";
 
 const TestScenarioDocCard = ({
   projectId,
@@ -68,7 +69,7 @@ const TestScenarioDocCard = ({
   return (
     <>
       <div className="bg-white p-6 rounded-lg mb-3">
-        <div className="flex items-center mb-6">
+        {/* <div className="flex items-center mb-6">
           <div className="w-full">
             <div className="flex">
               <File className="w-5 h-6 text-blue-900 mr-2" />
@@ -81,7 +82,8 @@ const TestScenarioDocCard = ({
               step-by-step instructions for each test case
             </p>
           </div>
-        </div>
+        </div> */}
+        <HeadTitleCard title={"test-docs"} />
 
         <div className="flex flex-col md:flex-cols-3 gap-5 ">
           <div className="bg-blue-900/20 border border-blue-900 p-4 rounded-lg md:flex items-center justify-between gap-5 h-max">

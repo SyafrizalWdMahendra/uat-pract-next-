@@ -11,6 +11,7 @@ import {
   LoadingState,
 } from "../Feedbacks/FeedHistoryState";
 import { useFeedbackHistory } from "@/app/hooks/Feedbacks/useFeedbackHistory";
+import { HeadTable } from "./HeadTable";
 
 const HistoryFeedbackCard = (props: UpdatedHistoryProps) => {
   const {
@@ -26,7 +27,7 @@ const HistoryFeedbackCard = (props: UpdatedHistoryProps) => {
     filterOptions,
     filteredFeedbacks,
     hasActiveFilters,
-    handleDeleteFeedback,
+    setDeletedFeedbackIds,
   } = useFeedbackHistory(props);
 
   return (
@@ -138,39 +139,18 @@ const HistoryFeedbackCard = (props: UpdatedHistoryProps) => {
         {!props.isLoading && !props.error && filteredFeedbacks.length > 0 && (
           <table className="w-full border-collapse">
             <thead>
-              <tr className="border-b border-gray-200 bg-gray-50">
-                <th className="text-left p-4 text-sm font-semibold text-gray-700">
-                  Status
-                </th>
-                <th className="text-left p-4 text-sm font-semibold text-gray-700">
-                  Priority
-                </th>
-                <th className="text-left p-4 text-sm font-semibold text-gray-700">
-                  Feature
-                </th>
-                <th className="text-left p-4 text-sm font-semibold text-gray-700">
-                  Test Scenario
-                </th>
-                <th className="text-left p-4 text-sm font-semibold text-gray-700">
-                  Description
-                </th>
-                <th className="text-left p-4 text-sm font-semibold text-gray-700">
-                  Author
-                </th>
-                <th className="text-left p-4 text-sm font-semibold text-gray-700">
-                  Updated
-                </th>
-                <th className="text-center p-4 text-sm font-semibold text-gray-700">
-                  Actions
-                </th>
-              </tr>
+              <HeadTable />
             </thead>
             <tbody>
               {filteredFeedbacks.map((feedback) => (
                 <FeedbackTableRow
                   key={feedback.id}
                   feedback={feedback}
-                  onDeleteSuccess={handleDeleteFeedback}
+                  onDeleteSuccess={(feedbackId: number) => {
+                    setDeletedFeedbackIds((prev) =>
+                      new Set(prev).add(feedbackId)
+                    );
+                  }}
                 />
               ))}
             </tbody>

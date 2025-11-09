@@ -5,7 +5,7 @@ import {
   updateDetailsSchema,
   UpdateDetailsSchema,
 } from "@/app/validation/feedbackDetailDto";
-import { ChangeEvent, FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 
 export const useEditFeedbackDetail = ({
   token,
@@ -35,11 +35,6 @@ export const useEditFeedbackDetail = ({
       (s) => s.feature_id.toString() === selectedFeatureId
     );
   }, [allScenarios, selectedFeatureId]);
-
-  const handleFeatureChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedFeatureId(e.target.value);
-    setSelectedScenarioId("");
-  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -98,7 +93,6 @@ export const useEditFeedbackDetail = ({
     errorMessage,
     availableScenarios,
     fieldErrors,
-    handleFeatureChange,
     handleSubmit,
     setDescription,
     setSelectedFeatureId,

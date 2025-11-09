@@ -9,4 +9,15 @@ const DEFAULT_FILTER_OPTIONS: FilterOptions = {
   statuses: ["open", "closed", "in_progress", "resolved"],
 };
 
-export { API_BASE_URL, DEBOUNCE_DELAY, DEFAULT_FILTER_OPTIONS };
+const COLUMNTEXT = [
+  { label: "Status", align: "left" },
+  { label: "Priority", align: "left" },
+  { label: "Feature", align: "left" },
+  { label: "Test Scenario", align: "left" },
+  { label: "Description", align: "left" },
+  { label: "Author", align: "left" },
+  { label: "Updated", align: "left" },
+  { label: "Actions", align: "center" },
+];
+
+export { API_BASE_URL, DEBOUNCE_DELAY, DEFAULT_FILTER_OPTIONS, COLUMNTEXT };
