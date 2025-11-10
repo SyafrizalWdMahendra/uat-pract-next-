@@ -175,6 +175,7 @@ export interface FeedbackSectionProps {
   userId?: number;
   initialFeatures: Feature[] | null;
   initialScenarios: Scenario[] | null;
+  title: string;
 }
 
 export interface FeedbackData {
@@ -237,6 +238,12 @@ export interface UserPayload {
 
 export interface UpdatedSubmitProps extends SubmitFeedbackCardProps {
   onFeedbackSubmitted: () => void;
+  // projectId: number;
+  // userId?: number;
+  // token: string;
+  // initialFeatures: Feature[] | null;
+  // initialScenarios: Scenario[] | null;
+  title: string;
 }
 
 export interface UpdatedHistoryProps extends HistoryFeedbackProps {

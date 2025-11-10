@@ -13,6 +13,7 @@ const FeedbackSection = ({
   userId,
   initialFeatures,
   initialScenarios,
+  title,
 }: FeedbackSectionProps) => {
   const { allFeedbacks, isLoading, error, refreshFeedbacks } = useFeedbackData(
     projectId,
@@ -21,10 +22,11 @@ const FeedbackSection = ({
 
   return (
     <>
-      <Suspense fallback={<FeedbackFormSkeleton></FeedbackFormSkeleton>}>
+      <Suspense fallback={<FeedbackFormSkeleton />}>
         <SubmitFeedbackCard
           projectId={projectId}
           token={token}
+          title={title}
           initialFeatures={initialFeatures || []}
           initialScenarios={initialScenarios || []}
           onFeedbackSubmitted={refreshFeedbacks}
