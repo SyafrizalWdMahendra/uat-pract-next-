@@ -16,7 +16,7 @@ const CardProject = ({
   return (
     <Link
       href={href}
-      className="group block w-full rounded-lg text-card-foreground hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-0 shadow-lg bg-white animate-slide-up p-5" // Removed pt-0 as p-5 covers it
+      className="group block w-full rounded-lg text-card-foreground hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-0 shadow-lg bg-white animate-slide-up p-5"
     >
       <div className="flex flex-col gap-3">
         <div className="flex flex-wrap justify-between items-start gap-2">

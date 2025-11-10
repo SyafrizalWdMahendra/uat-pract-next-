@@ -33,8 +33,8 @@ export default function FeedbackPageClient({
 
   return (
     <SlideUpWrapper>
-      <div className="bg-white p-6 rounded-lg border border-gray-200">
-        <div className="flex gap-4 items-center mb-6 border-b pb-2">
+      <div className="bg-white p-6 rounded-lg">
+        <div className="flex gap-4 items-center mb-6 border-b border-gray-200 pb-2">
           <BackButton onClick={backButtonAction} />
           <div className="flex-col justify-center">
             <h1 className="text-xl font-semibold text-gray-800">

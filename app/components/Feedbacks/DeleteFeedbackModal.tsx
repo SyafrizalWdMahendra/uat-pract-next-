@@ -26,16 +26,13 @@ const DeleteFeedbackModal = ({
 
   const modalContent = (
     <div className="delete-feedback-modal-wrapper">
-      {/* Backdrop */}
       <div
         className="delete-feedback-modal-backdrop"
         data-visible={isVisible}
         onClick={!isDeleting ? onClose : undefined}
       />
 
-      {/* Modal Content */}
       <div className="delete-feedback-modal-content" data-visible={isVisible}>
-        {/* Header */}
         <div className="delete-feedback-modal-header" data-visible={isVisible}>
           <div className="delete-feedback-modal-icon">
             <Trash2 className="delete-feedback-modal-icon-trash" />

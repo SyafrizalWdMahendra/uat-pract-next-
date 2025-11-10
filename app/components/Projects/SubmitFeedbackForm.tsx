@@ -33,7 +33,7 @@ export const SubmitFeedbackForm = (props: UpdatedSubmitProps) => {
               disabled={featuresList.length === 0}
             >
               <option value="" disabled>
-                -- Select a feature --
+                Select a feature
               </option>
               {featuresList.map((feature) => (
                 <option key={feature.id} value={feature.id}>
@@ -55,7 +55,7 @@ export const SubmitFeedbackForm = (props: UpdatedSubmitProps) => {
               }
               disabled={selectedFeatureId === ""}
             >
-              <option value="">-- Select a test scenario (Optional) --</option>
+              <option value="">Select a test scenario (Optional)</option>
               {availableScenarios.map((scenario) => (
                 <option key={scenario.id} value={scenario.id}>
                   {scenario.code} - {scenario.test_case}

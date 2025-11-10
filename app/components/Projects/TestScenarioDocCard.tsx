@@ -50,7 +50,7 @@ const TestScenarioDocCard = ({
         target="_blank"
         rel="noopener noreferrer"
       >
-        <div className="items-center flex-row justify-center bg-transparent border-blue-900 border flex rounded-md pt-2 pl-4 pb-2 pr-4 gap-4">
+        <div className="items-center flex-row justify-center bg-transparent border-blue-900 border flex rounded-md px-4 py-2 gap-4 ">
           <motion.div
             className="box w-2.5 h-2.5 rounded-lg flex items-center"
             animate={{ scale: 2 }}
@@ -69,20 +69,6 @@ const TestScenarioDocCard = ({
   return (
     <>
       <div className="bg-white p-6 rounded-lg mb-3">
-        {/* <div className="flex items-center mb-6">
-          <div className="w-full">
-            <div className="flex">
-              <File className="w-5 h-6 text-blue-900 mr-2" />
-              <h1 className="text-xl font-semibold text-gray-800">
-                Test Scenarios Documentation
-              </h1>
-            </div>
-            <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mt-2">
-              Download the complete test scenarios spreadsheet with detailed
-              step-by-step instructions for each test case
-            </p>
-          </div>
-        </div> */}
         <HeadTitleCard title={"test-docs"} />
 
         <div className="flex flex-col md:flex-cols-3 gap-5 ">

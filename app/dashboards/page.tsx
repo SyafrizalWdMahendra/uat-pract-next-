@@ -15,7 +15,7 @@ const Dashboards = async () => {
     <div className="min-h-dvh">
       <Navbar
         title="UAT Dashboard"
-        description={`Welcome, ${cookie.userName}!`}
+        description={`Welcome, ${cookie.userName}`}
         priority="N/A"
       />
       <main className="pt-22">

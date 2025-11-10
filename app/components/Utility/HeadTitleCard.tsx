@@ -1,6 +1,6 @@
 "use client";
 import { HeadTitleCardProps, TitleConfig } from "@/app/lib/type";
-import { Info, Send, LucideIcon } from "lucide-react";
+import { Info, Send, LucideIcon, Target } from "lucide-react";
 
 export const HeadTitleCard = ({ title }: HeadTitleCardProps) => {
   const TITLE_CONFIG: Record<string, TitleConfig> = {
@@ -11,7 +11,7 @@ export const HeadTitleCard = ({ title }: HeadTitleCardProps) => {
         "Report issues, bugs, or provide feedback for specific features and test scenarios.",
     },
     "project-information": {
-      icon: Info,
+      icon: Target,
       title: "Project Information",
     },
     "test-docs": {

@@ -11,8 +11,8 @@ export async function CurrentProjectCard({ token }: { token: string }) {
   return (
     <div className="sm:p-4 w-full md:p-4 lg:mt-6 xl:mt-2 md:mt-2 sm:mt-2 lg:p-4 lg:pt-0 xl:p-8 xl:pt-0 p-4">
       <div className="flex items-center w-full gap-3 mb-3">
-        <h2 className="text-2xl font-semibold">Current UAT Projects</h2>
-        <div className="w-max h-max border-2 border-white rounded-3xl pr-3 pl-3 p-1 flex text-center text-sm font-semibold">
+        <h2 className="text-2xl font-semibold text-white">Current UAT Projects</h2>
+        <div className="w-max h-max border-2 border-white text-white rounded-3xl pr-3 pl-3 p-1 flex text-center text-sm font-semibold">
           <p>{projects.length} Projects</p>
         </div>
       </div>

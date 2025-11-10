@@ -13,22 +13,20 @@ const Navbar = ({ title, description, priority }: NavbarProps) => {
 
   return (
     <header
-      className="w-full bg-blue-900/10 fixed top-0 right-0 left-0 z-50
+      className="w-full bg-popover/30 fixed top-0 right-0 left-0 z-50
                  flex items-center justify-between 
                  px-4 sm:px-6 
-                 h-20 
-                 border-b-2
-                 text-white backdrop-blur-sm md:p-4 lg:p-4 xl:p-8 "
+                 h-20 text-white backdrop-blur-sm md:p-4 lg:p-4 xl:p-8 border-b border-white"
     >
       <div className="flex items-center gap-3 sm:gap-4 min-w-0">
         {isDashboard ? (
           <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center shrink-0">
-            <Target className="w-6 h-6 text-blue-900" />
+            <Target className="w-6 h-6 text-popover" />
           </div>
         ) : (
           <Link
             href="/dashboards"
-            className="flex items-center gap-2 p-2 rounded-md hover:bg-white/20 transition-colors shrink-0"
+            className="flex items-center gap-2 p-2 rounded-md hover:bg-white/20 transition-colors shrink-0 px-4"
             aria-label="Back to Dashboard"
           >
             <ArrowLeft className="w-4 h-4" />
