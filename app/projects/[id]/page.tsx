@@ -8,8 +8,10 @@ import { notFound } from "next/navigation";
 
 const ProjectDetailPage = async ({
   params,
+  title,
 }: {
   params: Promise<{ id: string }>;
+  title: string;
 }) => {
   const cookie = GetProjectCookies({ params });
   if (!cookie) {
@@ -32,6 +34,7 @@ const ProjectDetailPage = async ({
           userId={(await cookie).loggedInUserId}
           initialFeatures={(await cookie).initialFeatures || []}
           initialScenarios={(await cookie).initialScenarios || []}
+          title={title}
         />
       </main>
     </>
