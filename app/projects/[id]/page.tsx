@@ -1,9 +1,9 @@
 import { Suspense } from "react";
-import { TestScenariosSkeleton } from "@/app/components/Utility/Skeleton";
-import ProjectInformationCard from "@/app/components/Projects/ProjectInformationCard";
-import FeedbackSection from "@/app/components/Feedbacks/FeedbackSection";
-import { GetProjectCookies } from "@/app/lib/Projects/cookies";
-import TestScenarioDocCard from "@/app/components/Projects/TestScenarioDocCard";
+import { TestScenariosSkeleton } from "@/components/Utility/Skeleton";
+import ProjectInformationCard from "@/components/Projects/ProjectInformationCard";
+import FeedbackSection from "@/components/Feedbacks/FeedbackSection";
+import { GetProjectCookies } from "@/lib/Projects/cookies";
+import TestScenarioDocCard from "@/components/Projects/TestScenarioDocCard";
 import { notFound } from "next/navigation";
 
 const ProjectDetailPage = async ({
@@ -13,7 +13,7 @@ const ProjectDetailPage = async ({
   params: Promise<{ id: string }>;
   title: string;
 }) => {
-  const cookie = GetProjectCookies({ params });
+  const cookie = await GetProjectCookies({ params });
   if (!cookie) {
     notFound();
   }

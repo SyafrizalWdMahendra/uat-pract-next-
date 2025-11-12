@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { ClientPageProps, FeedbackHistoryPayload } from "@/app/lib/type";
-import SlideUpWrapper from "@/app/components/Utility/SlideUpWrapper";
-import { BackButton } from "@/app/components/FeedbackDetails/BackButton";
-import { EditFeedbackDetailButton } from "@/app/components/FeedbackDetails/EditFeedbackDetailButton";
-import { FeedbackDetail } from "@/app/components/FeedbackDetails/FeedbackDetail";
-import { EditFeedbackDetail } from "@/app/components/FeedbackDetails/EditFeedbackDetail";
+import { ClientPageProps, FeedbackHistoryPayload } from "@/utils/type";
+import SlideUpWrapper from "@/components/Utility/SlideUpWrapper";
+import { BackButton } from "@/components/FeedbackDetails/BackButton";
+import { EditFeedbackDetailButton } from "@/components/FeedbackDetails/EditFeedbackDetailButton";
+import { FeedbackDetail } from "@/components/FeedbackDetails/FeedbackDetail";
+import { EditFeedbackDetail } from "@/components/FeedbackDetails/EditFeedbackDetail";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 

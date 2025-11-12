@@ -1,6 +1,6 @@
 // import "./loginPage.css"; // Dihapus
-import { GoogleIcon } from "../components/Login/GoogleIcon";
-import { GetAuthCookies } from "../lib/Auth/cookies";
+import { GoogleIcon } from "../../components/Login/GoogleIcon";
+import { GetAuthCookies } from "../../lib/Auth/cookies";
 import { Shield } from "lucide-react";
 
 const Login = async () => {

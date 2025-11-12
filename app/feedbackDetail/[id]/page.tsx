@@ -1,10 +1,10 @@
 import { Suspense } from "react";
-import Navbar from "@/app/components/Dashboards/Navbar";
-import { Loading } from "@/app/components/Utility/Loading";
+import Navbar from "@/components/Dashboards/Navbar";
+import { Loading } from "@/components/Utility/Loading";
 import FeedbackPageClient from "./FeedbackPageClient";
-import { DEFAULT_FILTER_OPTIONS } from "@/app/utils/cons";
-import { fetchFeatures, fetchScenarios } from "@/app/lib/ProjectDetail/fetch";
-import { getFeedbackData } from "@/app/lib/Feedback/fetch";
+import { DEFAULT_FILTER_OPTIONS } from "@/utils/cons";
+import { fetchFeatures, fetchScenarios } from "@/lib/ProjectDetail/fetch";
+import { getFeedbackData } from "@/lib/Feedback/fetch";
 import { notFound } from "next/navigation";
 
 export default async function FeedbackDetailPage({

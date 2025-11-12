@@ -1,12 +1,12 @@
 import { Suspense } from "react";
-import { StatsCards } from "../components/Dashboards/StatsCard";
-import { CurrentProjectCard } from "../components/Dashboards/CurrentProjectCard";
-import Navbar from "../components/Dashboards/Navbar";
+import { StatsCards } from "../../components/Dashboards/StatsCard";
+import { CurrentProjectCard } from "../../components/Dashboards/CurrentProjectCard";
+import Navbar from "../../components/Dashboards/Navbar";
 import {
   CurrentProjectSkeleton,
   StatsCardSkeleton,
-} from "../components/Utility/Skeleton";
-import { GetDashboardCookies } from "../lib/Dashboards/cookies";
+} from "../../components/Utility/Skeleton";
+import { GetDashboardCookies } from "../../lib/Dashboards/cookies";
 
 const Dashboards = async () => {
   const cookie = await GetDashboardCookies();
