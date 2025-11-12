@@ -34,7 +34,7 @@ export const HeadTitleCard = ({ title }: HeadTitleCardProps) => {
     <header className="mb-6">
       <div className="flex items-center justify-between mb-2 gap-4">
         <div className="flex items-center gap-2">
-          <IconComponent className="w-5 h-5 text-blue-900" />
+          <IconComponent className="w-5 h-5 text-popover" />
           <h1 className="text-xl font-semibold text-gray-800">
             {config.title}
           </h1>
