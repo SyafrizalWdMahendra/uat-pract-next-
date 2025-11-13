@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const updateDetailsSchema = z.object({
   feature_title: z.string().min(1, "Feature is required"),
-  test_scenario_code: z.string().nullable(),
+  test_scenario_code: z.string().min(1, "Test Scenario is required"),
   feedback_priority: z.string().min(1, "Priority is required"),
   feedback_status: z.string().min(1, "Status is required"),
   feedback_description: z.string().min(1, "Description is required"),

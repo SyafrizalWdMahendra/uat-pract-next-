@@ -39,6 +39,7 @@ export const EditFeedbackDetailForm = (props: EditFeedbackDetailProps) => {
           }}
           className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         >
+          <option value="">Select a Feature</option>
           {props.allFeatures && props.allFeatures.length > 0 ? (
             props.allFeatures.map((feature) => (
               <option key={feature.id} value={feature.id}>
@@ -59,7 +60,7 @@ export const EditFeedbackDetailForm = (props: EditFeedbackDetailProps) => {
           htmlFor="scenario-select"
           className="block mb-2 text-sm font-medium text-gray-700"
         >
-          Test Scenario (Optional)
+          Test Scenario
         </label>
         <select
           id="scenario-select"
@@ -68,6 +69,7 @@ export const EditFeedbackDetailForm = (props: EditFeedbackDetailProps) => {
           disabled={availableScenarios.length === 0}
           className="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 disabled:bg-gray-100 disabled:cursor-not-allowed"
         >
+          <option value="">Select a Scenario</option>
           {availableScenarios.map((scenario) => (
             <option key={scenario.id} value={scenario.id}>
               {`${scenario.code} - ${scenario.test_case}`}

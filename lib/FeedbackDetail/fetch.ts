@@ -35,6 +35,7 @@ export const onSubmitUpdate = async ({
     const result = await response.json();
 
     if (!response.ok) {
+      console.error("Respons error backend:", result);
       throw new Error(result.message || "Gagal memperbarui feedback");
     }
 

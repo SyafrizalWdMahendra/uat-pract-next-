@@ -51,7 +51,7 @@ export const useEditFeedbackDetail = ({
 
     const payload: UpdateDetailsSchema = {
       feature_title: selectedFeature?.title || "",
-      test_scenario_code: selectedScenario?.code ?? null,
+      test_scenario_code: selectedScenario?.code || "",
       feedback_status: selectedStatus,
       feedback_priority: selectedPriority,
       feedback_description: description,
