@@ -19,9 +19,5 @@ export const GetFeedbackDetailCookie = async ({
   const feedHistoryDetails: FeedbackHistoryPayload | null =
     await getFeedbackHistoryDetails(id, token);
 
-  // if (!feedHistoryDetails) {
-  //   notFound();
-  // }
-
   return { token, feedHistoryDetails };
 };
