@@ -1,13 +1,13 @@
-import { fetchApi } from "../datas";
 import { Feature, Scenario } from "../../utils/type";
+import { fetchApiServer } from "@/utils/fetchApiServer";
 
 export const getFeatures = (
   projectId: number,
   token: string
 ): Promise<Feature[] | null> => {
-  return fetchApi<Feature[]>(`/features?projectId=${projectId}`, token);
+  return fetchApiServer<Feature[]>(`/features?projectId=${projectId}`, token);
 };
 
 export const getScenarios = (token: string): Promise<Scenario[] | null> => {
-  return fetchApi<Scenario[]>(`/scenarios`, token);
+  return fetchApiServer<Scenario[]>(`/scenarios`, token);
 };
