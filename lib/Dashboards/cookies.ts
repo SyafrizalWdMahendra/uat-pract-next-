@@ -6,12 +6,15 @@ import { UserPayload } from "../../utils/type";
 export const GetDashboardCookies = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
+
   if (!token) {
     redirect("/login");
   }
 
   const payload = (await verifyToken(token)) as UserPayload | null;
+
   if (!payload) {
+    cookieStore.delete("token");
     redirect("/login");
   }
 
