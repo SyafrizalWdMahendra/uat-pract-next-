@@ -17,7 +17,7 @@ export const GetFeedbackDetailCookie = async ({
     redirect("/login");
   }
   const feedHistoryDetails: FeedbackHistoryPayload | null =
-    await getFeedbackHistoryDetails(id);
+    await getFeedbackHistoryDetails(id, token);
 
   return { token, feedHistoryDetails };
 };

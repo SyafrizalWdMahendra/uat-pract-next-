@@ -2,7 +2,8 @@ import { fetchApi } from "../datas";
 import { ScenarioDocs } from "../../utils/type";
 
 export const getScenarioDocs = (
-  projectId: number
+  projectId: number,
+  token: string
 ): Promise<ScenarioDocs | null> => {
-  return fetchApi<ScenarioDocs>(`/scenarioDocs/${projectId}`);
+  return fetchApi<ScenarioDocs>(`/scenarioDocs/${projectId}`, token);
 };

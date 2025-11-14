@@ -1,3 +1,4 @@
+"use server";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -64,8 +65,8 @@ export const GetProjectCookies = async ({
   }
 
   const [featuresResponse, scenariosResponse] = await Promise.all([
-    getFeatures(projectId),
-    getScenarios(),
+    getFeatures(projectId, token),
+    getScenarios(token),
   ]);
 
   const initialFeatures = extractData<CustomFeature>(featuresResponse);

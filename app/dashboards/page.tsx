@@ -20,11 +20,11 @@ const Dashboards = async () => {
       />
       <main className="pt-22">
         <Suspense fallback={<StatsCardSkeleton />}>
-          <StatsCards />
+          <StatsCards token={cookie.token} />
         </Suspense>
 
         <Suspense fallback={<CurrentProjectSkeleton />}>
-          <CurrentProjectCard />
+          <CurrentProjectCard token={cookie.token} />
         </Suspense>
       </main>
     </div>
