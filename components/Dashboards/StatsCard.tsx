@@ -1,9 +1,7 @@
-import { getStats } from "../../lib/Dashboards/data";
+import { IStats } from "@/utils/type";
 import CardStats from "./CardStats";
 
-export async function StatsCards() {
-  const stats = await getStats();
-
+export async function StatsCards({ stats }: { stats: IStats | null }) {
   if (!stats) {
     return <p className="text-red-500">Gagal memuat statistik.</p>;
   }

@@ -14,25 +14,18 @@ interface FetchApiOptions extends Omit<RequestInit, "body"> {
   body?: BodyInit | Record<string, unknown> | null;
 }
 
-/**
- * HANYA UNTUK CLIENT COMPONENT ("use client")
- * Mengambil token secara otomatis dari 'js-cookie'
- */
 export async function fetchApi<T>(
   path: string,
   options: FetchApiOptions = {}
 ): Promise<T> {
-  // (1) Mengambil token dari browser
   const token = Cookies.get("token");
 
   const headers = new Headers(options.headers || {});
   headers.append("Accept", "application/json");
 
-  // (2) Melampirkan token
   if (token) {
     headers.append("Authorization", `Bearer ${token}`);
   } else {
-    // (3) Jika tidak ada token, paksa logout
     console.warn("[fetchApi] Tidak ada token di cookie. Mengarahkan ke login.");
     window.location.href = "/login";
     throw new AuthError("Tidak ada token");
@@ -56,12 +49,11 @@ export async function fetchApi<T>(
       body: body,
     });
 
-    // (4) Menangani 401/403 dari Express
     if (response.status === 401 || response.status === 403) {
       console.warn(
         `[fetchApi] Auth Error ${response.status}. Menghapus cookie dan redirect ke login.`
       );
-      Cookies.remove("token"); // Hapus token yang tidak valid
+      Cookies.remove("token");
       window.location.href = "/login";
       throw new AuthError(await response.text());
     }

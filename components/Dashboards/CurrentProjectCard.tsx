@@ -1,9 +1,11 @@
-import { getProject } from "../../lib/Dashboards/data";
+import { IProject } from "@/utils/type";
 import CardProject from "./CardProject";
 
-export async function CurrentProjectCard() {
-  const projects = await getProject();
-
+export async function CurrentProjectCard({
+  projects,
+}: {
+  projects: IProject[] | null;
+}) {
   if (!projects) {
     return <p className="text-red-500">Gagal memuat statistik.</p>;
   }
