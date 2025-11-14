@@ -1,9 +1,9 @@
-import { fetchApiServer } from "@/utils/fetchApiServer";
 import { IProjectDetail } from "../../utils/type";
+import { fetchApi } from "../datas";
 
 export const getProjectById = (
   id: string | number,
   token: string
 ): Promise<IProjectDetail | null> => {
-  return fetchApiServer<IProjectDetail>(`/projectInformations/${id}`, token);
+  return fetchApi<IProjectDetail>(`/projectInformations/${id}`, token);
 };
