@@ -6,6 +6,8 @@ import { GetProjectCookies } from "@/lib/Projects/cookies";
 import TestScenarioDocCard from "@/components/Projects/TestScenarioDocCard";
 import { notFound } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 const ProjectDetailPage = async ({
   params,
   title,

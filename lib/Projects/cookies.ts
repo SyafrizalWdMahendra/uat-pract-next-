@@ -1,4 +1,4 @@
-"use server";
+"use";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -9,8 +9,6 @@ import {
   ResponseType,
 } from "../../utils/type";
 import { getFeatures, getScenarios } from "./data";
-
-export const dynamic = "force-dynamic";
 
 function extractData<T>(response: ResponseType<T>): T[] {
   if (
