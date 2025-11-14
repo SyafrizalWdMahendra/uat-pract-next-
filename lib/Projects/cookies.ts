@@ -64,8 +64,8 @@ export const GetProjectCookies = async ({
   }
 
   const [featuresResponse, scenariosResponse] = await Promise.all([
-    getFeatures(projectId, token),
-    getScenarios(token),
+    getFeatures(projectId),
+    getScenarios(),
   ]);
 
   const initialFeatures = extractData<CustomFeature>(featuresResponse);

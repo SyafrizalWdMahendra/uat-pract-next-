@@ -14,7 +14,7 @@ export const GetProjectDetailCookies = async ({
   if (!token) {
     redirect("/login");
   }
-  const project: IProjectDetail | null = await getProjectById(projectId, token);
+  const project: IProjectDetail | null = await getProjectById(projectId);
 
   if (!project) {
     notFound();

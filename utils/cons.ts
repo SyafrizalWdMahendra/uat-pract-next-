@@ -4,6 +4,7 @@ import { Metadata } from "next";
 
 const API_BASE_URL =
   "https://uat-pract-mahennekkers27-2401-mahens-projects-240b520d.vercel.app";
+  
 const DEBOUNCE_DELAY = 500;
 
 const DEFAULT_FILTER_OPTIONS: FilterOptions = {
