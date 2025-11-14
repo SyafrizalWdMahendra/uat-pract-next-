@@ -5,6 +5,6 @@ const withBundleAnalyzer = bundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
-const nextConfig: NextConfig = {};
+const nextConfig: NextConfig = { reactStrictMode: false };
 
 export default withBundleAnalyzer(nextConfig);
