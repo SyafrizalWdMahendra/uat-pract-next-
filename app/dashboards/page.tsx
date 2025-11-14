@@ -19,13 +19,13 @@ const Dashboards = async () => {
         priority="N/A"
       />
       <main className="pt-22">
-        <Suspense fallback={<StatsCardSkeleton />}>
+        {/* <Suspense fallback={<StatsCardSkeleton />}> */}
           <StatsCards/>
-        </Suspense>
+        {/* </Suspense> */}
 
-        <Suspense fallback={<CurrentProjectSkeleton />}>
+        {/* <Suspense fallback={<CurrentProjectSkeleton />}> */}
           <CurrentProjectCard/>
-        </Suspense>
+        {/* </Suspense> */}
       </main>
     </div>
   );
