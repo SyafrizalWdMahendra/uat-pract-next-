@@ -1,12 +1,12 @@
 import { getStats } from "../../lib/Dashboards/data";
 import CardStats from "./CardStats";
 
-export async function StatsCards({ token }: { token: string }) {
+export async function StatsCards() {
   try {
-    const stats = await getStats(token);
+    const stats = await getStats();
 
     if (!stats) {
-      throw new Error("Stats returned null");
+      return <p className="text-red-500">Gagal memuat statistik.</p>;
     }
 
     return (

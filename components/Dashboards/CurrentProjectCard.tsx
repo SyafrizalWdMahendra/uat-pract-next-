@@ -1,11 +1,11 @@
 import { getProject } from "../../lib/Dashboards/data";
 import CardProject from "./CardProject";
 
-export async function CurrentProjectCard({ token }: { token: string }) {
-  const projects = await getProject(token);
+export async function CurrentProjectCard() {
+  const projects = await getProject();
 
   if (!projects) {
-    return <p className="text-red-500">Gagal memuat statistik.</p>;
+    return <p className="text-red-500">Gagal memuat current project.</p>;
   }
 
   return (

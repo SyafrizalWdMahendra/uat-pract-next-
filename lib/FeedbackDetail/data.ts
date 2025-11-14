@@ -5,8 +5,5 @@ export const getFeedbackHistoryDetails = async (
   id: string | number,
   token: string
 ): Promise<FeedbackHistoryPayload | null> => {
-  return fetchApi<FeedbackHistoryPayload>(
-    `/feedback-history/details/${id}`,
-    token
-  );
+  return fetchApi<FeedbackHistoryPayload>(`/feedback-history/details/${id}`);
 };

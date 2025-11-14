@@ -5,5 +5,5 @@ export const getProjectById = (
   id: string | number,
   token: string
 ): Promise<IProjectDetail | null> => {
-  return fetchApi<IProjectDetail>(`/projectInformations/${id}`, token);
+  return fetchApi<IProjectDetail>(`/projectInformations/${id}`);
 };
