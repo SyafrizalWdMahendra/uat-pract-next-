@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/utils/cons";
+const API_BASE_URL = "https://uat-pract.vercel.app";
 
 export async function fetchApi<T>(
   path: string,
@@ -12,7 +12,6 @@ export async function fetchApi<T>(
     const response = await fetch(`${API_BASE_URL}${path}`, {
       method: "GET",
       headers: headers,
-      credentials: "include",
     });
 
     if (!response.ok) {
@@ -24,16 +23,14 @@ export async function fetchApi<T>(
 
     const rawData = await response.json();
 
-    console.log("[fetchApi] RAW RESPONSE", path, rawData);
-
-    const data =
-      rawData.payload?.data ??
-      rawData.payload ??
-      rawData.data ??
-      rawData ??
-      null;
-
-    return data as T;
+    if (rawData.payload && typeof rawData.payload.data !== "undefined") {
+      return rawData.payload.data as T;
+    } else {
+      console.warn(
+        `[fetchApi] Respons API untuk ${path} tidak memiliki 'payload.data'.`
+      );
+      return null;
+    }
   } catch (error) {
     console.error(`[fetchApi] Error saat fetching ${path}:`, error);
     return null;
