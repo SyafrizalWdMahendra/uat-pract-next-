@@ -3,7 +3,6 @@ import { FilterOptions } from "./type";
 import { Metadata } from "next";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ||
   "https://uat-pract-mahennekkers27-2401-mahens-projects-240b520d.vercel.app";
 const DEBOUNCE_DELAY = 500;
 
