@@ -37,7 +37,7 @@
 //   }
 // }
 
-"use client";
+// "use client";
 
 import Cookies from "js-cookie";
 import { API_BASE_URL } from "@/utils/cons";
