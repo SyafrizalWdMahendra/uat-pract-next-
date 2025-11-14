@@ -34,7 +34,7 @@ export async function fetchApiServer<T>(
     const response = await fetch(fullUrl, {
       ...options,
       method: options.method || (body ? "POST" : "GET"),
-      headers: headers,
+      headers: Object.fromEntries(headers),
       body: body,
       cache: "no-store",
     });
