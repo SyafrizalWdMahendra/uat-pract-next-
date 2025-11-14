@@ -1,17 +1,20 @@
 import { API_BASE_URL } from "@/utils/cons";
+import { cookies } from "next/headers";
 
-export async function fetchApi<T>(
-  path: string,
-  token: string
-): Promise<T | null> {
+export async function fetchApi<T>(path: string): Promise<T | null> {
+  const token = (await cookies()).get("token")?.value;
+
   const headers = new Headers();
   headers.append("Content-Type", "application/json");
-  headers.append("Authorization", `Bearer ${token}`);
+
+  if (token) {
+    headers.append("Authorization", `Bearer ${token}`);
+  }
 
   try {
     const response = await fetch(`${API_BASE_URL}${path}`, {
       method: "GET",
-      headers: headers,
+      headers,
       credentials: "include",
     });
 
