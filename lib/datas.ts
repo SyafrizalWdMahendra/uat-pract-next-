@@ -1,5 +1,5 @@
-import { API_BASE_URL } from "@/utils/cons";
 import { cookies } from "next/headers";
+import { API_BASE_URL } from "@/utils/cons";
 
 export async function fetchApi<T>(path: string): Promise<T | null> {
   const token = (await cookies()).get("token")?.value;
@@ -11,32 +11,14 @@ export async function fetchApi<T>(path: string): Promise<T | null> {
     headers.append("Authorization", `Bearer ${token}`);
   }
 
-  try {
-    const response = await fetch(`${API_BASE_URL}${path}`, {
-      method: "GET",
-      headers,
-      credentials: "include",
-    });
+  const response = await fetch(`${API_BASE_URL}${path}`, {
+    method: "GET",
+    headers,
+    cache: "no-store",
+  });
 
-    if (!response.ok) {
-      console.warn(
-        `[fetchApi] Gagal fetch ${path}: ${response.status} ${response.statusText}`
-      );
-      return null;
-    }
+  if (!response.ok) return null;
 
-    const rawData = await response.json();
-
-    if (rawData.payload && typeof rawData.payload.data !== "undefined") {
-      return rawData.payload.data as T;
-    } else {
-      console.warn(
-        `[fetchApi] Respons API untuk ${path} tidak memiliki 'payload.data'.`
-      );
-      return null;
-    }
-  } catch (error) {
-    console.error(`[fetchApi] Error saat fetching ${path}:`, error);
-    return null;
-  }
+  const json = await response.json();
+  return json?.payload?.data ?? null;
 }
