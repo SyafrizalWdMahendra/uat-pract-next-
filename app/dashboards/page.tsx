@@ -19,13 +19,13 @@ const Dashboards = async () => {
         priority="N/A"
       />
       <main className="pt-22">
-        {/* <Suspense fallback={<StatsCardSkeleton />}> */}
-          <StatsCards/>
-        {/* </Suspense> */}
+        <Suspense fallback={<StatsCardSkeleton />}>
+          <StatsCards token={cookie.token} />
+        </Suspense>
 
-        {/* <Suspense fallback={<CurrentProjectSkeleton />}> */}
-          <CurrentProjectCard/>
-        {/* </Suspense> */}
+        <Suspense fallback={<CurrentProjectSkeleton />}>
+          <CurrentProjectCard token={cookie.token} />
+        </Suspense>
       </main>
     </div>
   );

@@ -7,7 +7,9 @@ export const GetDashboardCookies = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
-  if (!token) redirect("/login");
+  if (!token) {
+    redirect("/login");
+  }
 
   const payload = (await verifyToken(token)) as UserPayload | null;
 
@@ -18,5 +20,5 @@ export const GetDashboardCookies = async () => {
 
   const userName = payload.name || payload.email || "manager";
 
-  return { userName };
+  return { userName, token };
 };

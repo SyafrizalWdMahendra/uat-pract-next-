@@ -1,9 +1,9 @@
 import { getStats } from "../../lib/Dashboards/data";
 import CardStats from "./CardStats";
 
-export async function StatsCards() {
+export async function StatsCards({ token }: { token: string }) {
   try {
-    const stats = await getStats();
+    const stats = await getStats(token);
 
     if (!stats) {
       throw new Error("Stats returned null");

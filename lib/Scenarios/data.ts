@@ -5,5 +5,5 @@ export const getScenarioDocs = (
   projectId: number,
   token: string
 ): Promise<ScenarioDocs | null> => {
-  return fetchApi<ScenarioDocs>(`/scenarioDocs/${projectId}`);
+  return fetchApi<ScenarioDocs>(`/scenarioDocs/${projectId}`, token);
 };
