@@ -1,13 +1,13 @@
 // "use server";
 
 // import { cookies } from "next/headers";
-// import { API_BASE_URL } from "@/app/utils/cons";
-// import { FormState } from "../type";
 // import { revalidatePath } from "next/cache";
+// import { FormState } from "@/utils/type";
+// import { API_BASE_URL } from "@/utils/cons";
 
 // export async function deleteFeedbackAction(
 //   feedbackId: number,
-//   projectId: number 
+//   projectId: number
 // ): Promise<FormState> {
 //   if (!API_BASE_URL) {
 //     console.error("API_BASE_URL is not set");
@@ -24,7 +24,7 @@
 
 //   try {
 //     const response = await fetch(
-//       `${API_BASE_URL}/api/feedback-history/${feedbackId}`,
+//       `${API_BASE_URL}/feedback-history/${feedbackId}`,
 //       {
 //         method: "DELETE",
 //         headers: {

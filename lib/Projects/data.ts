@@ -5,9 +5,9 @@ export const getFeatures = (
   projectId: number,
   token: string
 ): Promise<Feature[] | null> => {
-  return fetchApi<Feature[]>(`/features?projectId=${projectId}`);
+  return fetchApi<Feature[]>(`/features?projectId=${projectId}`, token);
 };
 
 export const getScenarios = (token: string): Promise<Scenario[] | null> => {
-  return fetchApi<Scenario[]>(`/scenarios`);
+  return fetchApi<Scenario[]>(`/scenarios`, token);
 };

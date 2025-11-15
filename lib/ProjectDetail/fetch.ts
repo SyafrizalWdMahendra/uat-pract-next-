@@ -6,7 +6,7 @@ const fetchFeatures = async (
   token: string
 ): Promise<Feature[]> => {
   try {
-    const url = `${API_BASE_URL}/api/features?projectId=${projectId}`;
+    const url = `${API_BASE_URL}/features?projectId=${projectId}`;
 
     console.log("🔍 Fetching features from:", url);
     console.log("🎯 Project ID:", projectId);
@@ -48,7 +48,7 @@ const fetchFeatures = async (
 
 const fetchScenarios = async (token: string): Promise<Scenario[]> => {
   try {
-    const url = `${API_BASE_URL}/api/scenarios`;
+    const url = `${API_BASE_URL}/scenarios`;
 
     console.log("🔍 Fetching scenario from:", url);
 

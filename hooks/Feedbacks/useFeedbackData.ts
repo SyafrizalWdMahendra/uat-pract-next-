@@ -14,7 +14,7 @@ export const useFeedbackData = (projectId: number, token: string) => {
     setError(null);
 
     try {
-      const url = new URL(`${API_BASE_URL}/api/feedback-history`);
+      const url = new URL(`${API_BASE_URL}/feedback-history`);
       url.searchParams.append("projectId", String(projectId));
 
       const response = await fetch(url.toString(), {

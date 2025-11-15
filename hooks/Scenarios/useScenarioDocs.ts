@@ -22,7 +22,7 @@ export const useScenarioDoc = (projectId: number, token: string) => {
 
       try {
         const response = await fetch(
-          `${API_BASE_URL}/api/scenarioDocs/${projectId}`,
+          `${API_BASE_URL}/scenarioDocs/${projectId}`,
           {
             method: "GET",
             headers: {

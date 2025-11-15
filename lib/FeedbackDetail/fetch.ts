@@ -20,7 +20,7 @@ export const onSubmitUpdate = async ({
   payload,
   token,
 }: SubmitArgs): Promise<FeedbackHistoryPayload> => {
-  const url = `${API_BASE_URL}/api/feedback-history/details/${feedbackId}`;
+  const url = `${API_BASE_URL}/feedback-history/details/${feedbackId}`;
 
   try {
     const response = await fetch(url, {

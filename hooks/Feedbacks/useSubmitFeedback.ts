@@ -88,7 +88,7 @@ export const useSubmitFeedback = ({
     if (scenarioId) feedbackData.test_scenario_id = Number(scenarioId);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/feedbacks`, {
+      const response = await fetch(`${API_BASE_URL}/feedbacks`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

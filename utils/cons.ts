@@ -2,8 +2,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { FilterOptions } from "./type";
 import { Metadata } from "next";
 
-const API_BASE_URL =
-  "https://uat-pract.vercel.app";
+const API_BASE_URL = "https://uat-pract.vercel.app/api";
+// "https://uat-pract.vercel.app";
 
 const DEBOUNCE_DELAY = 500;
 
