@@ -9,7 +9,6 @@ export const GetAuthCookies = async () => {
     redirect("/dashboards");
   }
 
-  // const googleLoginUrl = "https://uat-pract-mahennekkers27-2401-mahens-projects-240b520d.vercel.app/api/auth/google";
   const googleLoginUrl = "https://uat-pract.vercel.app/api/auth/google";
   return { googleLoginUrl, token };
 };

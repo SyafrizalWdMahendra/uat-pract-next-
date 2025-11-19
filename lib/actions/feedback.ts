@@ -24,7 +24,7 @@ export async function deleteFeedbackAction(
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/api/feedback-history/${feedbackId}`,
+      `${API_BASE_URL}/feedback-history/${feedbackId}`,
       {
         method: "DELETE",
         headers: {
